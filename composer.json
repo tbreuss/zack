@@ -1,0 +1,20 @@
+{
+    "name": "tebe/zack",
+    "description": "A sample PHP project",
+    "type": "library",
+    "require": {
+        "symfony/http-foundation": "^7.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "tebe\\zack\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Thomas Breuss"
+        }
+    ],
+    "minimum-stability": "stable",
+    "license": "MIT"
+}
