@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {% block head %}
+            <link rel="stylesheet" href="style.css"/>
+            <title>{% block title %}{% endblock %} - Zack!</title>
+        {% endblock %}
+    </head>
+    <body>
+        <div id="content">{% block content %}{% endblock %}</div>
+        <div id="footer">
+            {% block footer %}
+                &copy; Copyright 2025 by <a href="https://example.com/">Zack!</a>
+            {% endblock %}
+        </div>
+    </body>
+</html>
