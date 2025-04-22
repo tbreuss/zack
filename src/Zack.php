@@ -3,19 +3,23 @@
 namespace tebe\zack;
 
 use tebe\zack\event\ResponseEvent;
-use tebe\zack\HtppKernel;
 use tebe\zack\routing\HtmlRouteHandler;
 use tebe\zack\routing\PhpRouteHandler;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\DependencyInjection;
 use Symfony\Component\Routing\RouteCollection;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Route;
+use Symfony\Component\Routing;
+use Symfony\Component\HttpKernel;
 use Twig;
 
 class Zack 
 {
     private Config $config;
+    private DependencyInjection\ContainerBuilder $container;
 
     public function __construct(
         array $config = [],
@@ -29,12 +33,29 @@ class Zack
         ini_set('display_errors', 1);
         error_reporting(-1);
 
-        $request = Request::createFromGlobals();
+        $this->container = $this->getContainer();
 
-        $httpKernel = new HttpKernel(
-            $this->config,
-            $this->getContainer(),
-            $this->getRoutes()
+        $request = Request::createFromGlobals();
+        $request->attributes->add(['twig' => $this->container->get('twig')]);
+
+        $requestStack = new RequestStack();
+        $routes = $this->getRoutes();
+
+        $context = new Routing\RequestContext();
+        $matcher = new Routing\Matcher\UrlMatcher($routes, $context);
+
+        $controllerResolver = new HttpKernel\Controller\ControllerResolver();
+        $argumentResolver = new HttpKernel\Controller\ArgumentResolver();
+
+        $dispatcher = new EventDispatcher();
+        $dispatcher->addSubscriber(new HttpKernel\EventListener\RouterListener($matcher, $requestStack));
+        $dispatcher->addSubscriber(new HttpKernel\EventListener\ErrorListener($this->errorHandler(...)));
+
+        $httpKernel = new HttpKernel\HttpKernel(
+            $dispatcher,
+            $controllerResolver,
+            $requestStack,
+            $argumentResolver
         );
 
         $response = $httpKernel->handle($request);
@@ -44,7 +65,17 @@ class Zack
         $response->send();
     }
 
-    private function getContainer(): DependencyInjection\ContainerBuilder
+    private function errorHandler(\Symfony\Component\ErrorHandler\Exception\FlattenException $exception): Response
+    {
+        $content = $this->container->get('twig')->render('error.html.twig', [
+            'title' => 'Error',
+            'exception' => $exception,
+        ]);
+        
+        return new Response($content, $exception->getStatusCode());
+    }
+
+    public function getContainer(): DependencyInjection\ContainerBuilder
     {
         $container = new DependencyInjection\ContainerBuilder();
 

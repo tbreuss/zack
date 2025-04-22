@@ -19,13 +19,6 @@ class PhpRouteHandler
         }
 
         $this->twig = $twig;
-
-        function render(string $template, array $context)
-        {
-            global $twig;
-            $content = $twig->render(...func_get_args());
-            return (new Response())->setContent($content);
-        }
     
         $response = require $path;
 

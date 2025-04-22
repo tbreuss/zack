@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class HtmlRouteHandler
 {
-    public function __invoke(Request $request)
+    public function __invoke(Request $request, \Twig\Environment $twig)
     {
         $path = $request->attributes->get('_path');
 
@@ -16,10 +16,14 @@ class HtmlRouteHandler
             throw new Exception('HTML file not found: ' . $path);    
         }
 
-        $content = file_get_contents($path);
-        if ($content === false) {
+        $html = file_get_contents($path);
+        if ($html === false) {
             throw new Exception('Failed to read HTML file: ' . $path);
         }
+
+        $content = $twig->render('html-route-handler.html.twig', [
+            'html' => $html,
+        ]);
 
         return new Response($content);
     }
