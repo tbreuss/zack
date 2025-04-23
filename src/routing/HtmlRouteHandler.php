@@ -8,8 +8,9 @@ use Symfony\Component\HttpFoundation\Response;
 
 class HtmlRouteHandler
 {
-    public function __invoke(Request $request, \Twig\Environment $twig)
+    public function __invoke(Request $request): Response
     {
+        $container = $request->attributes->get('_container');
         $path = $request->attributes->get('_path');
 
         if (!file_exists($path)) {
@@ -21,7 +22,7 @@ class HtmlRouteHandler
             throw new Exception('Failed to read HTML file: ' . $path);
         }
 
-        $content = $twig->render('html-route-handler.html.twig', [
+        $content = $container->get('twig')->render('html-route-handler.html.twig', [
             'html' => $html,
         ]);
 

@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class JsonRouteHandler
 {
-    public function __invoke(Request $request, \Twig\Environment $twig)
+    public function __invoke(Request $request): Response
     {
         $path = $request->attributes->get('_path');
 

@@ -38,8 +38,6 @@ class Zack
         $this->container = $this->getContainer();
 
         $request = Request::createFromGlobals();
-        $request->attributes->add(['twig' => $this->container->get('twig')]);
-
         $requestStack = new RequestStack();
         $routes = $this->getRoutes();
 
@@ -59,6 +57,9 @@ class Zack
             $requestStack,
             $argumentResolver
         );
+
+        $request->attributes->add(['_container' => $this->container]);
+        $request->attributes->add(['routes' => $routes]);
 
         $response = $httpKernel->handle($request);
 
