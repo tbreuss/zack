@@ -4,9 +4,11 @@ namespace tebe\zack;
 
 use tebe\zack\event\ResponseEvent;
 use tebe\zack\routing\HtmlRouteHandler;
+use tebe\zack\routing\JsonRouteHandler;
 use tebe\zack\routing\PhpRouteHandler;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\DependencyInjection;
+use Symfony\Component\Finder\Finder;
 use Symfony\Component\Routing\RouteCollection;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -99,30 +101,48 @@ class Zack
     {
         $routes = new RouteCollection();
 
-        $routes->add('index', new Route('/', [
-            '_controller' => HtmlRouteHandler::class,
-            '_path' => $this->config->routePath . '/index.get.html',
-        ], methods: ['GET']));
+        $finder = new Finder();
 
-        $routes->add('articles', new Route('/articles', [
-            '_controller' => PhpRouteHandler::class,
-            '_path' => $this->config->routePath . '/articles/index.get.php',
-        ], methods: ['GET']));
+        $finder->files()->in($this->config->routePath);
+        
+        foreach ($finder as $file) {
+            $relativePath = $file->getRelativePathname();
+            if (substr_count($relativePath, '.') <> 2) {
+                throw new \Exception('Invalid file name: ' . $relativePath);
+            }
 
-        $routes->add('articles_id', new Route('/articles/{id}', [
-            '_controller' => PhpRouteHandler::class,
-            '_path' => $this->config->routePath . '/articles/[id]/index.get.php',
-        ], methods: ['GET']));
+            [$filename, $method, $extension] = explode('.', $relativePath);
 
-        $routes->add('articles_id_comments_get', new Route('/articles/{id}/comments', [
-            '_controller' => PhpRouteHandler::class,
-            '_path' => $this->config->routePath . '/articles/[id]/comments.get.php',
-        ], methods: ['GET']));
+            $id = str_replace(['[', ']'], '', $filename . '/' . $method);
 
-        $routes->add('articles_id_comments_post', new Route('/articles/{id}/comments', [
-            '_controller' => PhpRouteHandler::class,
-            '_path' => $this->config->routePath . '/articles/[id]/comments.post.php',
-        ], methods: ['POST']));
+            $route = '/' . $filename;
+            if ($filename === 'index' || (($pos = strrpos($filename, 'index')) !== false)) {
+                $route = '/' . rtrim(substr($filename, 0, strlen($filename) - 5), '/');
+            }
+            $route = str_replace(['[', ']'], ['{', '}'], $route);
+
+            $controller = match($file->getExtension()) {
+                'json' => JsonRouteHandler::class,
+                'php' => PhpRouteHandler::class,
+                'html' => HtmlRouteHandler::class,
+                default => throw new \Exception('Unsupported file type: ' . $file->getExtension()),
+            };
+
+            $methods = match($method) {
+                'get' => ['GET'],
+                'post' => ['POST'],
+                'put' => ['PUT'],
+                'delete' => ['DELETE'],
+                default => throw new \Exception('Unsupported method: ' . $fileParts[1]),
+            };
+
+            $path = $this->config->routePath . '/' . $file->getRelativePathname();
+
+            $routes->add($id, new Route($route, [
+                '_controller' => $controller,
+                '_path' => $path,
+            ], methods: $methods));
+        }
 
         return $routes;
     }

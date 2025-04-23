@@ -29,9 +29,17 @@ class PhpRouteHandler
         return $response;
     }
 
-    public function render(string $template, array $context): Response
+    public function html(string $template, array $context): Response
     {
-            $content = $this->twig->render($template, $context);
-            return (new Response())->setContent($content);
+        $html = $this->twig->render($template, $context);
+        return new Response($html, 200);
+    }
+
+    public function json(array $context): Response
+    {
+        $json = json_encode($context, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+        return new Response($json, 200, [
+            'Content-Type' => 'application/json',
+        ]);        
     }
 }
