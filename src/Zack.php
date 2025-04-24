@@ -2,7 +2,9 @@
 
 namespace tebe\zack;
 
+use tebe\zack\event\ContainerEvent;
 use tebe\zack\event\ResponseEvent;
+use tebe\zack\event\RoutesEvent;
 use tebe\zack\routing\HtmlRouteHandler;
 use tebe\zack\routing\JsonRouteHandler;
 use tebe\zack\routing\PhpRouteHandler;
@@ -20,26 +22,24 @@ use Twig;
 
 class Zack 
 {
-    private Config $config;
-    private DependencyInjection\ContainerBuilder $container;
-
     public function __construct(
-        array $config = [],
+        private Config $config,
         private EventDispatcher $dispatcher = new EventDispatcher(),        
-    ) {
-        $this->config = new Config($config);        
-    }
+        private DependencyInjection\ContainerBuilder $container = new DependencyInjection\ContainerBuilder(),        
+    ) { }
 
     public function run(): void
     {
         ini_set('display_errors', 1);
         error_reporting(-1);
 
-        $this->container = $this->getContainer();
+        $this->initContainer();
+        $this->dispatcher->dispatch(new ContainerEvent($this->container), 'container');
 
         $request = Request::createFromGlobals();
         $requestStack = new RequestStack();
         $routes = $this->getRoutes();
+        $this->dispatcher->dispatch(new RoutesEvent($routes), 'routes');
 
         $context = new Routing\RequestContext();
         $matcher = new Routing\Matcher\UrlMatcher($routes, $context);
@@ -78,24 +78,18 @@ class Zack
         return new Response($content, $exception->getStatusCode());
     }
 
-    public function getContainer(): DependencyInjection\ContainerBuilder
+    public function initContainer(): void
     {
-        $container = new DependencyInjection\ContainerBuilder();
-
-        $container->register('twig_loader', Twig\Loader\FilesystemLoader::class)
+        $this->container->register('twig_loader', Twig\Loader\FilesystemLoader::class)
             ->addArgument($this->config->twigTemplatePath);
 
-        $container->register('twig', Twig\Environment::class)
+        $this->container->register('twig', Twig\Environment::class)
             ->addArgument(new DependencyInjection\Reference('twig_loader'))
             ->addArgument([
                 'cache' => $this->config->twigCachePath,
                 'debug' => $this->config->twigDebug,
             ]);
 
-        $container->register('php_route_handler', PhpRouteHandler::class)
-            ->addArgument(new DependencyInjection\Reference('twig'));
-
-        return $container;
     }
 
     private function getRoutes(): RouteCollection
