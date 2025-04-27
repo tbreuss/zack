@@ -47,12 +47,11 @@ class Zack
         $controllerResolver = new HttpKernel\Controller\ControllerResolver();
         $argumentResolver = new HttpKernel\Controller\ArgumentResolver();
 
-        $dispatcher = new EventDispatcher();
-        $dispatcher->addSubscriber(new HttpKernel\EventListener\RouterListener($matcher, $requestStack));
-        $dispatcher->addSubscriber(new HttpKernel\EventListener\ErrorListener($this->errorHandler(...)));
+        $this->dispatcher->addSubscriber(new HttpKernel\EventListener\RouterListener($matcher, $requestStack));
+        $this->dispatcher->addSubscriber(new HttpKernel\EventListener\ErrorListener($this->errorHandler(...)));
 
         $httpKernel = new HttpKernel\HttpKernel(
-            $dispatcher,
+            $this->dispatcher,
             $controllerResolver,
             $requestStack,
             $argumentResolver
