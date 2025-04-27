@@ -30,8 +30,11 @@ class Zack
 
     public function run(): void
     {
-        ini_set('display_errors', 1);
-        error_reporting(-1);
+        error_reporting($this->config->phpErrorReporting);
+        ini_set('display_errors', $this->config->phpDisplayErrors ? '1' : '0');
+        ini_set('display_startup_errors', $this->config->phpDisplayStartupErrors ? '1' : '0');
+        ini_set('log_errors', $this->config->phpLogErrors ? '1' : '0');
+        ini_set('error_log', $this->config->phpErrorLog);
 
         $this->initContainer();
         $this->dispatcher->dispatch(new ContainerEvent($this->container), 'container');
