@@ -12,7 +12,7 @@ use Symfony\Component\EventDispatcher\EventDispatcher;
 
 $config = new Config([
     'rootPath' => dirname(__DIR__),
-    'twigCachePath' => false,
+    'twigCache' => false,
 ]);
 
 $dispatcher = new EventDispatcher();
@@ -37,9 +37,3 @@ $dispatcher->addListener('routes', function (RoutesEvent $event): void {
 });
 
 (new Zack($config, $dispatcher))->run();
-
-function isHtmlResponse($response): bool
-{
-
-    return true;
-}
