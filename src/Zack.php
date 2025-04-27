@@ -85,8 +85,14 @@ class Zack
         $this->container->register('twig', Twig\Environment::class)
             ->addArgument(new DependencyInjection\Reference('twig_loader'))
             ->addArgument([
-                'cache' => $this->config->twigCachePath,
                 'debug' => $this->config->twigDebug,
+                'charset' => $this->config->twigCharset,
+                'strict_variables' => $this->config->twigStrictVariables,
+                'autoescape' => $this->config->twigAutoescape,
+                'cache' => $this->config->twigCache,
+                'auto_reload' => $this->config->twigAutoReload,
+                'optimizations' => $this->config->twigOptimizations,
+                'use_yield' => $this->config->twigUseYield,
             ]);
 
     }

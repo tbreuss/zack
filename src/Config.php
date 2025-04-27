@@ -6,9 +6,16 @@ readonly class Config
 {
     public string $routePath;
     public string $rootPath;
-    public string $twigTemplatePath;
-    public bool|string $twigCachePath;
+    // Twig
+    public array|string $twigTemplatePath;
+    public bool|string|\Twig\Cache\CacheInterface $twigCache;
     public bool $twigDebug;
+    public string $twigCharset;
+    public bool $twigStrictVariables;
+    public bool|string $twigAutoescape;
+    public ?bool $twigAutoReload;
+    public int $twigOptimizations;
+    public bool $twigUseYield;
 
     public function __construct(array $config = [])
     {
@@ -27,8 +34,15 @@ readonly class Config
 
         $this->routePath = $config['routePath'] ?? $rootPath . '/routes';
         $this->rootPath = $rootPath;
+        // Twig
         $this->twigTemplatePath = $config['twigTemplatePath'] ?? $rootPath . '/views';
-        $this->twigCachePath = $config['twigCachePath'] ?? $rootPath . '/cache/twig';
+        $this->twigCache = $config['twigCachePath'] ?? $rootPath . '/cache/twig';
         $this->twigDebug = $config['twigDebug'] ?? false;
+        $this->twigCharset = $config['twigCharset'] ?? 'UTF-8';
+        $this->twigAutoescape = $config['twigAutoescape'] ?? 'html';
+        $this->twigAutoReload = $config['twigAutoReload'] ?? null;
+        $this->twigStrictVariables = $config['twigStrictVariables'] ?? false;
+        $this->twigOptimizations = $config['twigOptimizations'] ?? -1;
+        $this->twigUseYield = $config['twigUseYield'] ?? false;
     }
 }
