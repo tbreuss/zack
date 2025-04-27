@@ -13,6 +13,10 @@ class HtmlRouteHandler
         $container = $request->attributes->get('_container');
         $path = $request->attributes->get('_path');
 
+        if ($path === null) {
+            throw new Exception('Attribute _path not found in request attributes');
+        }
+        
         if (!file_exists($path)) {
             throw new Exception('HTML file not found: ' . $path);    
         }

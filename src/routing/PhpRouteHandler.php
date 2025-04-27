@@ -16,8 +16,12 @@ class PhpRouteHandler
         $this->container = $request->attributes->get('_container');
         $path = $request->attributes->get('_path');
 
+        if ($path === null) {
+            throw new Exception('Attribute _path not found in request attributes');
+        }
+
         if (!file_exists($path)) {
-            throw new Exception('PHP file not found: ' . $path);    
+            throw new Exception('PHP file not found for path: ' . $path);    
         }
     
         $response = require $path;

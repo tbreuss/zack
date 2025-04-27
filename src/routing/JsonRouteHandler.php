@@ -12,6 +12,10 @@ class JsonRouteHandler
     {
         $path = $request->attributes->get('_path');
 
+        if ($path === null) {
+            throw new Exception('Attribute _path not found in request attributes');
+        }
+        
         if (!file_exists($path)) {
             throw new Exception('JSON file not found: ' . $path);    
         }
