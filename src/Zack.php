@@ -8,23 +8,22 @@ use tebe\zack\event\RoutesEvent;
 use tebe\zack\routing\HtmlRouteHandler;
 use tebe\zack\routing\JsonRouteHandler;
 use tebe\zack\routing\PhpRouteHandler;
-use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\DependencyInjection;
+use Symfony\Component\DependencyInjection\Reference;
+use Symfony\Component\ErrorHandler;
+use Symfony\Component\EventDispatcher;
 use Symfony\Component\Finder\Finder;
-use Symfony\Component\Routing\RouteCollection;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Route;
-use Symfony\Component\Routing;
+use Symfony\Component\HttpFoundation;
 use Symfony\Component\HttpKernel;
+use Symfony\Component\Routing;
+use Symfony\Component\Routing\Route;
 use Twig;
 
 class Zack 
 {
     public function __construct(
         private Config $config,
-        private EventDispatcher $dispatcher = new EventDispatcher(),        
+        private EventDispatcher\EventDispatcher $dispatcher = new EventDispatcher(),        
         private DependencyInjection\ContainerBuilder $container = new DependencyInjection\ContainerBuilder(),        
     ) { }
 
@@ -37,51 +36,30 @@ class Zack
         ini_set('error_log', $this->config->phpErrorLog);
 
         $this->initContainer();
-        $this->dispatcher->dispatch(new ContainerEvent($this->container), 'container');
 
-        $request = Request::createFromGlobals();
-        $requestStack = new RequestStack();
-        $routes = $this->getRoutes();
-        $this->dispatcher->dispatch(new RoutesEvent($routes), 'routes');
-
-        $context = new Routing\RequestContext();
-        $matcher = new Routing\Matcher\UrlMatcher($routes, $context);
-
-        $controllerResolver = new HttpKernel\Controller\ControllerResolver();
-        $argumentResolver = new HttpKernel\Controller\ArgumentResolver();
-
-        $this->dispatcher->addSubscriber(new HttpKernel\EventListener\RouterListener($matcher, $requestStack));
-        $this->dispatcher->addSubscriber(new HttpKernel\EventListener\ErrorListener($this->errorHandler(...)));
-
-        $httpKernel = new HttpKernel\HttpKernel(
-            $this->dispatcher,
-            $controllerResolver,
-            $requestStack,
-            $argumentResolver
-        );
-
+        $request = HttpFoundation\Request::createFromGlobals();
         $request->attributes->add(['_container' => $this->container]);
-        $request->attributes->add(['routes' => $routes]);
 
-        $response = $httpKernel->handle($request);
-
+        $response = $this->container->get('httpkernel')->handle($request);
         $this->dispatcher->dispatch(new ResponseEvent($response, $request), 'response');
 
         $response->send();
     }
 
-    private function errorHandler(\Symfony\Component\ErrorHandler\Exception\FlattenException $exception): Response
+    private function errorHandler(ErrorHandler\Exception\FlattenException $exception): HttpFoundation\Response
     {
         $content = $this->container->get('twig')->render('error.html.twig', [
             'title' => 'Error',
             'exception' => $exception,
         ]);
         
-        return new Response($content, $exception->getStatusCode());
+        return new HttpFoundation\Response($content, $exception->getStatusCode());
     }
 
     public function initContainer(): void
     {
+        $routes = $this->getRoutes();
+
         $this->container->register('twig_loader', Twig\Loader\FilesystemLoader::class)
             ->addArgument($this->config->twigTemplatePath);
 
@@ -98,11 +76,40 @@ class Zack
                 'use_yield' => $this->config->twigUseYield,
             ]);
 
+        $this->container->register('context', Routing\RequestContext::class);
+        $this->container->register('matcher', Routing\Matcher\UrlMatcher::class)
+            ->setArguments([$routes, new Reference('context')]);
+
+        $this->container->register('request_stack', HttpFoundation\RequestStack::class);
+        $this->container->register('controller_resolver', HttpKernel\Controller\ControllerResolver::class);
+        $this->container->register('argument_resolver', HttpKernel\Controller\ArgumentResolver::class);
+        
+        $this->container->register('listener.router', HttpKernel\EventListener\RouterListener::class)
+            ->setArguments([new Reference('matcher'), new Reference('request_stack')]);
+        $this->container->register('listener.response', HttpKernel\EventListener\ResponseListener::class)
+            ->setArguments(['UTF-8']);
+        $this->container->register('listener.exception', HttpKernel\EventListener\ErrorListener::class)
+            ->setArguments([$this->errorHandler(...)]);
+
+        $this->container->register('dispatcher', EventDispatcher\EventDispatcher::class)
+            ->addMethodCall('addSubscriber', [new Reference('listener.router')])
+            ->addMethodCall('addSubscriber', [new Reference('listener.response')])
+            ->addMethodCall('addSubscriber', [new Reference('listener.exception')]);
+
+        $this->container->register('httpkernel', HttpKernel\HttpKernel::class)
+            ->setArguments([
+                new Reference('dispatcher'),
+                new Reference('controller_resolver'),
+                new Reference('request_stack'),
+                new Reference('argument_resolver'),
+            ]);
+
+        $this->dispatcher->dispatch(new ContainerEvent($this->container), 'container');
     }
 
-    private function getRoutes(): RouteCollection
+    private function getRoutes(): Routing\RouteCollection
     {
-        $routes = new RouteCollection();
+        $routes = new Routing\RouteCollection();
 
         $finder = new Finder();
 
@@ -146,6 +153,8 @@ class Zack
                 '_path' => $path,
             ], methods: $methods));
         }
+
+        $this->dispatcher->dispatch(new RoutesEvent($routes), 'routes');
 
         return $routes;
     }
