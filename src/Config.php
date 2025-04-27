@@ -36,7 +36,7 @@ readonly class Config
         $this->rootPath = $rootPath;
         // Twig
         $this->twigTemplatePath = $config['twigTemplatePath'] ?? $rootPath . '/views';
-        $this->twigCache = $config['twigCachePath'] ?? $rootPath . '/cache/twig';
+        $this->twigCache = $config['twigCache'] ?? $rootPath . '/cache/twig';
         $this->twigDebug = $config['twigDebug'] ?? false;
         $this->twigCharset = $config['twigCharset'] ?? 'UTF-8';
         $this->twigAutoescape = $config['twigAutoescape'] ?? 'html';
