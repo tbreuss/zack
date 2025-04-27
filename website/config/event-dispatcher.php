@@ -19,7 +19,7 @@ $dispatcher->addListener('response', function (ResponseEvent $event): void {
     ) {
         return;
     }    
-    $response->setContent($response->getContent().'<!-- created by Zack! -->');
+    $response->setContent($response->getContent() . '<!-- created by Zack! -->');
 });
 
 $dispatcher->addListener('routes', function (RoutesEvent $event): void {
