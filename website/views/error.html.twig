@@ -3,7 +3,7 @@
 {% block title %}{{ title }}{% endblock %}
 
 {% block content %}
-    <h1>{{ title }}</h1>
-    <h2>{{ exception.message }}</h2>
+    <h2>{{ title }}</h2>
+    <p><b>{{ exception.message }}</b></p>
     <pre>{{ exception.traceAsString }}</pre>
 {% endblock %}
