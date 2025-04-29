@@ -117,11 +117,16 @@ class Zack
         
         foreach ($finder as $file) {
             $relativePath = $file->getRelativePathname();
-            if (substr_count($relativePath, '.') <> 2) {
-                throw new \Exception('Invalid file name: ' . $relativePath);
-            }
+            $relativePathParts = explode('.', $relativePath);
 
-            [$filename, $method, $extension] = explode('.', $relativePath);
+            if (count($relativePathParts) === 2) {
+                [$filename, $extension] = $relativePathParts;
+                $method = 'get';
+            } elseif(count($relativePathParts) === 3) {
+                [$filename, $method, $extension] = $relativePathParts;
+            } else {
+                throw new \Exception('Invalid file name format: ' . $relativePath);
+            }
 
             $id = str_replace(['[', ']'], '', $filename . '/' . $method);
 
