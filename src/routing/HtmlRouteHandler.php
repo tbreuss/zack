@@ -26,10 +26,27 @@ class HtmlRouteHandler
             throw new Exception('Failed to read HTML file: ' . $path);
         }
 
-        $content = $container->get('twig')->render('html-route-handler.html.twig', [
+        $content = $container->get('twig')->render('route-handler.html.twig', [
+            'title' => $this->extractTitle($html, $path),
             'html' => $html,
         ]);
 
         return new Response($content);
+    }
+
+    private function extractTitle(string $html, string $path): string
+    {
+        $d = new \DOMDocument();
+        $d->loadHTML($html);
+        
+        foreach($d->getElementsByTagName('h1') as $item){
+            return $item->textContent;
+        }
+
+        foreach($d->getElementsByTagName('h2') as $item){
+            return $item->textContent;
+        }
+
+        return basename($path);
     }
 }
