@@ -1,15 +1,16 @@
 (function (window, document) {
 
-    const buttons = document.querySelectorAll('.endpoint-link');
+    const buttons = document.querySelectorAll('.endpoint');
     for (const button of buttons) {
         button.addEventListener('click', function (event) {
             event.preventDefault();
 
-            let method = event.target.dataset['method'];
-            let route = event.target.dataset['route'];
-            let body = event.target.dataset['body'];
+            const container = event.target.classList.contains('.endpoint') ? event.target : event.target.closest('.endpoint');
+            const method = container.dataset['method'];
+            const route = container.dataset['url']
+            const body = container.dataset['body'];
 
-            let params = {
+            const params = {
                 method: method,
                 headers: {
                     'Content-Type': 'application/json'
@@ -17,22 +18,19 @@
                 body: method === 'GET' ? undefined : JSON.stringify(body)
             };
 
-            event.target.parentElement.getElementsByClassName('endpoint-request')[0].textContent = body;
+            container.getElementsByClassName('endpoint-request-body')[0].innerHTML = '<div>Request</div><pre>' + body + '</pre>';
 
             fetch(route, params)
                 .then(response => {                   
-                    event.target.parentElement.getElementsByClassName('endpoint-response-status')[0].textContent = response.status;
+                    container.getElementsByClassName('endpoint-response-status')[0].textContent = response.status;
                     return response.text();
                 })
                 .then(text => {
                     try {
-                        const json = JSON.parse(text); // Try to parse the response as JSON
-                        // The response was a JSON object
-                        // Do your JSON handling here
-                        event.target.parentElement.getElementsByClassName('endpoint-response-body')[0].textContent = JSON.stringify(json, null, 2);
+                        const json = JSON.parse(text);
+                        container.getElementsByClassName('endpoint-response-body')[0].textContent = JSON.stringify(json, null, 2);
                       } catch(err) {
-                        // The response wasn't a JSON object
-                        // Do your text handling here
+                        // dont't catch error
                       }
                 })
                 .catch(error => console.error('Error creating post:', error));  // Handle errors

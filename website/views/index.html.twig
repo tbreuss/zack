@@ -30,13 +30,77 @@
         <h4>{{ category.name }}</h4>
         <p>{{ category.description }}</p>
         {% for route in category.routes %}
-            <div class="endpoint">
-                <a class="endpoint-link" href="#" data-method="{{ route.method }}" data-route="{{ route.path }}" data-body='{{ route.body|raw }}'>{{ route.method|upper }} {{ route.path }}</a>
-                <div class="endpoint-request"></div>
+            <div class="endpoint" data-url="{{ route.url }}" data-method="{{ route.method }}" data-body='{{ route.body|raw }}'>
+                <div class="endpoint-link endpoint-link--{{ route.method|lower }}">
+                    <span class="endpoint-request-method">{{ route.method|upper }}</span>
+                    <span class="endpoint-request-name">{{ route.path }}</span>
+                    <span class="endpoint-request-description">{{ route.name }}</span>
+                </div>
+                <div class="endpoint-request-body"></div>
                 <div class="endpoint-response-status"></div>
                 <div class="endpoint-response-body"></div>
             </div>
         {% endfor %}
     {% endfor %}
     
+    <style>
+        .endpoint {
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .endpoint pre {
+            padding: 0.5em;
+            background-color: #eee;
+        }
+        .endpoint-link {
+            display: block;
+            text-decoration: none;
+            color: #333;
+        }
+        .endpoint-request-method {
+            color: #fff;
+            display: inline-block;
+            text-align: center;
+            min-width: 5em;
+            font-weight: 600;
+            font-size: 0.9em;
+            margin-right: 0.5em;
+            border: 0; /*1px solid #ccc;*/
+            border-radius: 3px;
+        }
+        .endpoint-request-name {
+            font-size: 1em;
+            font-weight: bold;
+            margin-right: 0.5em;
+        }
+        .endpoint-request-description {
+            font-size: 0.8em;
+            color: #333;
+        }
+        .endpoint-request-body {
+            font-size: 0.8em;
+        }
+        .endpoint-response-status {
+            font-size: 0.8em;
+        }
+        .endpoint-response-body {
+            font-size: 0.8em;
+        }        
+        .endpoint-link--get .endpoint-request-method {
+            background-color: #61affe;
+        }
+
+        .endpoint-link--post .endpoint-request-method {
+            background-color: #4caf50;
+        }
+        .endpoint-link--put .endpoint-request-method {
+            background-color: #ff9800;
+        }
+        .endpoint-link--delete .endpoint-request-method {
+            background-color: #f44336;
+        }
+    </style>
 {% endblock %}
