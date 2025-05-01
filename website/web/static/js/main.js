@@ -20,7 +20,7 @@
             event.target.parentElement.getElementsByClassName('endpoint-request')[0].textContent = body;
 
             fetch(route, params)
-                .then(response => {
+                .then(response => {                   
                     event.target.parentElement.getElementsByClassName('endpoint-response-status')[0].textContent = response.status;
                     return response.text();
                 })
