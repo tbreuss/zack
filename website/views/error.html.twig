@@ -1,9 +1,13 @@
 {% extends "base.html.twig" %}
 
-{% block title %}{{ title }}{% endblock %}
+{% block title %}
+	{{ title }}
+{% endblock %}
 
 {% block content %}
-    <h2>{{ title }}</h2>
-    <p><b>{{ exception.message }}</b></p>
-    <pre>{{ exception.traceAsString }}</pre>
+	<h2>{{ title }}</h2>
+	<p>
+		<b>{{ exception.message }}</b>
+	</p>
+	<pre>{{ exception.traceAsString }}</pre>
 {% endblock %}

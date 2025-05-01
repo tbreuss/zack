@@ -19,13 +19,13 @@ use Symfony\Component\Routing;
 use Symfony\Component\Routing\Route;
 use Twig;
 
-class Zack 
+class Zack
 {
     public function __construct(
         private Config $config,
-        private EventDispatcher\EventDispatcher $dispatcher = new EventDispatcher(),        
-        private DependencyInjection\ContainerBuilder $container = new DependencyInjection\ContainerBuilder(),        
-    ) { }
+        private EventDispatcher\EventDispatcher $dispatcher = new EventDispatcher(),
+        private DependencyInjection\ContainerBuilder $container = new DependencyInjection\ContainerBuilder(),
+    ) {}
 
     public function run(): void
     {
@@ -52,7 +52,7 @@ class Zack
             'title' => 'Error',
             'exception' => $exception,
         ]);
-        
+
         return new HttpFoundation\Response($content, $exception->getStatusCode());
     }
 
@@ -83,7 +83,7 @@ class Zack
         $this->container->register('request_stack', HttpFoundation\RequestStack::class);
         $this->container->register('controller_resolver', HttpKernel\Controller\ControllerResolver::class);
         $this->container->register('argument_resolver', HttpKernel\Controller\ArgumentResolver::class);
-        
+
         $this->container->register('listener.router', HttpKernel\EventListener\RouterListener::class)
             ->setArguments([new Reference('matcher'), new Reference('request_stack')]);
         $this->container->register('listener.response', HttpKernel\EventListener\ResponseListener::class)
@@ -129,7 +129,7 @@ class Zack
             if (count($relativePathParts) === 2) {
                 [$filename, $extension] = $relativePathParts;
                 $method = 'get';
-            } elseif(count($relativePathParts) === 3) {
+            } elseif (count($relativePathParts) === 3) {
                 [$filename, $method, $extension] = $relativePathParts;
             } else {
                 throw new \Exception('Invalid file name format: ' . $relativePath);
@@ -143,14 +143,14 @@ class Zack
             }
             $route = str_replace(['[', ']'], ['{', '}'], $route);
 
-            $controller = match($file->getExtension()) {
+            $controller = match ($file->getExtension()) {
                 'json' => JsonRouteHandler::class,
                 'php' => PhpRouteHandler::class,
                 'html' => HtmlRouteHandler::class,
                 default => throw new \Exception('Unsupported file type: ' . $file->getExtension()),
             };
 
-            $methods = match($method) {
+            $methods = match ($method) {
                 'get' => ['GET'],
                 'post' => ['POST'],
                 'put' => ['PUT'],

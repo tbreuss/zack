@@ -9,8 +9,7 @@ class ContainerEvent extends Event
 {
     public function __construct(
         private ContainerBuilder $container,
-    ) {
-    }
+    ) {}
 
     public function getContainer(): ContainerBuilder
     {

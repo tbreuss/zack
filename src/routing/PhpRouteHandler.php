@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace tebe\zack\routing;
 
@@ -21,9 +21,9 @@ class PhpRouteHandler
         }
 
         if (!file_exists($path)) {
-            throw new Exception('PHP file not found for path: ' . $path);    
+            throw new Exception('PHP file not found for path: ' . $path);
         }
-    
+
         $response = require $path;
 
         if (!$response instanceof Response) {
@@ -45,6 +45,6 @@ class PhpRouteHandler
         $json = json_encode($context, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
         return new Response($json, 200, [
             'Content-Type' => 'application/json',
-        ]);        
+        ]);
     }
 }

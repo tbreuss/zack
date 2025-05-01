@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace tebe\zack\routing;
 
@@ -16,9 +16,9 @@ class HtmlRouteHandler
         if ($path === null) {
             throw new Exception('Attribute _path not found in request attributes');
         }
-        
+
         if (!file_exists($path)) {
-            throw new Exception('HTML file not found: ' . $path);    
+            throw new Exception('HTML file not found: ' . $path);
         }
 
         $html = file_get_contents($path);
@@ -38,12 +38,12 @@ class HtmlRouteHandler
     {
         $d = new \DOMDocument();
         $d->loadHTML($html);
-        
-        foreach($d->getElementsByTagName('h1') as $item){
+
+        foreach ($d->getElementsByTagName('h1') as $item) {
             return $item->textContent;
         }
 
-        foreach($d->getElementsByTagName('h2') as $item){
+        foreach ($d->getElementsByTagName('h2') as $item) {
             return $item->textContent;
         }
 

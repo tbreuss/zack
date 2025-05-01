@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace tebe\zack\routing;
 
@@ -15,9 +15,9 @@ class JsonRouteHandler
         if ($path === null) {
             throw new Exception('Attribute _path not found in request attributes');
         }
-        
+
         if (!file_exists($path)) {
-            throw new Exception('JSON file not found: ' . $path);    
+            throw new Exception('JSON file not found: ' . $path);
         }
 
         $json = file_get_contents($path);

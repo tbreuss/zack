@@ -29,7 +29,7 @@ readonly class Config
     {
         $this->init($config);
     }
-    
+
     private function init(array $config): void
     {
         foreach ($config as $key => $value) {

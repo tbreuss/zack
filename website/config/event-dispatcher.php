@@ -14,14 +14,14 @@ $dispatcher->addListener('container', function (ContainerEvent $event): void {
 $dispatcher->addListener('response', function (ResponseEvent $event): void {
     error_log('ResponseEvent received');
     $response = $event->getResponse();
-    if ($response->isRedirection()
+    if (
+        $response->isRedirection()
         || ($response->headers->has('Content-Type') && false === strpos($response->headers->get('Content-Type'), 'html'))
         || 'html' !== $event->getRequest()->getRequestFormat()
     ) {
         return;
-    }    
+    }
     $response->setContent($response->getContent() . '<!-- created by Zack! -->');
-
 });
 
 $dispatcher->addListener('routes', function (RoutesEvent $event): void {
