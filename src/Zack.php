@@ -113,8 +113,15 @@ class Zack
 
         $finder = new Finder();
 
-        $finder->files()->in($this->config->routePath);
-        
+        $finder->files()
+            ->in($this->config->routePath)
+            ->sort(function (\SplFileInfo $a, \SplFileInfo $b): int {
+                // temporary solution to have named parameter routes in last place
+                $a = str_replace(['[', ']'], '~', $a->getRealPath());
+                $b = str_replace(['[', ']'], '~', $b->getRealPath());
+                return strcmp($a, $b);
+            });
+
         foreach ($finder as $file) {
             $relativePath = $file->getRelativePathname();
             $relativePathParts = explode('.', $relativePath);

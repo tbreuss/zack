@@ -8,10 +8,11 @@ use tebe\zack\event\RoutesEvent;
 $dispatcher = new EventDispatcher();
 
 $dispatcher->addListener('container', function (ContainerEvent $event): void {
-    echo "<!-- Container -->";
+    error_log('ContainerEvent received');
 });
 
 $dispatcher->addListener('response', function (ResponseEvent $event): void {
+    error_log('ResponseEvent received');
     $response = $event->getResponse();
     if ($response->isRedirection()
         || ($response->headers->has('Content-Type') && false === strpos($response->headers->get('Content-Type'), 'html'))
@@ -20,10 +21,11 @@ $dispatcher->addListener('response', function (ResponseEvent $event): void {
         return;
     }    
     $response->setContent($response->getContent() . '<!-- created by Zack! -->');
+
 });
 
 $dispatcher->addListener('routes', function (RoutesEvent $event): void {
-    echo "<!-- Routes -->";
+    error_log('RoutesEvent received');
 });
 
 return $dispatcher;
