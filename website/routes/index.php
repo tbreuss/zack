@@ -3,7 +3,7 @@
 $apiRoutes = [
     [
         'name' => 'pet',
-        'description' => 'Everything about your Pets',
+        'description' => 'Everything about your Pets.',
         'routes' => [
             [
                 'name' => 'Update an existing pet.',
@@ -45,7 +45,7 @@ $apiRoutes = [
                 'method' => 'POST',
                 'url' => '/api/petstore3/pet/10?name=doggie&status=available',
                 'path' => '/api/petstore3/pet/{petId}',
-                'body' => ''
+                'body' => '{}'
             ],
             [
                 'name' => 'Deletes a pet.',
@@ -59,13 +59,13 @@ $apiRoutes = [
                 'method' => 'POST',
                 'url' => '/api/petstore3/pet/10/uploadImage?additionalMetadata=string',
                 'path' => '/api/petstore3/pet/{petId}/uploadImage',
-                'body' => '~~~application/octet-stream~~~'
+                'body' => '{"application/octet-stream": "~~~"}'
             ],
         ],
     ],
     [
         'name' => 'store',
-        'description' => 'Access to Petstore orders',
+        'description' => 'Access to Petstore orders.',
         'routes' => [
             [
                 'name' => 'Returns pet inventories by status.',
@@ -99,7 +99,7 @@ $apiRoutes = [
     ],
     [
         'name' => 'user',
-        'description' => 'Operations about user',
+        'description' => 'Operations about user.',
         'routes' => [
             [
                 'name' => 'Create user.',
@@ -141,7 +141,7 @@ $apiRoutes = [
                 'method' => "PUT",
                 "url" => "/api/petstore3/user/theUser",
                 "path" => "/api/petstore3/user/{username}",
-                "body" => '{"id":10,"username":"doggie","firstName":"doggie","lastName":"doggie","email":"}'
+                "body" => '{"id":10,"username":"theUser","firstName":"John","lastName":"James","email":"john@email.com","password":"12345","phone":"12345","userStatus":1}'
             ],
             [
                 'name' => 'Delete user.',
