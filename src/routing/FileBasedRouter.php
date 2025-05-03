@@ -3,6 +3,7 @@
 namespace tebe\zack\routing;
 
 use tebe\zack\Config;
+use tebe\zack\event\ControllerEvent;
 use tebe\zack\event\RoutesEvent;
 use Symfony\Component\EventDispatcher;
 use Symfony\Component\Finder\Finder;
@@ -71,7 +72,7 @@ class FileBasedRouter
             ]));
         }
 
-        $this->dispatcher->dispatch(new RoutesEvent($routes), 'routes');
+        $this->dispatcher->dispatch(new RoutesEvent($routes), 'zack.routes');
 
         return $routes;
     }
@@ -128,6 +129,13 @@ class FileBasedRouter
 
     private function getController(string $extension): string
     {
+        $event = new ControllerEvent($extension);
+        $this->dispatcher->dispatch($event, 'zack.controller');
+
+        if (($controller = $event->getResolvedController()) !== null) {
+            return $controller;
+        }
+
         return match ($extension) {
             'html' => HtmlRouteHandler::class,
             'json' => JsonRouteHandler::class,

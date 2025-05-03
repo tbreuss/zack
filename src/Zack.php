@@ -35,10 +35,12 @@ class Zack
         $request = HttpFoundation\Request::createFromGlobals();
         $request->attributes->add(['_container' => $this->container]);
 
-        $response = $this->container->get('httpkernel')->handle($request);
-        $this->dispatcher->dispatch(new ResponseEvent($response, $request), 'response');
-
+        $kernel = $this->container->get('httpkernel');
+        
+        $response = $kernel->handle($request);
         $response->send();
+
+        $kernel->terminate($request, $response);
     }
 
     private function errorHandler(ErrorHandler\Exception\FlattenException $exception): HttpFoundation\Response
@@ -86,19 +88,19 @@ class Zack
         $this->container->register('listener.exception', HttpKernel\EventListener\ErrorListener::class)
             ->setArguments([$this->errorHandler(...)]);
 
-        $this->container->register('dispatcher', EventDispatcher\EventDispatcher::class)
-            ->addMethodCall('addSubscriber', [new Reference('listener.router')])
-            ->addMethodCall('addSubscriber', [new Reference('listener.response')])
-            ->addMethodCall('addSubscriber', [new Reference('listener.exception')]);
+        // use the injected dispatcher
+        $this->dispatcher->addSubscriber($this->container->get('listener.router'));
+        $this->dispatcher->addSubscriber($this->container->get('listener.response'));
+        $this->dispatcher->addSubscriber($this->container->get('listener.exception'));
 
         $this->container->register('httpkernel', HttpKernel\HttpKernel::class)
             ->setArguments([
-                new Reference('dispatcher'),
+                $this->dispatcher,
                 new Reference('controller_resolver'),
                 new Reference('request_stack'),
                 new Reference('argument_resolver'),
             ]);
 
-        $this->dispatcher->dispatch(new ContainerEvent($this->container), 'container');
+        $this->dispatcher->dispatch(new ContainerEvent($this->container), 'zack.container');
     }
 }
