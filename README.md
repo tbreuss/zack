@@ -1,4 +1,12 @@
-# zack
+# Zack!
+
+Zack! is a tiny little framework based on [Symfony's HTTP-Kernel](https://symfony.com/doc/current/components/http_kernel.html) using file-based routing, inspired by Javascript Librarie and Frameworks like [Nitro](https://nitro.build/guide/routing).
+
+## Supported PHP versions
+
+- PHP 8.2 / 8.3 / 8.4
+
+## Commands
 
     docker run --rm -it -v .:/app:z herbie bash
 
