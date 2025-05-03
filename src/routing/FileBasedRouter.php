@@ -129,9 +129,9 @@ class FileBasedRouter
     private function getController(string $extension): string
     {
         return match ($extension) {
+            'html' => HtmlRouteHandler::class,
             'json' => JsonRouteHandler::class,
             'php' => PhpRouteHandler::class,
-            'html' => HtmlRouteHandler::class,
             default => throw new \Exception('Unsupported file type: ' . $extension),
         };
     }
@@ -139,10 +139,13 @@ class FileBasedRouter
     private function getMethods(string $method): array
     {
         return match ($method) {
+            'delete' => ['DELETE'],
             'get' => ['GET'],
+            'head' => ['HEAD'],
+            'options' => ['OPTIONS'],
+            'patch' => ['PATCH'],
             'post' => ['POST'],
             'put' => ['PUT'],
-            'delete' => ['DELETE'],
             default => throw new \Exception('Unsupported method: ' . $method),
         };
     }
