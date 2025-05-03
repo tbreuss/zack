@@ -1,6 +1,14 @@
 ## Development
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+- [Zack! at GitHub](https://github.com/tbreuss/zack)
+- [Zack! at Packagist](https://packagist.org/packages/tebe/zack)
 
-- abc
-- def
+**Support**
+
+Support is given through GitHub only. If possible, try to reproduce your issue before asking your question.
+
+If you want to discuss the enhancement of Herbie, file an [issue](https://github.com/tbreuss/zack/issues) on GitHub or submit a [pull request](https://github.com/tbreuss/zack/pulls).
+
+**Bug Reports**
+
+If you find a bug, you can file an [issue](https://github.com/tbreuss/zack/issues).

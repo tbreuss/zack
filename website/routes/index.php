@@ -155,6 +155,6 @@ $apiRoutes = [
 ];
 
 return $this->html('index.html.twig', [
-    'title' => 'Home',
+    'title' => 'About',
     'apiRoutes' => $apiRoutes,
 ]);

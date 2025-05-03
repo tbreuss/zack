@@ -9,9 +9,9 @@
 		<div class="container">
 			<div class="pure-g">
 				<div class="pure-u-1">
-					<h2 class="hero-heading">ABOUT ZACK!</h2>
+					<h2 class="hero-heading">ZACK!</h2>
 					<p class="hero-text">
-            Sometimes you simply have to implement a project quickly.<br>
+            Sometimes you simply have to implement a project or an MVP quickly.
             Zack! with file-based routing to the rescue!
           </p>
 					<p class="hero-button">
@@ -25,14 +25,16 @@
 
 {% block content %}
 	<p>
-    Zack! is a tiny little framework based on <a href="https://symfony.com/doc/current/components/http_kernel.html" target="_blank">Symfony's HTTP-Kernel</a> using file-based routing, inspired by Javascript Libraries/Frameworks like <a href="https://nitro.build/guide/routing" target="_blank">Nitro</a>.
+    Zack! is a tiny little framework based on Symfony's <a href="https://symfony.com/doc/current/components/http_kernel.html">HttpKernel Component</a> using file-based routing, inspired by Javascript Libraries/Frameworks like <a href="https://nitro.build/guide/routing">Nitro</a>.
+    It ships with the <a href="https://twig.symfony.com/">Twig</a> template engine and HTML, JSON, <a href="https://commonmark.thephpleague.com/">Markdown</a> and PHP route handler out of the box.
+    It is a great fit for small projects, MVPs, or even as a microservice.
   </p>
 
 	<h3>Supported PHP versions</h3>
   <p>PHP 8.2 / 8.3 / 8.4</p>
 
 	<h3>Petstore 3 API</h3>
-  <p>As an example, we have (more or less) implemented the endpoints of the <a target="_blank" href="https://petstore3.swagger.io/">Petstore 3</a> OpenAPI specification.</p>
+  <p>As an example, we have (more or less) implemented the endpoints of the <a href="https://petstore3.swagger.io/">Petstore 3</a> OpenAPI specification.</p>
 	{% for category in apiRoutes %}
     <p style="margin: 1em 0 0.5em 0">
       <b style="margin-right: 0.5em">{{ category.name }}</b>
@@ -52,68 +54,4 @@
 		{% endfor %}
 	{% endfor %}
 
-	<style>
-		.content .endpoint {
-			margin: 10px 0;
-			padding: 10px;
-			border: 1px solid #ccc;
-			border-radius: 5px;
-			cursor: pointer;
-		}
-    .content .endpoint p {
-      margin: 0.75em 0 0.25em 0;
-    }
-		.content .endpoint pre {
-			padding: 0.5em;
-			background-color: #f4f4f4;
-      margin: 0.75em 0 0.25em 0;
-      overflow: auto;
-		}
-		.content .endpoint-link {
-			display: block;
-			text-decoration: none;
-			color: #333;
-		}
-		.content .endpoint-request-method {
-			color: #fff;
-			display: inline-block;
-			text-align: center;
-			min-width: 5em;
-			font-weight: 600;
-			font-size: 0.9em;
-			margin-right: 0.5em;
-			border: 0; /*1px solid #ccc;*/
-			border-radius: 3px;
-		}
-		.content .endpoint-request-name {
-			font-size: 1em;
-			font-weight: bold;
-			margin-right: 0.5em;
-		}
-		.content .endpoint-request-description {
-			font-size: 0.8em;
-			color: #333;
-		}
-		.content .endpoint-request-body {
-			font-size: 0.8em;
-		}
-		.content .endpoint-response-status {
-			font-size: 0.8em;
-		}
-		.content .endpoint-response-body {
-			font-size: 0.8em;
-		}
-		.content .endpoint-link--get .endpoint-request-method {
-			background-color: #61affe;
-		}
-		.content .endpoint-link--post .endpoint-request-method {
-			background-color: #4caf50;
-		}
-		.content .endpoint-link--put .endpoint-request-method {
-			background-color: #ff9800;
-		}
-		.content .endpoint-link--delete .endpoint-request-method {
-			background-color: #f44336;
-		}
-	</style>
 {% endblock %}

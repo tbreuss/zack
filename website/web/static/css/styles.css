@@ -364,3 +364,67 @@ body {
         display: block;
     }
 }
+
+/* Index page */
+.content .endpoint {
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.content .endpoint p {
+    margin: 0.75em 0 0.25em 0;
+}
+.content .endpoint pre {
+    padding: 0.5em;
+    background-color: #f4f4f4;
+    margin: 0.75em 0 0.25em 0;
+    overflow: auto;
+}
+.content .endpoint-link {
+    display: block;
+    text-decoration: none;
+    color: #333;
+}
+.content .endpoint-request-method {
+    color: #fff;
+    display: inline-block;
+    text-align: center;
+    min-width: 5em;
+    font-weight: 600;
+    font-size: 0.9em;
+    margin-right: 0.5em;
+    border: 0; /*1px solid #ccc;*/
+    border-radius: 3px;
+}
+.content .endpoint-request-name {
+    font-size: 1em;
+    font-weight: bold;
+    margin-right: 0.5em;
+}
+.content .endpoint-request-description {
+    font-size: 0.8em;
+    color: #333;
+}
+.content .endpoint-request-body {
+    font-size: 0.8em;
+}
+.content .endpoint-response-status {
+    font-size: 0.8em;
+}
+.content .endpoint-response-body {
+    font-size: 0.8em;
+}
+.content .endpoint-link--get .endpoint-request-method {
+    background-color: #61affe;
+}
+.content .endpoint-link--post .endpoint-request-method {
+    background-color: #4caf50;
+}
+.content .endpoint-link--put .endpoint-request-method {
+    background-color: #ff9800;
+}
+.content .endpoint-link--delete .endpoint-request-method {
+    background-color: #f44336;
+}
