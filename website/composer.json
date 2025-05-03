@@ -7,7 +7,7 @@
       "type": "path",
       "url": "../",
       "options": {
-        "symLink": false,
+        "symlink": false,
         "versions": {
           "tebe/zack": "0.0.0"
         }

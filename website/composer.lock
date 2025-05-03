@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f9ef40b02a87fe0dd8d7cafb1bd4deec",
+    "content-hash": "166802071a0e3054dd2795bd3ba99ef2",
     "packages": [
         {
             "name": "dflydev/dot-access-data",
@@ -1850,7 +1850,7 @@
             "dist": {
                 "type": "path",
                 "url": "..",
-                "reference": "1de17a9bc83ca6cf04e2d8dd79af0833ed37202d"
+                "reference": "0622670f885652e1777f5281d3ae10790fa95887"
             },
             "require": {
                 "league/commonmark": "^2.6",
@@ -1878,6 +1878,7 @@
             ],
             "description": "A sample PHP project",
             "transport-options": {
+                "symlink": false,
                 "relative": true
             }
         },
