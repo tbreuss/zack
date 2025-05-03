@@ -31,12 +31,25 @@ class FileBasedRouter
                 return strcmp($a, $b);
             });
 
-        $catchAllFile = null;
+        $catchAllRoute = null;
+
         foreach ($finder as $file) {
             $relativePath = $file->getRelativePathname();
 
-            if (str_contains($relativePath, '[...]')) {
-                $catchAllFile = $file;
+            if (!$catchAllRoute && $this->isCatchAllRoute($relativePath)) {
+                $catchAllRoute = $file;
+                continue;
+            }
+
+            [$status, $params] = $this->catchAllParams($relativePath);
+            if ($status) {
+                [$path, $param, $method, $extension] = $params;
+                $routes->add($this->getName($path, $method), new Route($path, [
+                    '_controller' => $this->getController($extension),
+                    '_path' => $this->getPath($relativePath),
+                ], requirements: [
+                    $param => '.+',
+                ], methods: $this->getMethods($method)));
                 continue;
             }
 
@@ -48,12 +61,11 @@ class FileBasedRouter
             ], methods: $this->getMethods($method)));
         }
 
-        if ($catchAllFile) {
-            $filename = '[...]';
-            $extension = pathinfo($catchAllFile->getRelativePathname(), PATHINFO_EXTENSION);
+        if ($catchAllRoute) {
+            $extension = pathinfo($catchAllRoute->getRelativePathname(), PATHINFO_EXTENSION);
             $routes->add('catch-all', new Route('/{path}', [
                 '_controller' => $this->getController($extension),
-                '_path' => $catchAllFile->getRealPath(),
+                '_path' => $catchAllRoute->getRealPath(),
             ], requirements: [
                 'path' => '.+',
             ]));
@@ -62,6 +74,28 @@ class FileBasedRouter
         $this->dispatcher->dispatch(new RoutesEvent($routes), 'routes');
 
         return $routes;
+    }
+
+    private function isCatchAllRoute(string $relativePath): bool
+    {
+        return str_contains($relativePath, '[...]');
+    }
+
+    private function catchAllParams(string $relativePath): array
+    {
+        // See https://regex101.com/r/btDcBq/1
+        $status = preg_match('/([A-Za-z0-9-_]+\/)*(\[\.{3})([a-z]+)(\]{1})(\.[a-z]+)*\.([a-z]+)/', $relativePath, $matches);
+        
+        if ($status > 0) {
+            return [true, [
+                $matches[1] . '{' . $matches[3] . '}',
+                $matches[3],
+                trim($matches[5] ?: 'get', '.'),
+                $matches[6],
+            ]];
+        }
+
+        return [false, []];
     }
 
     private function getPathParts(string $relativePath): array
