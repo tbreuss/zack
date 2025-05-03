@@ -4,26 +4,21 @@ namespace tebe\zack;
 
 use tebe\zack\event\ContainerEvent;
 use tebe\zack\event\ResponseEvent;
-use tebe\zack\event\RoutesEvent;
-use tebe\zack\routing\HtmlRouteHandler;
-use tebe\zack\routing\JsonRouteHandler;
-use tebe\zack\routing\PhpRouteHandler;
 use Symfony\Component\DependencyInjection;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\ErrorHandler;
 use Symfony\Component\EventDispatcher;
-use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation;
 use Symfony\Component\HttpKernel;
 use Symfony\Component\Routing;
-use Symfony\Component\Routing\Route;
+use tebe\zack\routing\FileBasedRouter;
 use Twig;
 
 class Zack
 {
     public function __construct(
         private Config $config,
-        private EventDispatcher\EventDispatcher $dispatcher = new EventDispatcher(),
+        private EventDispatcher\EventDispatcher $dispatcher = new EventDispatcher\EventDispatcher(),
         private DependencyInjection\ContainerBuilder $container = new DependencyInjection\ContainerBuilder(),
     ) {}
 
@@ -58,7 +53,7 @@ class Zack
 
     public function initContainer(): void
     {
-        $routes = $this->getRoutes();
+        $routes = (new FileBasedRouter($this->config, $this->dispatcher))->getRoutes();
 
         $this->container->register('twig_loader', Twig\Loader\FilesystemLoader::class)
             ->addArgument($this->config->twigTemplatePath);
@@ -105,69 +100,5 @@ class Zack
             ]);
 
         $this->dispatcher->dispatch(new ContainerEvent($this->container), 'container');
-    }
-
-    private function getRoutes(): Routing\RouteCollection
-    {
-        $routes = new Routing\RouteCollection();
-
-        $finder = new Finder();
-
-        $finder->files()
-            ->in($this->config->routePath)
-            ->sort(function (\SplFileInfo $a, \SplFileInfo $b): int {
-                // temporary solution to have named parameter routes in last place
-                $a = str_replace(['[', ']'], '~', $a->getRealPath());
-                $b = str_replace(['[', ']'], '~', $b->getRealPath());
-                return strcmp($a, $b);
-            });
-
-        foreach ($finder as $file) {
-            $relativePath = $file->getRelativePathname();
-            $relativePathParts = explode('.', $relativePath);
-
-            if (count($relativePathParts) === 2) {
-                [$filename, $extension] = $relativePathParts;
-                $method = 'get';
-            } elseif (count($relativePathParts) === 3) {
-                [$filename, $method, $extension] = $relativePathParts;
-            } else {
-                throw new \Exception('Invalid file name format: ' . $relativePath);
-            }
-
-            $id = str_replace(['[', ']'], '', $filename . '/' . $method);
-
-            $route = '/' . $filename;
-            if ($filename === 'index' || (($pos = strrpos($filename, 'index')) !== false)) {
-                $route = '/' . rtrim(substr($filename, 0, strlen($filename) - 5), '/');
-            }
-            $route = str_replace(['[', ']'], ['{', '}'], $route);
-
-            $controller = match ($file->getExtension()) {
-                'json' => JsonRouteHandler::class,
-                'php' => PhpRouteHandler::class,
-                'html' => HtmlRouteHandler::class,
-                default => throw new \Exception('Unsupported file type: ' . $file->getExtension()),
-            };
-
-            $methods = match ($method) {
-                'get' => ['GET'],
-                'post' => ['POST'],
-                'put' => ['PUT'],
-                'delete' => ['DELETE'],
-                default => throw new \Exception('Unsupported method: ' . $fileParts[1]),
-            };
-
-            $path = $this->config->routePath . '/' . $file->getRelativePathname();
-
-            $routes->add($id, new Route($route, [
-                '_controller' => $controller,
-                '_path' => $path,
-            ], methods: $methods));
-        }
-
-        $this->dispatcher->dispatch(new RoutesEvent($routes), 'routes');
-
-        return $routes;
     }
 }
