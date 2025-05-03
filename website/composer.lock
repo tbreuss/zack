@@ -1850,7 +1850,7 @@
             "dist": {
                 "type": "path",
                 "url": "..",
-                "reference": "b29d9e34898f369c790be71351cbff2658335a76"
+                "reference": "1de17a9bc83ca6cf04e2d8dd79af0833ed37202d"
             },
             "require": {
                 "league/commonmark": "^2.6",
