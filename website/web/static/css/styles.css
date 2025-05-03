@@ -83,7 +83,7 @@ body {
     padding: 1.4em;
     margin: 1.4em 0;
     background-color: #E6E6E6;
-    overflow-x: scroll;
+    overflow-x: auto;
 }
 
 .content a.pure-button-primary {

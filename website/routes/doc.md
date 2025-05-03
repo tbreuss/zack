@@ -2,13 +2,49 @@
 
 ### Requirements
 
-TBD
+Zack! requirements are:
+
+- PHP: 8.2 / 8.3 / 8.4
+- Composer: 2.x
+
+Composer `--no-dev` requirements are:
+
+- league/commonmark: ^2.6
+- symfony/dependency-injection: ^7.2
+- symfony/event-dispatcher: ^7.2
+- symfony/finder: ^7.2
+- symfony/http-foundation: ^7.2
+- symfony/http-kernel: ^7.2
+- symfony/routing: ^7.2
+- twig/twig: ^3.20
 
 ### Installation
 
-TBD
+Install Zack! with Composer:
 
-### Routing
+    composer require tebe/zack
+
+And then create your webapp by managing the `project` folder
+
+### Project Folder Structure
+
+A typical project folder structure looks like the following:
+
+    server/               <-- Project root folder on your server
+      cache/              <-- Folder with cached files
+      config/             <-- Folder with config files
+      logs/               <-- Folder with log files
+      routes/             <-- Folder with routes for your website
+      views/              <-- Folder with twig templates
+        base.html.twig    <-- Twig base layout file
+        error.html.twig   <-- Twig file for displaying errors
+      web/                <-- Web server public folder
+        assets/           <-- Folder with asset files like css or js
+        index.php         <-- Website bootstrap file
+
+Normally you only work in the `routes` and `views` folders.
+
+### File-Based Routing
 
 Zack! is using file-based routing for your routes. 
 Files are automatically mapped to Symfony routes. 
@@ -18,9 +54,9 @@ You can only define one handler per files and you can append the HTTP method to 
 
     routes/
       api/
-        test.php          <-- /api/test
-      index.get.php       <-- GET /
-      contact.get.php     <-- GET /contact
+        test.php          <-- GET  /api/test
+      index.get.php       <-- GET  /
+      contact.get.php     <-- GET  /contact
       contact.post.php    <-- POST /contact
 
 You can nest routes by creating subdirectories.
@@ -35,7 +71,7 @@ You can nest routes by creating subdirectories.
       hello.get.php
       hello.post.php
 
-#### Simple routes
+#### Simple Routes
 
 First, create a file in `routes` directory.
 The filename will be the route path.
@@ -55,9 +91,9 @@ return new Response('{"ping": "pong"}', 200, [
 ]);
 ~~~
 
-#### Route with params
+#### Route With Params
 
-##### Single param
+##### Single Pßaram
 
 To define a route with params, use the `[<param>]` syntax where `<param>` is the name of the param.
 The param will be available in `$request->attributes` object.
@@ -74,15 +110,15 @@ $name = $request->attributes->get('name');
 return new Response('Hello ' . $name . '!', 200);
 ~~~
 
-Call the route with the param /hello/zack, you will get:
+Call the route with the param `/hello/zack`, you will get:
 
 ~~~text
 #Response
 
-Hello nitro!
+Hello zack!
 ~~~
 
-##### Multiple params
+##### Multiple Params
 
 You can define multiple params in a route using `[<param1>]/[<param2>]` syntax where each param is a folder.
 You cannot define multiple params in a single filename of folder.
@@ -100,7 +136,7 @@ $age = $request->attributes->get('age');
 return new Response("Hello ${name}! You are ${age} years old.", 200);
 ~~~
 
-##### Catch all params
+##### Catch All Params
 
 You can capture all the remaining parts of a URL using `[...<param>]` syntax. This will include the `/` in the param.
 
@@ -124,7 +160,7 @@ Call the route with the param `/hello/zack/is/nice`, you will get:
 Hello zack/is/nice!
 ~~~
 
-#### Specific request method
+#### Specific Request Method
 
 You can append the HTTP method to the filename to force the route to be matched only for a specific HTTP request method.
 For example `hello.get.php` will only match for GET requests. 
@@ -146,7 +182,7 @@ return new Response('{"updated": true}', 200, [
 ]);
 ~~~
 
-#### Catch all route
+#### Catch All Route
 
 You can create a special route that will match all routes that are not matched by any other route.
 This is useful for creating a default route.
@@ -167,8 +203,45 @@ return new Response("Hello ${path}!", 200);
 
 ### Route Handler
 
-TBD
+You can use the file extension of a route file to force the route to be handled by a specific route handler.
+Zack! is currently delivered with the following route handlers:
+
+#### HTML Route Handler
+
+File extensions: htm, html
+
+#### JSON Route Handler
+
+File extension: json
+
+#### Markdown Route Handler
+
+File extensions: markdown, md
+
+#### PHP Route Handler
+
+File extension: php
 
 ### Events
 
-TBD
+#### Zack! Events
+
+Zack! ships with the following events:
+
+- **zack.container**
+- **zack.controller**
+- **zack.routes**
+
+#### Symfony HttpKernel Events
+
+Zack! supports the following Symfony HttpKernel events:
+
+- **kernel.controller**: This event is dispatched very early, before the controller is determined.
+- **kernel.controller_arguments**: This event is dispatched after the controller has been resolved but before executing it.
+- **kernel.view**: This event is dispatched just before a controller is called. 
+- **kernel.response**: This event is dispatched after the controller or any kernel.view listener returns a Response object.
+- **kernel.finish_request**: This event is dispatched after the kernel.response event.
+- **kernel.terminate**: This event is dispatched after the response has been sent (after the execution of the handle() method). 
+- **kernel.exception**: This event is dispatched as soon as an error occurs during the handling of the HTTP request.
+
+Read <https://symfony.com/doc/current/reference/events.html#kernel-events> for more information.
