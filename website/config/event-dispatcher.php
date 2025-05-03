@@ -9,8 +9,8 @@ $dispatcher->addListener('zack.container', function (): void {
 });
 
 $dispatcher->addListener('zack.controller', function ($event): void {
-    if ($event->getExtension() === 'md') {
-        $event->setResolvedController(tebe\zack\routing\HtmlRouteHandler::class);
+    if ($event->getExtension() === 'markdown') {
+        $event->setResolvedController(tebe\zack\routing\MarkdownRouteHandler::class);
     }
     error_log('Event zack.controller received');
 });
@@ -23,7 +23,7 @@ $dispatcher->addListener('kernel.request', function (): void {
     error_log('Event kernel.request received');
 });
 
-$dispatcher->addListener('kernel.controller', function (): void {
+$dispatcher->addListener('kernel.controller', function ($event): void {
     error_log('Event kernel.controller received');
 });
 

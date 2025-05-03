@@ -3,7 +3,6 @@
 namespace tebe\zack;
 
 use tebe\zack\event\ContainerEvent;
-use tebe\zack\event\ResponseEvent;
 use Symfony\Component\DependencyInjection;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\ErrorHandler;

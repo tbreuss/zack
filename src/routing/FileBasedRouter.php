@@ -136,12 +136,15 @@ class FileBasedRouter
             return $controller;
         }
 
-        return match ($extension) {
-            'html' => HtmlRouteHandler::class,
+        $controller = match ($extension) {
+            'htm', 'html' => HtmlRouteHandler::class,
             'json' => JsonRouteHandler::class,
+            'markdown', 'md' => MarkdownRouteHandler::class,
             'php' => PhpRouteHandler::class,
             default => throw new \Exception('Unsupported file type: ' . $extension),
         };
+
+        return $controller;
     }
 
     private function getMethods(string $method): array
