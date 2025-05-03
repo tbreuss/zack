@@ -3,14 +3,13 @@
 	<head>
 		{% block head %}
 			<meta charset="utf-8">
-			<title>
-				{% block title %}{% endblock %}
-				- Zack!</title>
+			<title>{% block title %}{% endblock %} - Zack!</title>
 			<meta name="viewport" content="width=device-width, initial-scale=1">
 			<meta name="robots" content="index, follow">
 			<link rel="stylesheet" href="/static/css/pure-min.css">
 			<link rel="stylesheet" href="/static/css/grids-responsive-min.css">
 			<link rel="stylesheet" href="/static/css/styles.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
 		{% endblock %}
 	</head>
 	<body>
@@ -90,5 +89,8 @@
 				</div>
 			{% endblock %}
 			<script src="/static/js/main.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/php.min.js"></script>
+      <script>hljs.highlightAll();</script>
 		</body>
 	</html>

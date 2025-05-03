@@ -30,17 +30,19 @@ And then create your webapp by managing the `project` folder
 
 A typical project folder structure looks like the following:
 
-    server/               <-- Project root folder on your server
-      cache/              <-- Folder with cached files
-      config/             <-- Folder with config files
-      logs/               <-- Folder with log files
-      routes/             <-- Folder with routes for your website
-      views/              <-- Folder with twig templates
-        base.html.twig    <-- Twig base layout file
-        error.html.twig   <-- Twig file for displaying errors
-      web/                <-- Web server public folder
-        assets/           <-- Folder with asset files like css or js
-        index.php         <-- Website bootstrap file
+~~~text
+server/               <-- Project root folder on your server
+  cache/              <-- Folder with cached files
+  config/             <-- Folder with config files
+  logs/               <-- Folder with log files
+  routes/             <-- Folder with routes for your website
+  views/              <-- Folder with twig templates
+    base.html.twig    <-- Twig base layout file
+    error.html.twig   <-- Twig file for displaying errors
+  web/                <-- Web server public folder
+    assets/           <-- Folder with asset files like css or js
+    index.php         <-- Website bootstrap file
+~~~
 
 Normally you only work in the `routes` and `views` folders.
 
@@ -52,24 +54,28 @@ Defining a route is as simple as creating a file inside the `routes` directory.
 
 You can only define one handler per files and you can append the HTTP method to the filename to define a specific request method.
 
-    routes/
-      api/
-        test.php          <-- GET  /api/test
-      index.get.php       <-- GET  /
-      contact.get.php     <-- GET  /contact
-      contact.post.php    <-- POST /contact
+~~~text
+routes/
+  api/
+    test.php          <-- GET  /api/test
+  index.get.php       <-- GET  /
+  contact.get.php     <-- GET  /contact
+  contact.post.php    <-- POST /contact
+~~~
 
 You can nest routes by creating subdirectories.
 
-    routes/
-      communities/
-        index.get.php
-        index.post.php
-        [id]/
-          index.get.php
-          index.post.php
-      hello.get.php
-      hello.post.php
+~~~text
+routes/
+  communities/
+    index.get.php
+    index.post.php
+    [id]/
+      index.get.php
+      index.post.php
+  hello.get.php
+  hello.post.php
+~~~
 
 #### Simple Routes
 
@@ -93,7 +99,7 @@ return new Response('{"ping": "pong"}', 200, [
 
 #### Route With Params
 
-##### Single Pßaram
+##### Single Param
 
 To define a route with params, use the `[<param>]` syntax where `<param>` is the name of the param.
 The param will be available in `$request->attributes` object.
@@ -204,6 +210,17 @@ return new Response("Hello ${path}!", 200);
 ### Route Handler
 
 You can use the file extension of a route file to force the route to be handled by a specific route handler.
+
+~~~txt
+routes/
+  htm-page.htm
+  html-page.html
+  json-page.json
+  md-page.md
+  markdown-page.markdown
+  php-page.php
+~~~
+
 Zack! is currently delivered with the following route handlers:
 
 #### HTML Route Handler
