@@ -35,7 +35,7 @@ class Zack
         $request->attributes->add(['_container' => $this->container]);
 
         $kernel = $this->container->get('httpkernel');
-        
+
         $response = $kernel->handle($request);
         $response->send();
 

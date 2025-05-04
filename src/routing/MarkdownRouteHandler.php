@@ -28,7 +28,7 @@ class MarkdownRouteHandler
         }
 
         $converter = new CommonMarkConverter();
-        $html = (string)$converter->convert($markdown);
+        $html = (string) $converter->convert($markdown);
 
         $content = $container->get('twig')->render('route-handler.html.twig', [
             'title' => $this->extractTitle($html, $path),

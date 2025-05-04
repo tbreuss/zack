@@ -15,7 +15,7 @@ class FileBasedRouter
     public function __construct(
         private Config $config,
         private EventDispatcher\EventDispatcher $dispatcher,
-    ) { }
+    ) {}
 
     public function getRoutes(): Routing\RouteCollection
     {
@@ -86,7 +86,7 @@ class FileBasedRouter
     {
         // See https://regex101.com/r/btDcBq/1
         $status = preg_match('/([A-Za-z0-9-_]+\/)*(\[\.{3})([a-z]+)(\]{1})(\.[a-z]+)*\.([a-z]+)/', $relativePath, $matches);
-        
+
         if ($status > 0) {
             return [true, [
                 $matches[1] . '{' . $matches[3] . '}',
@@ -105,7 +105,7 @@ class FileBasedRouter
 
         if (count($relativePathParts) === 2) {
             [$filename, $extension] = $relativePathParts;
-            return [$filename, 'get', $extension];      
+            return [$filename, 'get', $extension];
         } elseif (count($relativePathParts) === 3) {
             return [$filename, $method, $extension] = $relativePathParts;
         } else {

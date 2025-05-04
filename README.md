@@ -38,3 +38,9 @@ Install packages
 Run website
 
     docker run --rm -v .:/app -p 8888:8888 zack php -S 0.0.0.0:8888 -t /app/website/web
+
+## Testing
+
+### PHP-CS-Fixer
+
+    docker run -it --rm -v $(pwd):/code ghcr.io/php-cs-fixer/php-cs-fixer:${FIXER_VERSION:-3-php8.3} fix
