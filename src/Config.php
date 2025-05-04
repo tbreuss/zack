@@ -5,9 +5,10 @@ namespace tebe\zack;
 readonly class Config
 {
     // Zack!
+    public string $zackPath;
     public string $rootPath;
     public string $routePath;
-    public string $logPath;
+    public string $logPath;   
     // PHP
     public int $phpErrorReporting;
     public bool $phpDisplayErrors;
@@ -38,6 +39,7 @@ readonly class Config
             }
         }
         // Zack!
+        $this->zackPath = __DIR__;
         $this->rootPath = $config['rootPath'] ?? throw new \InvalidArgumentException('rootPath is required');
         $this->routePath = $config['routePath'] ?? $this->rootPath . '/routes';
         $this->logPath = $config['logPath'] ?? $this->rootPath . '/logs';

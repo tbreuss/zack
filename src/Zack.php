@@ -56,7 +56,7 @@ class Zack
         $routes = (new FileBasedRouter($this->config, $this->dispatcher))->getRoutes();
 
         $this->container->register('twig_loader', Twig\Loader\FilesystemLoader::class)
-            ->addArgument($this->config->twigTemplatePath);
+            ->addArgument($this->getTwigPaths());
 
         $this->container->register('twig', Twig\Environment::class)
             ->addArgument(new DependencyInjection\Reference('twig_loader'))
@@ -100,5 +100,16 @@ class Zack
             ]);
 
         $this->dispatcher->dispatch(new ContainerEvent($this->container), 'zack.container');
+    }
+
+    private function getTwigPaths(): array
+    {
+        $twigPaths = [];
+        if (is_dir($this->config->twigTemplatePath)) {
+            $twigPaths[] = $this->config->twigTemplatePath;
+        }
+        $twigPaths[] = $this->config->zackPath . '/views';
+
+        return $twigPaths;
     }
 }
