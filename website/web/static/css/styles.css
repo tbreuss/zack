@@ -54,6 +54,11 @@ body {
 }
 
 .content h4 {
+    font-size: 1.1em;
+    font-weight: bold;
+}
+
+.content h5 {
     font-size: 1em;
     font-weight: bold;
 }
@@ -78,10 +83,16 @@ body {
     font-size: 0.88em;
 }
 
-.content pre {
+.content pre.error-trace {
+    background-color: #f3f3f3;
+    padding: 1em;
+    margin: 0 0 1.4em 0;
+    overflow-x: auto;
+}
+
+.content code.hljs {
     font-size: 0.9em;
-    padding: 0;
-    margin: 0 0 1em 0;
+    margin: 0 0 1.4em 0;
     background-color: #f3f3f3;
     overflow-x: auto;
 }

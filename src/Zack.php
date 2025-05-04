@@ -45,7 +45,6 @@ class Zack
     private function errorHandler(ErrorHandler\Exception\FlattenException $exception): HttpFoundation\Response
     {
         $content = $this->container->get('twig')->render('error.html.twig', [
-            'title' => 'Error',
             'exception' => $exception,
         ]);
 

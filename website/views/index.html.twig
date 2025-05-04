@@ -25,16 +25,48 @@
 
 {% block content %}
 	<p>
-    Zack! is a tiny little framework based on Symfony's <a href="https://symfony.com/doc/current/components/http_kernel.html">HttpKernel Component</a> using file-based routing, inspired by Javascript Libraries/Frameworks like <a href="https://nitro.build/guide/routing">Nitro</a>.
-    It ships with the <a href="https://twig.symfony.com/">Twig</a> template engine and HTML, JSON, <a href="https://commonmark.thephpleague.com/">Markdown</a> and PHP route handler out of the box.
-    It is a great fit for small projects, MVPs, or even as a microservice.
+    Zack! is a tiny little framework based on the <a href="https://symfony.com/doc/current/components/http_kernel.html">HttpKernel Component</a> of Symfony and uses file-based routing as its main feature.
+    It comes with the <a href="https://twig.symfony.com/">Twig</a> template engine and HTML, JSON, <a href="https://commonmark.thephpleague.com/">Markdown</a> and PHP route handlers out of the box.
+    It is great for smaller projects such as websites, APIs, MVPs or even microservices.
   </p>
 
-	<h3>Supported PHP versions</h3>
-  <p>PHP 8.2 / 8.3 / 8.4</p>
+	<h2>Examples</h2>
+  <h3>This Website</h3>
+  <p>This website runs with Zack! The file-based routing is best seen in the  <a href="https://github.com/tbreuss/zack/tree/develop/website/routes/">routes directory</a> of the GitHub repository.</p>
 
-	<h3>Petstore 3 API</h3>
-  <p>As an example, we have (more or less) implemented the endpoints of the <a href="https://petstore3.swagger.io/">Petstore 3</a> OpenAPI specification.</p>
+  <h3>Petstore OAS 3.0</h3>
+  <p>As an API example, we have (more or less) implemented the endpoints of the <a href="https://petstore3.swagger.io/">Swagger Petstore - OpenAPI 3.0</a> specification.</p>
+  <p>The file-based routing for the API looks as follows:</p>
+<pre><code class="language-text">api/petstore3
+├── pet
+│   ├── [petId]
+│   │   ├── index.delete.json
+│   │   ├── index.get.json
+│   │   ├── index.post.json
+│   │   └── uploadImage.post.json
+│   ├── findByStatus.get.json
+│   ├── findByTags.get.json
+│   ├── index.post.json
+│   └── index.put.json
+├── store
+│   ├── order
+│   │   ├── [orderId]
+│   │   │   ├── index.delete.json
+│   │   │   └── index.get.json
+│   │   └── index.post.json
+│   └── inventory.get.json
+└── user
+    ├── [username]
+    │   ├── index.delete.json
+    │   ├── index.get.json
+    │   └── index.put.json
+    ├── createWithList.post.json
+    ├── index.post.json
+    ├── login.get.json
+    └── logout.get.json</code></pre>
+
+  <p>Click on the endpoints below to see the requests and responses in detail.</p>
+
 	{% for category in apiRoutes %}
     <p style="margin: 1em 0 0.5em 0">
       <b style="margin-right: 0.5em">{{ category.name }}</b>

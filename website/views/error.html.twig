@@ -5,9 +5,10 @@
 {% endblock %}
 
 {% block content %}
-	<h2>{{ title }}</h2>
-	<p>
-		<b>{{ exception.message }}</b>
-	</p>
-	<pre>{{ exception.traceAsString }}</pre>
+  {% if exception.statusCode == 404 %}
+    <h2>Page Not Found</h2>
+  {% else %}
+    <h2>Error  {{ exception.statusCode }}</h2>
+  {% endif %}
+	<p>{{ exception.message }}</p>
 {% endblock %}

@@ -31,17 +31,17 @@ And then create your webapp by managing the `project` folder
 A typical project folder structure looks like the following:
 
 ~~~text
-server/               <-- Project root folder on your server
-  cache/              <-- Folder with cached files
-  config/             <-- Folder with config files
-  logs/               <-- Folder with log files
-  routes/             <-- Folder with routes for your website
-  views/              <-- Folder with twig templates
-    base.html.twig    <-- Twig base layout file
-    error.html.twig   <-- Twig file for displaying errors
-  web/                <-- Web server public folder
-    assets/           <-- Folder with asset files like css or js
-    index.php         <-- Website bootstrap file
+project/                      <-- Project root folder on your server
+├── cache/                    <-- Folder with cached files
+├── config/                   <-- Folder with config files
+├── logs/                     <-- Folder with log files
+├── routes/                   <-- Folder with routes for your website
+├── views/                    <-- Folder with twig templates
+│   └── base.html.twig        <-- Twig base layout file
+│       └── error.html.twig   <-- Twig file for displaying errors
+└── web/                      <-- Web server public folder
+    └── assets/               <-- Folder with asset files like css or js
+        └── index.php         <-- Website bootstrap file
 ~~~
 
 Normally you only work in the `routes` and `views` folders.
@@ -56,25 +56,25 @@ You can only define one handler per files and you can append the HTTP method to 
 
 ~~~text
 routes/
-  api/
-    test.php          <-- GET  /api/test
-  index.get.php       <-- GET  /
-  contact.get.php     <-- GET  /contact
-  contact.post.php    <-- POST /contact
+├── api/
+│   └── test.php          <-- GET  /api/test
+├── index.get.php         <-- GET  /
+├── contact.get.php       <-- GET  /contact
+└── contact.post.php      <-- POST /contact
 ~~~
 
 You can nest routes by creating subdirectories.
 
 ~~~text
 routes/
-  communities/
-    index.get.php
-    index.post.php
-    [id]/
-      index.get.php
-      index.post.php
-  hello.get.php
-  hello.post.php
+├── communities/
+│   └── index.get.php
+│       ├── index.post.php
+│       └── [id]/
+│           └── index.get.php
+│               └── index.post.php
+├── hello.get.php
+└── hello.post.php
 ~~~
 
 #### Simple Routes
@@ -213,12 +213,12 @@ You can use the file extension of a route file to force the route to be handled 
 
 ~~~txt
 routes/
-  htm-page.htm
-  html-page.html
-  json-page.json
-  md-page.md
-  markdown-page.markdown
-  php-page.php
+├── htm-page.htm
+├── html-page.html
+├── json-page.json
+├── md-page.md
+├── markdown-page.markdown
+└── php-page.php
 ~~~
 
 Zack! is currently delivered with the following route handlers:
@@ -245,9 +245,9 @@ File extension: php
 
 Zack! ships with the following events:
 
-- **zack.container**
-- **zack.controller**
-- **zack.routes**
+- **zack.container**: This event is dispatched after the container has been built.
+- **zack.controller**: This event is dispatched just before the controller (i.e. the route handler) is determined.
+- **zack.routes**: This event is dispatched after the routes have been built.
 
 #### Symfony HttpKernel Events
 
