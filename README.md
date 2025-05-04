@@ -43,4 +43,16 @@ Run website
 
 ### PHP-CS-Fixer
 
+Fix code style issue using [PHP-CS-Fixer](https://github.com/PHP-CS-Fixer/PHP-CS-Fixer)
+
     docker run -it --rm -v $(pwd):/code ghcr.io/php-cs-fixer/php-cs-fixer:${FIXER_VERSION:-3-php8.3} fix
+
+### Acceptance Tests
+
+Start built-in web server
+
+    php -S localhost:9330 -t tests/_data/web
+
+Run acceptance tests using [Hurl](https://hurl.dev/)
+
+    cat tests/acceptance/* | docker run --rm -i --network="host" ghcr.io/orange-opensource/hurl:latest --variable host=http://localhost:9330 --test -v --color
