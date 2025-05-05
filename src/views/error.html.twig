@@ -1,0 +1,18 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+  {% if exception.statusCode == 404 %}
+    Page Not Found
+  {% else %}
+    Error {{ exception.statusCode }}
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+  {% if exception.statusCode == 404 %}
+    <h2>Page Not Found</h2>
+  {% else %}
+    <h2>Error {{ exception.statusCode }}</h2>
+  {% endif %}
+	<p>{{ exception.message }}</p>
+{% endblock %}
