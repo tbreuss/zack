@@ -33,7 +33,7 @@ Install Zack! using Composer:
 composer require tebe/zack:dev-develop
 ~~~
 
-In your `myproject` folder create the following folders and files:
+In your `myproject` folder add the following folders and files:
 
 ~~~text
 myproject/
