@@ -43,13 +43,28 @@
 
 	<h2>Examples</h2>
   <h3>This Website</h3>
-  <p>This website runs with Zack! The file-based routing is best seen in the  <a href="https://github.com/tbreuss/zack/tree/develop/website/routes/">routes directory</a> of the GitHub repository.</p>
+  <p>This website runs with Zack! The file-based routing for the website is very simple and looks like this:</p>
+
+<pre><code class="language-text">routes/
+├─ development.md
+├─ doc.md
+└─ index.php
+</code></pre>
+
+  <p>And also the folder with the necessary twig views looks manageable:</p>
+
+<pre><code class="language-text">views/
+├─ base.html.twig
+├─ error.html.twig
+└─ index.html.twig</code></pre>
+
+  <p>In this example, the two Markdown files are automatically converted to HTML and output, while the PHP file is rendered and output using Twig.</p>
 
   <h3>Petstore OAS 3.0</h3>
   <p>As an API example, we have (more or less) implemented the endpoints of the <a href="https://petstore3.swagger.io/">Swagger Petstore - OpenAPI 3.0</a> specification.</p>
   <p>The file-based routing for the API looks as follows:</p>
 
-<pre><code class="language-text">api/petstore3
+<pre><code class="language-text">routes/api/petstore3/
 ├─ pet
 │  ├─ [petId]
 │  │  ├─ index.delete.json
