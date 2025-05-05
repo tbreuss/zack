@@ -1,12 +1,22 @@
 # Zack!
 
-Zack! is a tiny little framework based on [Symfony's HTTP-Kernel](https://symfony.com/doc/current/components/http_kernel.html) using file-based routing, inspired by Javascript Librarie and Frameworks like [Nitro](https://nitro.build/guide/routing).
-It ships with the Twig template engine and HTML, JSON, Markdown and PHP route handler out of the box.
-It is a great fit for small projects, MVPs, or even as a microservice.
+Zack! is a compact framework, built on the [HttpKernel Component](https://symfony.com/doc/current/components/http_kernel.html) of Symfony, that emphasizes file-based routing.
+It includes various route handlers for handling HTML, JSON, [Markdown](https://commonmark.thephpleague.com/), and PHP files with ease.
+Additionally, Zack! integrates [Twig](https://twig.symfony.com/), a powerful template engine, making it perfect for small, easily manageable website and API projects.
 
-## Supported PHP versions
+In summary, Zack!'s key features are:
 
-- PHP 8.2 / 8.3 / 8.4
+- Based on the HttpKernel Component of Symfony
+- Utilizes file-based routing
+- Includes route handlers for handling various file types
+- Integrates Twig as a template engine
+
+These features make Zack! a good choice for users looking for a simple and efficient solution for their small-scale projects.
+
+## Requirements
+
+- PHP: 8.2 / 8.3 / 8.4
+- Composer: 2.x
 
 ## Development Environment
 
