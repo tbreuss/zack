@@ -20,11 +20,62 @@ Composer `--no-dev` requirements are:
 
 ### Installation
 
-Install Zack! with Composer:
+Create a new project folder and change into it.
 
-    composer require tebe/zack
+~~~bash
+mkdir myproject
+cd myproject
+~~~
 
-And then create your webapp by managing the `project` folder
+Install Zack! using Composer:
+
+~~~bash
+composer require tebe/zack:dev-develop
+~~~
+
+In your `myproject` folder create the following folders and files:
+
+~~~text
+myproject/
+├─ routes/
+│  └─ index.get.html
+└─ web/
+   └─ index.php
+~~~
+
+Add the following content to the files:
+
+routes/index.get.html
+
+~~~html
+<h1>Hello Zack!</h1>
+~~~
+
+web/index.php
+
+~~~php
+<?php
+
+require dirname(__DIR__) . '/vendor/autoload.php';
+
+use tebe\zack\Config;
+use tebe\zack\Zack;
+
+$config = new Config([
+    'rootPath' => dirname(__DIR__),
+]);
+
+(new Zack($config))->run();
+~~~
+
+Start PHP's built-in web server:
+
+~~~bash
+cd myproject
+php -S localhost:8888 -t web
+~~~
+
+Open <http://localhost:8888> with your preferred web browser.
 
 ### Project Folder Structure
 
