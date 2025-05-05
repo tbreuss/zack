@@ -36,12 +36,14 @@ project/                     <-- Project root folder on your server
 ├─ config/                   <-- Folder with config files
 ├─ logs/                     <-- Folder with log files
 ├─ routes/                   <-- Folder with routes for your website
+│  └─ index.get.html         <-- The only route in this example
+├─ vendor/                   <-- Folder with Composer dependencies
 ├─ views/                    <-- Folder with twig templates
-│  └─ base.html.twig         <-- Twig base layout file
-│     └─ error.html.twig     <-- Twig file for displaying errors
+│  ├─ base.html.twig         <-- Twig base layout file
+│  └─ error.html.twig        <-- Twig file for displaying errors
 └─ web/                      <-- Web server public folder
-   └─ assets/                <-- Folder with asset files like css or js
-      └─ index.php           <-- Website bootstrap file
+   ├─ assets/                <-- Folder with asset files like css or js
+   └─ index.php              <-- Website bootstrap file
 ~~~
 
 Normally you only work in the `routes` and `views` folders.
@@ -68,11 +70,11 @@ You can nest routes by creating subdirectories.
 ~~~text
 routes/
 ├─ communities/
-│  └─ index.get.php
-│     ├─ index.post.php
-│     └─ [id]/
-│        └─ index.get.php
-│           └─ index.post.php
+│  ├─ index.get.php
+│  ├─ index.post.php
+│  └─ [id]/
+│     ├─ index.get.php
+│     └─ index.post.php
 ├─ hello.get.php
 └─ hello.post.php
 ~~~
