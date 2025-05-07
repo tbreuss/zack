@@ -132,7 +132,7 @@ class FileBasedRouter
         $event = new ControllerEvent($extension);
         $this->dispatcher->dispatch($event, 'zack.controller');
 
-        if (($controller = $event->getResolvedController()) !== null) {
+        if (($controller = $event->getController()) !== null) {
             return $controller;
         }
 

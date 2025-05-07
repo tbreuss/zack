@@ -16,12 +16,12 @@ class ControllerEvent extends Event
         return $this->extension;
     }
 
-    public function getResolvedController(): ?string
+    public function getController(): ?string
     {
         return $this->controller;
     }
 
-    public function setResolvedController(string $controller): void
+    public function setController(string $controller): void
     {
         $this->controller = $controller;
     }

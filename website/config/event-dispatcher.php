@@ -10,7 +10,7 @@ $dispatcher->addListener('zack.container', function (): void {
 
 $dispatcher->addListener('zack.controller', function ($event): void {
     if ($event->getExtension() === 'markdown') {
-        $event->setResolvedController(tebe\zack\routing\MarkdownRouteHandler::class);
+        $event->setController(tebe\zack\routing\MarkdownRouteHandler::class);
     }
     error_log('Event zack.controller received');
 });
