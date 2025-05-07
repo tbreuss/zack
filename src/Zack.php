@@ -80,7 +80,15 @@ class Zack
         $this->container->register('argument_resolver', HttpKernel\Controller\ArgumentResolver::class);
 
         $this->container->register('listener.router', HttpKernel\EventListener\RouterListener::class)
-            ->setArguments([new Reference('matcher'), new Reference('request_stack')]);
+            ->setArguments([
+                new Reference('matcher'),
+                new Reference('request_stack'),
+                null, // context
+                null, // logger
+                null, // projectDir
+                false, // debug
+        ]);
+
         $this->container->register('listener.response', HttpKernel\EventListener\ResponseListener::class)
             ->setArguments(['UTF-8']);
         $this->container->register('listener.exception', HttpKernel\EventListener\ErrorListener::class)
