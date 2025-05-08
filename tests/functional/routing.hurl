@@ -26,22 +26,43 @@ Content-Type: text/html; charset=utf-8
 [Asserts]
 body contains "<title>Redirecting to /</title>"
 
-# One Parameter
-GET {{host}}/routing/params/value1
+# Pathparams One Parameter
+GET {{host}}/routing/path-params/value1
 HTTP 200
 Content-Type: text/html; charset=UTF-8
 [Asserts]
 body contains "value1"
 
-# Two Parameters
-GET {{host}}/routing/params/value1/value2
+# Pathparams Two Parameters
+GET {{host}}/routing/path-params/value1/value2
 HTTP 200
 Content-Type: text/html; charset=UTF-8
 [Asserts]
 body contains "value1 value2"
 
-# Three Parameters
-GET {{host}}/routing/params/value1/value2/value3
+# Pathparams Three Parameters
+GET {{host}}/routing/path-params/value1/value2/value3
+HTTP 200
+Content-Type: text/html; charset=UTF-8
+[Asserts]
+body contains "value1 value2 value3"
+
+# Fileparams One Parameter
+GET {{host}}/routing/file-params/value1
+HTTP 200
+Content-Type: text/html; charset=UTF-8
+[Asserts]
+body contains "value1"
+
+# Fileparams Two Parameters
+GET {{host}}/routing/file-params/value1/value2
+HTTP 200
+Content-Type: text/html; charset=UTF-8
+[Asserts]
+body contains "value1 value2"
+
+# Fileparams Three Parameters
+GET {{host}}/routing/file-params/value1/value2/value3
 HTTP 200
 Content-Type: text/html; charset=UTF-8
 [Asserts]
