@@ -45,31 +45,43 @@ class FileBasedRouter
             [$status, $params] = $this->catchAllParams($relativePath);
             if ($status) {
                 [$path, $param, $method, $extension] = $params;
-                $routes->add($this->getName($path, $method), new Route($path, [
-                    '_controller' => $this->getController($extension),
-                    '_path' => $this->getPath($relativePath),
-                ], requirements: [
-                    $param => '.+',
-                ], methods: $this->getMethods($method)));
+                $routes->add($this->getName($path, $method), new Route(
+                    $path, 
+                    [
+                        '_controller' => $this->getController($extension),
+                        '_path' => $this->getPath($relativePath),
+                    ], 
+                    requirements: [
+                        $param => '.+',
+                    ], 
+                    methods: $this->getMethods($method),
+                ));
                 continue;
             }
 
             [$filename, $method, $extension] = $this->getPathParts($relativePath);
 
-            $routes->add($this->getName($filename, $method), new Route($this->getRoute($filename), [
-                '_controller' => $this->getController($extension),
-                '_path' => $this->getPath($relativePath),
-            ], methods: $this->getMethods($method)));
+            $routes->add($this->getName($filename, $method), new Route(
+                $this->getRoute($filename), 
+                [
+                    '_controller' => $this->getController($extension),
+                    '_path' => $this->getPath($relativePath),
+                ], 
+                methods: $this->getMethods($method),
+            ));
         }
 
         if ($catchAllRoute) {
             $extension = pathinfo($catchAllRoute->getRelativePathname(), PATHINFO_EXTENSION);
-            $routes->add('catch-all', new Route('/{path}', [
-                '_controller' => $this->getController($extension),
-                '_path' => $catchAllRoute->getRealPath(),
-            ], requirements: [
-                'path' => '.+',
-            ]));
+            $routes->add('catch-all', new Route(
+                '/{path}', 
+                [
+                    '_controller' => $this->getController($extension),
+                    '_path' => $catchAllRoute->getRealPath(),
+                ], requirements: [
+                    'path' => '.+',
+                ],
+            ));
         }
 
         $this->dispatcher->dispatch(new RoutesEvent($routes), 'zack.routes');
