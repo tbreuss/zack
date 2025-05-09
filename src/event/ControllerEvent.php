@@ -7,7 +7,7 @@ use Symfony\Contracts\EventDispatcher\Event;
 class ControllerEvent extends Event
 {
     public function __construct(
-        private string $extension,
+        private readonly string $extension,
         private ?string $controller = null,
     ) {}
 
