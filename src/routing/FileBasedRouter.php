@@ -36,26 +36,15 @@ class FileBasedRouter
         $catchAllRoute = false;
 
         foreach ($finder as $file) {
-            if (!$catchAllRoute) {
-                [$status, $name, $route, $priority] = $this->parseCatchAllRoute($file);
-
-                if ($status) {
-                    $routes->add($name, $route, $priority);
-                    $catchAllRoute = true;
-                    continue;
-                }    
+            if (!$catchAllRoute && ($parsedRoute = $this->parseCatchAllRoute($file)) !== null) {
+                $routes->add($parsedRoute->name, $parsedRoute->route, $parsedRoute->priority);
+                $catchAllRoute = true;
+            } elseif (($parsedRoute = $this->parseCatchAllParamsRoute($file)) !== null) {
+                $routes->add($parsedRoute->name, $parsedRoute->route, $parsedRoute->priority);
+            } else {
+                $parsedRoute = $this->parseRoute($file);
+                $routes->add($parsedRoute->name, $parsedRoute->route, $parsedRoute->priority);
             }
-
-            [$status, $name, $route, $priority] = $this->parseCatchAllParamsRoute($file);
-
-            if ($status) {
-                $routes->add($name, $route, $priority);
-                continue;
-            }
-
-            [$name, $route, $priority] = $this->parseRoute($file);
-
-            $routes->add($name, $route, $priority);
         }
 
         $this->dispatcher->dispatch(new RoutesEvent($routes), 'zack.routes');
@@ -63,7 +52,7 @@ class FileBasedRouter
         return $routes;
     }
 
-    private function parseCatchAllRoute(SplFileInfo $fileInfo): array
+    private function parseCatchAllRoute(SplFileInfo $fileInfo): ?ParsedRoute
     {
         $count = substr_count($fileInfo->getRelativePathname(), '[...]');
 
@@ -72,7 +61,7 @@ class FileBasedRouter
         }
 
         if ($count === 0) {
-            return [false, null, null, 0];
+            return null;
         }
 
         $relativePathname = str_replace('[...]', '[path]', $fileInfo->getRelativePathname());
@@ -87,20 +76,19 @@ class FileBasedRouter
             'path' => '.+',
         ];
 
-        return [
-            true, 
-            $this->getName('catch-all', $method), 
-            new Route(
+        return new ParsedRoute(
+            name: $this->getName('catch-all', $method), 
+            route: new Route(
                 path: $this->getRoute($filename),
                 defaults: $defaults, 
                 requirements: $requirements, 
                 methods: $this->matchMethods($method),
             ),
-            PHP_INT_MIN,
-        ];
+            priority: PHP_INT_MIN,
+        );
     }
 
-    private function parseCatchAllParamsRoute(SplFileInfo $fileInfo): array
+    private function parseCatchAllParamsRoute(SplFileInfo $fileInfo): ?ParsedRoute
     {
         $status = preg_match_all('/\[\.{3}([a-z]+)\]/', $fileInfo->getRelativePathname(), $matches);
 
@@ -113,7 +101,7 @@ class FileBasedRouter
         }
         
         if ($status === 0) {
-            return [false, null, null, 0];
+            return null;
         }
 
         $relativePathname = str_replace('...', '', $fileInfo->getRelativePathname());
@@ -129,37 +117,37 @@ class FileBasedRouter
 
         [$filename, $method] = $this->getPathParts($relativePathname);
 
-        return [
-            true, 
-            $this->getName($filename, $method), 
-            new Route(
+        return new ParsedRoute( 
+            name: $this->getName($filename, $method), 
+            route: new Route(
                 path: $this->getRoute($filename),
                 defaults: $defaults, 
                 requirements: $requirements, 
                 methods: $this->matchMethods($method),
             ),
-            0, // TODO use priority
-        ];
+            priority: 0, // TODO use priority
+        );
     }
 
-    private function parseRoute(SplFileInfo $fileInfo): array
+    private function parseRoute(SplFileInfo $fileInfo): ParsedRoute
     {
         $relativePath = $fileInfo->getRelativePathname();
 
         [$filename, $method, $extension] = $this->getPathParts($relativePath);
 
-        return [
-            $this->getName($filename, $method),
-            new Route(
-                path: $this->getRoute($filename), 
+        return new ParsedRoute(
+            name: $this->getName($filename, $method),
+            route: new Route(
+                path: $this->getRoute($filename),
                 defaults: [
                     '_controller' => $this->matchController($extension),
                     '_path' => $this->getPath($relativePath),
-                ], 
+                ],
+                requirements: [],
                 methods: $this->matchMethods($method),
             ),
-            0, // TODO use priority
-        ];
+            priority: 0, // TODO use priority
+        );
     }
 
     private function getPathParts(string $relativePath): array
