@@ -40,11 +40,11 @@ class HtmlRouteHandler
         $d->loadHTML($html);
 
         foreach ($d->getElementsByTagName('h1') as $item) {
-            return $item->textContent;
+            return trim($item->textContent);
         }
 
         foreach ($d->getElementsByTagName('h2') as $item) {
-            return $item->textContent;
+            return trim($item->textContent);
         }
 
         return basename($path);
