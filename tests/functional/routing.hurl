@@ -67,3 +67,23 @@ HTTP 200
 Content-Type: text/html; charset=UTF-8
 [Asserts]
 body contains "value1 value2 value3"
+
+# Catch all params without method
+GET {{host}}/routing/catch-all-params/without-method/value1/value2/value3
+HTTP 200
+Content-Type: text/html; charset=UTF-8
+[Asserts]
+body contains "Catch all params value1/value2/value3"
+
+# Catch all params with method
+PATCH {{host}}/routing/catch-all-params/with-method/value1/value2/value3
+HTTP 200
+Content-Type: text/html; charset=UTF-8
+[Asserts]
+body contains "PATCH catch all params value1/value2/value3"
+
+POST {{host}}/routing/catch-all-params/with-method/value1/value2/value3
+HTTP 200
+Content-Type: text/html; charset=UTF-8
+[Asserts]
+body contains "POST catch all params value1/value2/value3"
