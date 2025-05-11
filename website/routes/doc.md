@@ -314,4 +314,4 @@ Zack! supports the following Symfony HttpKernel events:
 - **kernel.terminate**: This event is dispatched after the response has been sent (after the execution of the handle() method). 
 - **kernel.exception**: This event is dispatched as soon as an error occurs during the handling of the HTTP request.
 
-Read <https://symfony.com/doc/current/reference/events.html#kernel-events> for more information.
+Read [Built-in Symfony Events](https://symfony.com/doc/current/reference/events.html#kernel-events) for more information.
