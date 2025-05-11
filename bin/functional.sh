@@ -3,6 +3,7 @@
 # Example:
 # $ functional.sh localhost:9876
 # In this case http://localhost:9876 is where our server is reachable and exposed
+
 set -eu
 
 wait_for_url () {

@@ -46,7 +46,7 @@ Run website
 
 Fix code style issue using [PHP-CS-Fixer](https://github.com/PHP-CS-Fixer/PHP-CS-Fixer)
 
-    docker run -it --rm -v $(pwd):/code ghcr.io/php-cs-fixer/php-cs-fixer:${FIXER_VERSION:-3-php8.3} fix
+    ./bin/coding-style.sh
 
 ### Functional Tests
 
