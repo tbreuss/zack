@@ -50,10 +50,6 @@ Fix code style issue using [PHP-CS-Fixer](https://github.com/PHP-CS-Fixer/PHP-CS
 
 ### Functional Tests
 
-Start built-in web server
+Run functional tests
 
-    php -S localhost:9330 -t tests/_data/web
-
-Run functional tests using [Hurl](https://hurl.dev/)
-
-    cat tests/functional/* | docker run --rm -i --network="host" ghcr.io/orange-opensource/hurl:latest --variable host=http://localhost:9330 --test -v --color
+    ./bin/functional.sh localhost:9330
