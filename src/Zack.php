@@ -54,7 +54,7 @@ class Zack
     public function initContainer(): void
     {
         $routes = (new FileBasedRouter($this->config, $this->dispatcher))->getRoutes();
-        
+
         $this->container->register('logger', HttpKernel\Log\Logger::class)
             ->setArguments([
                 $this->config->loggerMinLevel,

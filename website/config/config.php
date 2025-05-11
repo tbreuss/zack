@@ -6,5 +6,5 @@ return new Config([
     'rootPath' => dirname(__DIR__),
     'twigCache' => false,
     'loggerMinLevel' => 'warning',
-    'loggerOutput' => dirname(__DIR__) . '/logs/logger.log'
+    'loggerOutput' => dirname(__DIR__) . '/logs/logger.log',
 ]);
