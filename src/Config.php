@@ -9,12 +9,18 @@ readonly class Config
     public string $rootPath;
     public string $routePath;
     public string $logPath;
+
     // PHP
     public int $phpErrorReporting;
     public bool $phpDisplayErrors;
     public bool $phpDisplayStartupErrors;
     public bool $phpLogErrors;
     public string $phpErrorLog;
+
+    // Logger
+    public ?string $loggerMinLevel;
+    public ?string $loggerOutput;
+
     // Twig
     public array|string $twigTemplatePath;
     public bool|string|\Twig\Cache\CacheInterface $twigCache;
@@ -38,17 +44,24 @@ readonly class Config
                 throw new \InvalidArgumentException("Invalid option: $key");
             }
         }
+
         // Zack!
         $this->zackPath = __DIR__;
         $this->rootPath = $config['rootPath'] ?? throw new \InvalidArgumentException('rootPath is required');
         $this->routePath = $config['routePath'] ?? $this->rootPath . '/routes';
         $this->logPath = $config['logPath'] ?? $this->rootPath . '/logs';
+
         // PHP
         $this->phpErrorReporting = $config['phpErrorReporting'] ?? E_ALL;
         $this->phpDisplayErrors = $config['phpDisplayErrors'] ?? false;
         $this->phpDisplayStartupErrors = $config['phpDisplayStartupErrors'] ?? false;
         $this->phpLogErrors = $config['phpLogErrors'] ?? true;
         $this->phpErrorLog = $config['phpErrorLog'] ?? $this->logPath . '/errors.log';
+
+        // Logger
+        $this->loggerMinLevel = $config['loggerMinLevel'] ?? null;
+        $this->loggerOutput = $config['loggerOutput'] ?? null;
+
         // Twig
         $this->twigTemplatePath = $config['twigTemplatePath'] ?? $this->rootPath . '/views';
         $this->twigCache = $config['twigCache'] ?? $this->rootPath . '/cache/twig';

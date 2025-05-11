@@ -54,6 +54,15 @@ class Zack
     public function initContainer(): void
     {
         $routes = (new FileBasedRouter($this->config, $this->dispatcher))->getRoutes();
+        
+        $this->container->register('logger', HttpKernel\Log\Logger::class)
+            ->setArguments([
+                $this->config->loggerMinLevel,
+                $this->config->loggerOutput,
+                null, // formatter
+                new Reference('request_stack'),
+                false, // debug
+            ]);
 
         $this->container->register('twig_loader', Twig\Loader\FilesystemLoader::class)
             ->addArgument($this->getTwigPaths());
@@ -76,17 +85,18 @@ class Zack
             ->setArguments([$routes, new Reference('context')]);
 
         $this->container->register('request_stack', HttpFoundation\RequestStack::class);
-        $this->container->register('controller_resolver', HttpKernel\Controller\ControllerResolver::class);
+        $this->container->register('controller_resolver', HttpKernel\Controller\ControllerResolver::class)
+            ->setArguments([new Reference('logger')]);
         $this->container->register('argument_resolver', HttpKernel\Controller\ArgumentResolver::class);
 
         $this->container->register('listener.router', HttpKernel\EventListener\RouterListener::class)
             ->setArguments([
                 new Reference('matcher'),
                 new Reference('request_stack'),
-                null, // context
-                null, // logger
-                null, // projectDir
-                false, // debug
+                new Reference('context'),
+                new Reference('logger'),
+                null, // projectDir (used when displaying welcom screen)
+                false, // debug (displays welcome screen if true)
             ]);
 
         $this->container->register('listener.response', HttpKernel\EventListener\ResponseListener::class)
@@ -101,10 +111,11 @@ class Zack
 
         $this->container->register('httpkernel', HttpKernel\HttpKernel::class)
             ->setArguments([
-                $this->dispatcher,
-                new Reference('controller_resolver'),
-                new Reference('request_stack'),
-                new Reference('argument_resolver'),
+                $this->dispatcher,                      // dispatcher
+                new Reference('controller_resolver'),   // resolver
+                new Reference('request_stack'),         // requestStack
+                new Reference('argument_resolver'),     // argumentResolver
+                false,                                  // handleAllThrowables
             ]);
 
         $this->dispatcher->dispatch(new ContainerEvent($this->container), 'zack.container');
