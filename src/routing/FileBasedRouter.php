@@ -156,7 +156,7 @@ class FileBasedRouter
 
         if (count($relativePathParts) === 2) {
             [$filename, $extension] = $relativePathParts;
-            return [$filename, 'get', $extension];
+            return [$filename, 'any', $extension];
         } elseif (count($relativePathParts) === 3) {
             return [$filename, $method, $extension] = $relativePathParts;
         } else {
@@ -201,6 +201,7 @@ class FileBasedRouter
     private function matchMethods(string $method): array
     {
         return match ($method) {
+            'any' => ['DELETE', 'GET', 'HEAD', 'OPTIONS', 'PATCH', 'POST', 'PUT'],
             'delete' => ['DELETE'],
             'get' => ['GET'],
             'head' => ['HEAD'],
