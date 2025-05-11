@@ -77,11 +77,11 @@ class FileBasedRouter
         ];
 
         return new ParsedRoute(
-            name: $this->getName('catch-all', $method), 
+            name: $this->getName('catch-all', $method),
             route: new Route(
                 path: $this->getRoute($filename),
-                defaults: $defaults, 
-                requirements: $requirements, 
+                defaults: $defaults,
+                requirements: $requirements,
                 methods: $this->matchMethods($method),
             ),
             priority: PHP_INT_MIN,
@@ -99,7 +99,7 @@ class FileBasedRouter
         if ($status > 1) {
             throw new \Exception('Error parsing file name: ' . $fileInfo->getRelativePathname());
         }
-        
+
         if ($status === 0) {
             return null;
         }
@@ -117,12 +117,12 @@ class FileBasedRouter
 
         [$filename, $method] = $this->getPathParts($relativePathname);
 
-        return new ParsedRoute( 
-            name: $this->getName($filename, $method), 
+        return new ParsedRoute(
+            name: $this->getName($filename, $method),
             route: new Route(
                 path: $this->getRoute($filename),
-                defaults: $defaults, 
-                requirements: $requirements, 
+                defaults: $defaults,
+                requirements: $requirements,
                 methods: $this->matchMethods($method),
             ),
             priority: 0, // TODO use priority

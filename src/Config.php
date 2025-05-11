@@ -8,7 +8,7 @@ readonly class Config
     public string $zackPath;
     public string $rootPath;
     public string $routePath;
-    public string $logPath;   
+    public string $logPath;
     // PHP
     public int $phpErrorReporting;
     public bool $phpDisplayErrors;

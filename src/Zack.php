@@ -87,7 +87,7 @@ class Zack
                 null, // logger
                 null, // projectDir
                 false, // debug
-        ]);
+            ]);
 
         $this->container->register('listener.response', HttpKernel\EventListener\ResponseListener::class)
             ->setArguments(['UTF-8']);
