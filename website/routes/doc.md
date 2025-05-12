@@ -279,19 +279,25 @@ Zack! is currently delivered with the following route handlers:
 
 #### HTML Route Handler
 
-File extensions: htm, html
+File extensions: htm, html \
+Response content-type: text/html
 
 #### JSON Route Handler
 
-File extension: json
+File extension: json \
+Response content-type: application/json
 
 #### Markdown Route Handler
 
-File extensions: markdown, md
+File extensions: markdown, md \
+Response content-type: text/html
 
 #### PHP Route Handler
 
-File extension: php
+File extension: php \
+Response content-type: text/html
+
+The content-type of the response can be set explicitly in a PHP route handler.
 
 ### Events
 
