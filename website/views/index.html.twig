@@ -1,0 +1,152 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+	{{- title -}}
+{% endblock %}
+
+{% block hero %}
+	<div class="hero">
+		<div class="container">
+			<div class="pure-g">
+				<div class="pure-u-1">
+					<h2 class="hero-heading">ZACK!</h2>
+					<p class="hero-text">A compact, file-based routing microframework based on Symfony's HttpKernel Component with integrated route handlers and Twig engine, perfect for small projects.</p>
+					<p class="hero-button">
+						<a href="/doc" class="pure-button hero-calltoaction">Go to documentation</a>
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+{% block content %}
+  <p>
+    Zack! is a compact microframework, built on the <a href="https://symfony.com/doc/current/components/http_kernel.html">HttpKernel Component</a> of Symfony, that emphasizes file-based routing.
+    It includes various route handlers for handling HTML, JSON, <a href="https://commonmark.thephpleague.com/">Markdown</a>, and PHP files with ease.
+    Additionally, Zack! integrates <a href="https://twig.symfony.com/">Twig</a>, a powerful template engine, making it perfect for small, easily manageable website and API projects.
+  </p>
+  
+  <p>In summary, Zack!'s key features are:</p>
+
+  <ul>
+    <li>Based on the HttpKernel Component of Symfony</li>
+    <li>Utilizes file-based routing</li>
+    <li>Includes route handlers for handling various file types</li>
+    <li>Integrates Twig as a template engine</li>
+  </ul>
+
+  <p>These features make Zack! a good choice for users looking for a simple and efficient solution for their small-scale projects.</p>
+
+<h2>Installation</h2>
+<p>Create a new project folder and change into it.</p>
+<pre><code class="language-bash">mkdir myproject
+cd myproject
+</code></pre>
+<p>Install Zack! using Composer:</p>
+<pre><code class="language-bash">composer require tebe/zack:dev-main
+</code></pre>
+<p>In your <code>myproject</code> folder add the following folders and files:</p>
+<pre><code class="language-text">myproject/
+├─ routes/
+│  └─ index.get.html
+└─ web/
+   └─ index.php
+</code></pre>
+<p>Add the following content to the files:</p>
+<p>routes/index.get.html</p>
+<pre><code class="language-html">&lt;h1&gt;Hello Zack!&lt;/h1&gt;
+</code></pre>
+<p>web/index.php</p>
+<pre><code class="language-php">&lt;?php
+
+require dirname(__DIR__) . '/vendor/autoload.php';
+
+use tebe\zack\Config;
+use tebe\zack\Zack;
+
+$config = new Config([
+    'rootPath' =&gt; dirname(__DIR__),
+]);
+
+(new Zack($config))-&gt;run();
+</code></pre>
+<p>Start PHP's built-in web server:</p>
+<pre><code class="language-bash">cd myproject
+php -S localhost:8888 -t web
+</code></pre>
+<p>Open <a href="http://localhost:8888">http://localhost:8888</a> with your preferred web browser.</p>
+
+	<h2>Examples</h2>
+  <h3>This Website</h3>
+  <p>This website runs with Zack! The file-based routing for the website is very simple and looks like this:</p>
+
+<pre><code class="language-text">routes/
+├─ development.md
+├─ doc.md
+└─ index.php
+</code></pre>
+
+  <p>And also the folder with the necessary twig views looks manageable:</p>
+
+<pre><code class="language-text">views/
+├─ base.html.twig
+├─ error.html.twig
+└─ index.html.twig</code></pre>
+
+  <p>In this example, the two Markdown files are automatically converted to HTML and output, while the PHP file is rendered and output using Twig.</p>
+
+  <h3>Petstore OAS 3.0</h3>
+  <p>As an API example, we have (more or less) implemented the endpoints of the <a href="https://petstore3.swagger.io/">Swagger Petstore - OpenAPI 3.0</a> specification.</p>
+  <p>The file-based routing for the API looks as follows:</p>
+
+<pre><code class="language-text">routes/api/petstore3/
+├─ pet
+│  ├─ [petId]
+│  │  ├─ index.delete.json
+│  │  ├─ index.get.json
+│  │  ├─ index.post.json
+│  │  └─ uploadImage.post.json
+│  ├─ findByStatus.get.json
+│  ├─ findByTags.get.json
+│  ├─ index.post.json
+│  └─ index.put.json
+├─ store
+│  ├─ order
+│  │  ├─ [orderId]
+│  │  │  ├─ index.delete.json
+│  │  │  └─ index.get.json
+│  │  └─ index.post.json
+│  └─ inventory.get.json
+└─ user
+   ├─ [username]
+   │  ├─ index.delete.json
+   │  ├─ index.get.json
+   │  └─ index.put.json
+   ├─ createWithList.post.json
+   ├─ index.post.json
+   ├─ login.get.json
+   └─ logout.get.json</code></pre>
+
+  <p>Click on the endpoints below to see the requests and responses in detail.</p>
+
+	{% for category in apiRoutes %}
+    <p style="margin: 1em 0 0.5em 0">
+      <b style="margin-right: 0.5em">{{ category.name }}</b>
+      <span style="font-size: 0.8em">{{ category.description }}</span>
+    </p>
+		{% for route in category.routes %}
+			<div class="endpoint" data-url="{{ route.url }}" data-method="{{ route.method }}" data-body='{{ route.body|raw }}'>
+				<div class="endpoint-link endpoint-link--{{ route.method|lower }}">
+					<span class="endpoint-request-method">{{ route.method|upper }}</span>
+					<span class="endpoint-request-name">{{ route.path }}</span>
+					<span class="endpoint-request-description">{{ route.name }}</span>
+				</div>
+				<div class="endpoint-request-body"></div>
+				<div class="endpoint-response-status"></div>
+				<div class="endpoint-response-body"></div>
+			</div>
+		{% endfor %}
+	{% endfor %}
+
+{% endblock %}
