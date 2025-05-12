@@ -109,6 +109,6 @@ Fix code style issue using [PHP-CS-Fixer](https://github.com/PHP-CS-Fixer/PHP-CS
 
 ### Functional Tests
 
-Run functional tests
+Run functional tests using [Hurl](https://hurl.dev/)
 
     ./bin/functional.sh localhost:9330
