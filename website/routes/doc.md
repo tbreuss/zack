@@ -106,14 +106,15 @@ Files are automatically mapped to Symfony routes.
 Defining a route is as simple as creating a file inside the `routes` directory.
 
 You can only define one handler per files and you can append the HTTP method to the filename to define a specific request method.
+If no method is specified, the route applies to all methods.
 
 ~~~text
 routes/
 ├─ api/
-│  └─ test.php         <-- GET  /api/test
-├─ index.get.php       <-- GET  /
-├─ contact.get.php     <-- GET  /contact
-└─ contact.post.php    <-- POST /contact
+│  └─ test.patch.php   <-- PATCH /api/test
+├─ index.php           <-- ANY   /
+├─ contact.get.php     <-- GET   /contact
+└─ contact.post.php    <-- POST  /contact
 ~~~
 
 You can nest routes by creating subdirectories.
@@ -155,7 +156,7 @@ return new Response('{"ping": "pong"}', 200, [
 ##### Single Param
 
 To define a route with params, use the `[<param>]` syntax where `<param>` is the name of the param.
-The param will be available in `$request->attributes` object.
+The param will be available in the `$request->attributes` object.
 
 ~~~php
 #routes/hello/[name].php
