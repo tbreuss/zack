@@ -1,5 +1,8 @@
 name: Publish Zack! Website
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - main
 jobs:
   publish:
     name: CD - Push to server
