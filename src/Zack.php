@@ -2,7 +2,9 @@
 
 namespace tebe\zack;
 
-use tebe\zack\event\ContainerEvent;
+use tebe\zack\config\MainConfig;
+use tebe\zack\events\ContainerEvent;
+use tebe\zack\routing\FileBasedRouter;
 use Symfony\Component\DependencyInjection;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\ErrorHandler;
@@ -10,24 +12,27 @@ use Symfony\Component\EventDispatcher;
 use Symfony\Component\HttpFoundation;
 use Symfony\Component\HttpKernel;
 use Symfony\Component\Routing;
-use tebe\zack\routing\FileBasedRouter;
 use Twig;
 
 class Zack
 {
+    private MainConfig $config;
+
     public function __construct(
-        private Config $config,
+        array $config,
         private EventDispatcher\EventDispatcher $dispatcher = new EventDispatcher\EventDispatcher(),
         private DependencyInjection\ContainerBuilder $container = new DependencyInjection\ContainerBuilder(),
-    ) {}
+    ) {
+        $this->config = new MainConfig($config);
+    }
 
     public function run(): void
     {
-        error_reporting($this->config->phpErrorReporting);
-        ini_set('display_errors', $this->config->phpDisplayErrors ? '1' : '0');
-        ini_set('display_startup_errors', $this->config->phpDisplayStartupErrors ? '1' : '0');
-        ini_set('log_errors', $this->config->phpLogErrors ? '1' : '0');
-        ini_set('error_log', $this->config->phpErrorLog);
+        error_reporting($this->config->php->errorReporting);
+        ini_set('display_errors', $this->config->php->displayErrors ? '1' : '0');
+        ini_set('display_startup_errors', $this->config->php->displayStartupErrors ? '1' : '0');
+        ini_set('log_errors', $this->config->php->logErrors ? '1' : '0');
+        ini_set('error_log', $this->config->php->errorLog);
 
         $this->initContainer();
 
@@ -53,12 +58,12 @@ class Zack
 
     public function initContainer(): void
     {
-        $routes = (new FileBasedRouter($this->config, $this->dispatcher))->getRoutes();
+        $routes = (new FileBasedRouter($this->config->routePath, $this->dispatcher))->getRoutes();
 
         $this->container->register('logger', HttpKernel\Log\Logger::class)
             ->setArguments([
-                $this->config->loggerMinLevel,
-                $this->config->loggerOutput,
+                $this->config->logger->minLevel,
+                $this->config->logger->output,
                 null, // formatter
                 new Reference('request_stack'),
                 false, // debug
@@ -70,14 +75,14 @@ class Zack
         $this->container->register('twig', Twig\Environment::class)
             ->addArgument(new DependencyInjection\Reference('twig_loader'))
             ->addArgument([
-                'debug' => $this->config->twigDebug,
-                'charset' => $this->config->twigCharset,
-                'strict_variables' => $this->config->twigStrictVariables,
-                'autoescape' => $this->config->twigAutoescape,
-                'cache' => $this->config->twigCache,
-                'auto_reload' => $this->config->twigAutoReload,
-                'optimizations' => $this->config->twigOptimizations,
-                'use_yield' => $this->config->twigUseYield,
+                'debug' => $this->config->twig->debug,
+                'charset' => $this->config->twig->charset,
+                'strict_variables' => $this->config->twig->strictVariables,
+                'autoescape' => $this->config->twig->autoescape,
+                'cache' => $this->config->twig->cache,
+                'auto_reload' => $this->config->twig->autoReload,
+                'optimizations' => $this->config->twig->optimizations,
+                'use_yield' => $this->config->twig->useYield,
             ]);
 
         $this->container->register('context', Routing\RequestContext::class);
@@ -124,8 +129,8 @@ class Zack
     private function getTwigPaths(): array
     {
         $twigPaths = [];
-        if (is_dir($this->config->twigTemplatePath)) {
-            $twigPaths[] = $this->config->twigTemplatePath;
+        if (is_dir($this->config->twig->templatePath)) {
+            $twigPaths[] = $this->config->twig->templatePath;
         }
         $twigPaths[] = $this->config->zackPath . '/views';
 

@@ -49,14 +49,11 @@ web/index.php
 
 require dirname(__DIR__) . '/vendor/autoload.php';
 
-use tebe\zack\Config;
-use tebe\zack\Zack;
-
-$config = new Config([
+$config = [
     'rootPath' => dirname(__DIR__),
-]);
+];
 
-(new Zack($config))->run();
+(new tebe\zack\Zack($config))->run();
 ~~~
 
 Start PHP's built-in web server:

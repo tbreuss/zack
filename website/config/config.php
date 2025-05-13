@@ -1,10 +1,12 @@
 <?php declare(strict_types=1);
 
-use tebe\zack\Config;
-
-return new Config([
+return [
     'rootPath' => dirname(__DIR__),
-    'twigCache' => false,
-    'loggerMinLevel' => 'warning',
-    'loggerOutput' => dirname(__DIR__) . '/logs/logger.log',
-]);
+    'twig' => [
+        'cache' => false,
+    ],
+    'logger' => [
+        'minLevel' => 'warning',
+        'output' => dirname(__DIR__) . '/logs/logger.log',
+    ],
+];
