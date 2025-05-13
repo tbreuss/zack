@@ -62,14 +62,11 @@ cd myproject
 
 require dirname(__DIR__) . '/vendor/autoload.php';
 
-use tebe\zack\Config;
-use tebe\zack\Zack;
-
-$config = new Config([
+$config = new [
     'rootPath' =&gt; dirname(__DIR__),
-]);
+];
 
-(new Zack($config))-&gt;run();
+(new tebe\zack\Zack($config))-&gt;run();
 </code></pre>
 <p>Start PHP's built-in web server:</p>
 <pre><code class="language-bash">cd myproject
