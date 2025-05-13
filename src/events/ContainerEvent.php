@@ -8,7 +8,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 class ContainerEvent extends Event
 {
     public function __construct(
-        private ContainerBuilder $container,
+        private readonly ContainerBuilder $container,
     ) {}
 
     public function getContainer(): ContainerBuilder

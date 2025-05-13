@@ -1,9 +1,11 @@
 <?php declare(strict_types=1);
 
-use tebe\zack\Config;
-
-return new Config([
+return [
     'rootPath' => dirname(__DIR__),
-    'twigCache' => false,
-    'phpDisplayErrors' => true,
-]);
+    'twig' => [
+        'cache' => false,
+    ],
+    'php' => [
+        'displayErrors' => true,
+    ],
+];

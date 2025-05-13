@@ -2,7 +2,6 @@
 
 namespace tebe\zack\routing;
 
-use Exception;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,17 +16,17 @@ class PhpRouteHandler
         $path = $request->attributes->get('_path');
 
         if ($path === null) {
-            throw new Exception('Attribute _path not found in request attributes');
+            throw new \Exception('Attribute _path not found in request attributes');
         }
 
         if (!file_exists($path)) {
-            throw new Exception('PHP file not found for path: ' . $path);
+            throw new \Exception('PHP file not found for path: ' . $path);
         }
 
         $response = require $path;
 
         if (!$response instanceof Response && !is_array($response)) {
-            throw new Exception('PHP file must return a response object or an array: ' . $path);
+            throw new \Exception('PHP file must return a response object or an array: ' . $path);
         }
 
         return $response;
