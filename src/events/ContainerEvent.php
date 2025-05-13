@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace tebe\zack\event;
+namespace tebe\zack\events;
 
 use Symfony\Contracts\EventDispatcher\Event;
 use Symfony\Component\DependencyInjection\ContainerBuilder;

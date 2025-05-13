@@ -3,8 +3,8 @@
 namespace tebe\zack\routing;
 
 use tebe\zack\Config;
-use tebe\zack\event\ControllerEvent;
-use tebe\zack\event\RoutesEvent;
+use tebe\zack\events\ControllerEvent;
+use tebe\zack\events\RoutesEvent;
 use Symfony\Component\EventDispatcher;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;

@@ -2,7 +2,7 @@
 
 namespace tebe\zack;
 
-use tebe\zack\event\ContainerEvent;
+use tebe\zack\events\ContainerEvent;
 use Symfony\Component\DependencyInjection;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\ErrorHandler;
