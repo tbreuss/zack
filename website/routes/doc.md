@@ -193,7 +193,7 @@ use Symfony\Component\HttpFoundation\Response;
 $name = $request->attributes->get('name');
 $age = $request->attributes->get('age');
 
-return new Response("Hello ${name}! You are ${age} years old.", 200);
+return new Response("Hello $name! You are $age years old.", 200);
 ~~~
 
 ##### Catch All Params
@@ -209,7 +209,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 $name = $request->attributes->get('name');
 
-return new Response("Hello ${name}!", 200);
+return new Response("Hello $name!", 200);
 ~~~
 
 Call the route with the param `/hello/zack/is/nice`, you will get:
@@ -258,7 +258,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 $path = $request->attributes->get('path');
 
-return new Response("Hello ${path}!", 200);
+return new Response("Hello $path!", 200);
 ~~~
 
 ### Route Handler
