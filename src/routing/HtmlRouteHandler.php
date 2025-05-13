@@ -2,7 +2,6 @@
 
 namespace tebe\zack\routing;
 
-use Exception;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -14,16 +13,16 @@ class HtmlRouteHandler
         $path = $request->attributes->get('_path');
 
         if ($path === null) {
-            throw new Exception('Attribute _path not found in request attributes');
+            throw new \Exception('Attribute _path not found in request attributes');
         }
 
         if (!file_exists($path)) {
-            throw new Exception('HTML file not found: ' . $path);
+            throw new \Exception('HTML file not found: ' . $path);
         }
 
         $html = file_get_contents($path);
         if ($html === false) {
-            throw new Exception('Failed to read HTML file: ' . $path);
+            throw new \Exception('Failed to read HTML file: ' . $path);
         }
 
         $content = $container->get('twig')->render('route-handler.html.twig', [

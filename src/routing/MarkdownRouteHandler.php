@@ -2,7 +2,6 @@
 
 namespace tebe\zack\routing;
 
-use Exception;
 use League\CommonMark\CommonMarkConverter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,16 +14,16 @@ class MarkdownRouteHandler
         $path = $request->attributes->get('_path');
 
         if ($path === null) {
-            throw new Exception('Attribute _path not found in request attributes');
+            throw new \Exception('Attribute _path not found in request attributes');
         }
 
         if (!file_exists($path)) {
-            throw new Exception('HTML file not found: ' . $path);
+            throw new \Exception('HTML file not found: ' . $path);
         }
 
         $markdown = file_get_contents($path);
         if ($markdown === false) {
-            throw new Exception('Failed to read Markdown file: ' . $path);
+            throw new \Exception('Failed to read Markdown file: ' . $path);
         }
 
         $converter = new CommonMarkConverter();

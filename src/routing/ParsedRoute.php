@@ -4,11 +4,11 @@ namespace tebe\zack\routing;
 
 use Symfony\Component\Routing\Route;
 
-class ParsedRoute
+readonly class ParsedRoute
 {
     public function __construct(
-        public readonly string $name,
-        public readonly Route $route,
-        public readonly int $priority = 0,
+        public string $name,
+        public Route $route,
+        public int $priority = 0,
     ) {}
 }

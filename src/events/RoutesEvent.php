@@ -8,7 +8,7 @@ use Symfony\Component\Routing\RouteCollection;
 class RoutesEvent extends Event
 {
     public function __construct(
-        private RouteCollection $routes,
+        private readonly RouteCollection $routes,
     ) {}
 
     public function getRoutes(): RouteCollection

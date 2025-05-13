@@ -2,7 +2,6 @@
 
 namespace tebe\zack\routing;
 
-use tebe\zack\Config;
 use tebe\zack\events\ControllerEvent;
 use tebe\zack\events\RoutesEvent;
 use Symfony\Component\EventDispatcher;
@@ -11,10 +10,10 @@ use Symfony\Component\Finder\SplFileInfo;
 use Symfony\Component\Routing;
 use Symfony\Component\Routing\Route;
 
-class FileBasedRouter
+readonly class FileBasedRouter
 {
     public function __construct(
-        private Config $config,
+        private string $routePath,
         private EventDispatcher\EventDispatcher $dispatcher,
     ) {}
 
@@ -25,7 +24,7 @@ class FileBasedRouter
         $finder = new Finder();
 
         $finder->files()
-            ->in($this->config->routePath)
+            ->in($this->routePath)
             ->sort(function (\SplFileInfo $a, \SplFileInfo $b): int {
                 // temporary solution to have named parameter routes in last place
                 $a = str_replace(['[', ']'], '~', $a->getRealPath());
@@ -215,6 +214,6 @@ class FileBasedRouter
 
     private function getPath(string $relativePath): string
     {
-        return $this->config->routePath . '/' . $relativePath;
+        return $this->routePath . '/' . $relativePath;
     }
 }

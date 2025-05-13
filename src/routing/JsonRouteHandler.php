@@ -2,7 +2,6 @@
 
 namespace tebe\zack\routing;
 
-use Exception;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -13,16 +12,16 @@ class JsonRouteHandler
         $path = $request->attributes->get('_path');
 
         if ($path === null) {
-            throw new Exception('Attribute _path not found in request attributes');
+            throw new \Exception('Attribute _path not found in request attributes');
         }
 
         if (!file_exists($path)) {
-            throw new Exception('JSON file not found: ' . $path);
+            throw new \Exception('JSON file not found: ' . $path);
         }
 
         $json = file_get_contents($path);
         if ($json === false) {
-            throw new Exception('Failed to read JSON file: ' . $path);
+            throw new \Exception('Failed to read JSON file: ' . $path);
         }
 
         return new Response($json, 200, [
