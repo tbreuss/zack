@@ -50,7 +50,7 @@ web/index.php
 require dirname(__DIR__) . '/vendor/autoload.php';
 
 $config = [
-    'rootPath' => dirname(__DIR__),
+    'basePath' => dirname(__DIR__),
 ];
 
 (new tebe\zack\Zack($config))->run();

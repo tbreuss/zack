@@ -63,7 +63,7 @@ cd myproject
 require dirname(__DIR__) . '/vendor/autoload.php';
 
 $config = new [
-    'rootPath' =&gt; dirname(__DIR__),
+    'basePath' =&gt; dirname(__DIR__),
 ];
 
 (new tebe\zack\Zack($config))-&gt;run();

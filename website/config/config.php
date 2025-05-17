@@ -1,7 +1,8 @@
 <?php declare(strict_types=1);
 
 return [
-    'rootPath' => dirname(__DIR__),
+    'basePath' => dirname(__DIR__),
+    'name' => 'Zack!',
     'twig' => [
         'cache' => false,
     ],

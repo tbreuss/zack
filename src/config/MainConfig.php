@@ -5,8 +5,9 @@ namespace tebe\zack\config;
 readonly class MainConfig
 {
     public string $logPath;
+    public string $name;
     public string $routePath;
-    public string $rootPath;
+    public string $basePath;
     public string $zackPath;
     public LoggerConfig $logger;
     public PhpConfig $php;
@@ -15,9 +16,10 @@ readonly class MainConfig
     public function __construct(array $config = [])
     {
         $this->zackPath = dirname(__DIR__);
-        $this->rootPath = $config['rootPath'] ?? throw new \InvalidArgumentException('rootPath is required');
-        $this->routePath = $config['routePath'] ?? $this->rootPath . '/routes';
-        $this->logPath = $config['logPath'] ?? $this->rootPath . '/logs';
+        $this->basePath = $config['basePath'] ?? throw new \InvalidArgumentException('basePath is required');
+        $this->logPath = $config['logPath'] ?? $this->basePath . '/logs';
+        $this->name = $config['name'] ?? 'My application';
+        $this->routePath = $config['routePath'] ?? $this->basePath . '/routes';
 
         $this->logger = new LoggerConfig(
             $config['logger'] ?? [],
@@ -30,7 +32,7 @@ readonly class MainConfig
 
         $this->twig = new TwigConfig(
             $config['twig'] ?? [],
-            $this->rootPath,
+            $this->basePath,
         );
     }
 }

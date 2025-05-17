@@ -16,10 +16,10 @@ readonly class TwigConfig
     public int $optimizations;
     public bool $useYield;
 
-    public function __construct(array $config, string $rootPath)
+    public function __construct(array $config, string $basePath)
     {
-        $this->templatePath = $config['templatePath'] ?? $rootPath . '/views';
-        $this->cache = $config['cache'] ?? $rootPath . '/cache/twig';
+        $this->templatePath = $config['templatePath'] ?? $basePath . '/views';
+        $this->cache = $config['cache'] ?? $basePath . '/cache/twig';
         $this->debug = $config['debug'] ?? false;
         $this->charset = $config['charset'] ?? 'UTF-8';
         $this->autoescape = $config['autoescape'] ?? 'html';

@@ -83,7 +83,8 @@ class Zack
                 'auto_reload' => $this->config->twig->autoReload,
                 'optimizations' => $this->config->twig->optimizations,
                 'use_yield' => $this->config->twig->useYield,
-            ]);
+            ])
+            ->addMethodCall('addGlobal', ['config', $this->config]);
 
         $this->container->register('context', Routing\RequestContext::class);
         $this->container->register('matcher', Routing\Matcher\UrlMatcher::class)
