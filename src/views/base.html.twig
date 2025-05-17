@@ -1,13 +1,17 @@
-<!DOCTYPE html>
-<html>
-	<head>
+<!doctype html>
+<html lang="en">
+  <head>
 		{% block head %}
-			<meta charset="utf-8">
-			<title>{% block title %}{% endblock %} - Zack!</title>
-			<meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="color-scheme" content="light dark">
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+      <title>{% block title %}{% endblock %} - {{ config.name }}</title>
 		{% endblock %}
-	</head>
-	<body>
-    {% block content %}{% endblock %}
-	</body>
+  </head>
+  <body>
+    <main class="container">
+      {% block content %}{% endblock %}
+    </main>
+  </body>
 </html>

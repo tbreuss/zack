@@ -2,6 +2,7 @@
 
 return [
     'basePath' => dirname(__DIR__),
+    'name' => 'Zack!',
     'twig' => [
         'cache' => false,
     ],
