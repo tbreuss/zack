@@ -10,7 +10,7 @@ jobs:
     runs-on: ${{ matrix.operating-system }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
@@ -28,6 +28,8 @@ jobs:
           restore-keys: ${{ runner.os }}-composer-
       - name: Install dependencies
         run: composer install --no-progress --prefer-dist --optimize-autoloader
+      - name: Coding style
+        run: bin/coding-style.sh
   publish:
     name: Publish Website
     runs-on: ubuntu-latest
