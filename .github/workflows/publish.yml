@@ -30,6 +30,8 @@ jobs:
         run: composer install --no-progress --prefer-dist --optimize-autoloader
       - name: Coding style
         run: bin/coding-style.sh
+      - name: Functional tests
+        run: bin/functional.sh localhost:9876
   publish:
     name: Publish Website
     runs-on: ubuntu-latest
