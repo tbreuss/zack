@@ -39,7 +39,7 @@ Add the following content to the files:
 routes/index.get.html
 
 ~~~html
-<h1>Hello Zack!</h1>
+<h1>Hello World!</h1>
 ~~~
 
 web/index.php

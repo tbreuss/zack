@@ -2,8 +2,8 @@ GET {{host}}/doc-examples
 HTTP 200
 Content-Type: text/html; charset=UTF-8
 [Asserts]
-body contains "<title>Hello Zack! - My application</title>"
-body contains "<h1>Hello Zack!</h1>"
+body contains "<title>Hello World! - My application</title>"
+body contains "<h1>Hello World!</h1>"
 
 GET {{host}}/doc-examples/api/ping
 HTTP 200
@@ -11,11 +11,11 @@ Content-Type: application/json
 [Asserts]
 body contains "{\"ping\": \"pong\"}"
 
-GET {{host}}/doc-examples/hello/Zack
+GET {{host}}/doc-examples/hello/World
 HTTP 200
 Content-Type: text/html; charset=UTF-8
 [Asserts]
-body contains "Hello Zack!"
+body contains "Hello World!"
 
 GET {{host}}/doc-examples/hello/Mike/20
 HTTP 200
