@@ -2,7 +2,7 @@ GET {{host}}/doc-examples
 HTTP 200
 Content-Type: text/html; charset=UTF-8
 [Asserts]
-body contains "<title>Hello Zack! - Zack!</title>"
+body contains "<title>Hello Zack! - My application</title>"
 body contains "<h1>Hello Zack!</h1>"
 
 GET {{host}}/doc-examples/api/ping
@@ -39,14 +39,14 @@ GET {{host}}/doc-examples/htm-page
 HTTP 200
 Content-Type: text/html; charset=UTF-8
 [Asserts]
-body contains "<title>htm-page - Zack!</title>"
+body contains "<title>htm-page - My application</title>"
 body contains "<h1>htm-page</h1>"
 
 GET {{host}}/doc-examples/html-page
 HTTP 200
 Content-Type: text/html; charset=UTF-8
 [Asserts]
-body contains "<title>html-page - Zack!</title>"
+body contains "<title>html-page - My application</title>"
 body contains "<h1>html-page</h1>"
 
 GET {{host}}/doc-examples/json-page
@@ -59,14 +59,14 @@ GET {{host}}/doc-examples/markdown-page
 HTTP 200
 Content-Type: text/html; charset=UTF-8
 [Asserts]
-body contains "<title>markdown-page - Zack!</title>"
+body contains "<title>markdown-page - My application</title>"
 body contains "<h1>markdown-page</h1>"
 
 GET {{host}}/doc-examples/md-page
 HTTP 200
 Content-Type: text/html; charset=UTF-8
 [Asserts]
-body contains "<title>md-page - Zack!</title>"
+body contains "<title>md-page - My application</title>"
 body contains "<h1>md-page</h1>"
 
 GET {{host}}/doc-examples/php-page
