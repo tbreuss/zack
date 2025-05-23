@@ -74,6 +74,51 @@ php -S localhost:8888 -t web
 
 Open <http://localhost:8888> with your preferred web browser.
 
+### Development Environment
+
+#### Create Docker Image
+
+Create Docker image based on the latest supported PHP version
+
+    docker build -t zack https://github.com/tbreuss/zack.git
+
+Optionally you can also use an older PHP version
+
+    docker build --build-arg PHP_VERSION=8.2 -t zack https://github.com/tbreuss/zack.git
+    docker build --build-arg PHP_VERSION=8.3 -t zack https://github.com/tbreuss/zack.git
+
+#### Run Website
+
+Clone project
+
+    git clone https://github.com/tbreuss/zack.git
+
+Change directory
+
+    cd zack
+
+Install packages
+
+    docker run --rm -it -v .:/app zack composer install
+
+Run website
+
+    docker run --rm -v .:/app -p 8888:8888 zack php -S 0.0.0.0:8888 -t /app/website/web
+
+### Testing
+
+#### PHP-CS-Fixer
+
+Fix code style issue using [PHP-CS-Fixer](https://github.com/PHP-CS-Fixer/PHP-CS-Fixer)
+
+    ./bin/coding-style.sh
+
+#### Functional Tests
+
+Run functional tests using [Hurl](https://hurl.dev/)
+
+    ./bin/functional.sh localhost:9330
+
 ### Project Folder Structure
 
 A typical project folder structure looks like the following:
