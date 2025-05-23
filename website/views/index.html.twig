@@ -38,41 +38,7 @@
 
   <p>These features make Zack! a good choice for users looking for a simple and efficient solution for their small-scale projects.</p>
 
-<h2>Installation</h2>
-<p>Create a new project folder and change into it.</p>
-<pre><code class="language-bash">mkdir myproject
-cd myproject
-</code></pre>
-<p>Install Zack! using Composer:</p>
-<pre><code class="language-bash">composer require tebe/zack:dev-main
-</code></pre>
-<p>In your <code>myproject</code> folder add the following folders and files:</p>
-<pre><code class="language-text">myproject/
-├─ routes/
-│  └─ index.get.html
-└─ web/
-   └─ index.php
-</code></pre>
-<p>Add the following content to the files:</p>
-<p>routes/index.get.html</p>
-<pre><code class="language-html">&lt;h1&gt;Hello World!&lt;/h1&gt;
-</code></pre>
-<p>web/index.php</p>
-<pre><code class="language-php">&lt;?php
-
-require dirname(__DIR__) . '/vendor/autoload.php';
-
-$config = new [
-    'basePath' =&gt; dirname(__DIR__),
-];
-
-(new tebe\zack\Zack($config))-&gt;run();
-</code></pre>
-<p>Start PHP's built-in web server:</p>
-<pre><code class="language-bash">cd myproject
-php -S localhost:8888 -t web
-</code></pre>
-<p>Open <a href="http://localhost:8888">http://localhost:8888</a> with your preferred web browser.</p>
+  <p>Read the <a href="https://zack.tebe.ch/doc">documentation</a> for more information.
 
 	<h2>Examples</h2>
   <h3>This Website</h3>
