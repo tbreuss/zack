@@ -25,6 +25,7 @@ readonly class FileBasedRouter
 
         $finder->files()
             ->in($this->routePath)
+            ->name('*.{htm,html,json,markdown,md,php}')
             ->sort(function (\SplFileInfo $a, \SplFileInfo $b): int {
                 // temporary solution to have named parameter routes in last place
                 $a = str_replace(['[', ']'], '~', $a->getRealPath());
