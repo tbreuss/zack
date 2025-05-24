@@ -8,4 +8,8 @@ return [
     'php' => [
         'displayErrors' => true,
     ],
+    'logger' => [
+        'minLevel' => 'warning',
+        'output' => dirname(__DIR__) . '/logs/logger.log',
+    ],
 ];
