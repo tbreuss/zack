@@ -3,6 +3,5 @@
 require dirname(__DIR__) . '/vendor/autoload.php';
 
 $config = require dirname(__DIR__) . '/config/config.php';
-$dispatcher = require dirname(__DIR__) . '/config/event-dispatcher.php';
 
-(new tebe\zack\Zack($config, $dispatcher))->run();
+(new tebe\zack\Zack($config))->run();
