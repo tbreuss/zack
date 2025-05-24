@@ -11,4 +11,4 @@ Additionally, Zack! integrates [Twig](https://twig.symfony.com/), a powerful tem
 
 ## More Information
 
-Read the [documentation](https://zack.tebe.ch/doc) for more information.
+Look at the [examples](https://zack.tebe.ch/examples) or read the [documentation](https://zack.tebe.ch/doc) for more information.
