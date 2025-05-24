@@ -1,0 +1,82 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+	{{- title -}}
+{% endblock %}
+
+{% block content %}
+<h2>Examples</h2>
+
+<h3>This Website</h3>
+<p>This website runs with Zack! The file-based routing for the website is very simple and looks like this:</p>
+
+<pre><code class="language-text">routes/
+├─ development.md
+├─ doc.md
+├─ examples.php
+└─ index.php
+</code></pre>
+
+<p>And also the folder with the necessary twig views looks manageable:</p>
+
+<pre><code class="language-text">views/
+├─ base.html.twig
+├─ examples.html.twig
+└─ index.html.twig</code></pre>
+
+<p>In this example, the two Markdown files are automatically converted to HTML and output, while the PHP files are rendered and output using Twig.</p>
+
+<h3>Petstore OAS 3.0</h3>
+<p>As an API example, we have (more or less) implemented the endpoints of the <a href="https://petstore3.swagger.io/">Swagger Petstore - OpenAPI 3.0</a> specification.</p>
+<p>The file-based routing for the API looks as follows:</p>
+
+<pre><code class="language-text">routes/api/petstore3/
+├─ pet
+│  ├─ [petId]
+│  │  ├─ index.delete.json
+│  │  ├─ index.get.json
+│  │  ├─ index.post.json
+│  │  └─ uploadImage.post.json
+│  ├─ findByStatus.get.json
+│  ├─ findByTags.get.json
+│  ├─ index.post.json
+│  └─ index.put.json
+├─ store
+│  ├─ order
+│  │  ├─ [orderId]
+│  │  │  ├─ index.delete.json
+│  │  │  └─ index.get.json
+│  │  └─ index.post.json
+│  └─ inventory.get.json
+└─ user
+   ├─ [username]
+   │  ├─ index.delete.json
+   │  ├─ index.get.json
+   │  └─ index.put.json
+   ├─ createWithList.post.json
+   ├─ index.post.json
+   ├─ login.get.json
+   └─ logout.get.json</code></pre>
+
+<p>Click on the endpoints below to see the requests and responses in detail.</p>
+
+{% for category in apiRoutes %}
+  <p style="margin: 1em 0 0.5em 0">
+    <b style="margin-right: 0.5em">{{ category.name }}</b>
+    <span style="font-size: 0.8em">{{ category.description }}</span>
+  </p>
+  {% for route in category.routes %}
+    <div class="endpoint" data-url="{{ route.url }}" data-method="{{ route.method }}" data-body='{{ route.body|raw }}'>
+      <div class="endpoint-link endpoint-link--{{ route.method|lower }}">
+        <span class="endpoint-request-method">{{ route.method|upper }}</span>
+        <span class="endpoint-request-name">{{ route.path }}</span>
+        <span class="endpoint-request-description">{{ route.name }}</span>
+      </div>
+      <div class="endpoint-request-body"></div>
+      <div class="endpoint-response-status"></div>
+      <div class="endpoint-response-body"></div>
+    </div>
+  {% endfor %}
+{% endfor %}
+
+{% endblock %}
