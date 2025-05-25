@@ -83,16 +83,16 @@
         },
         {
             "name": "league/commonmark",
-            "version": "2.6.2",
+            "version": "2.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/commonmark.git",
-                "reference": "06c3b0bf2540338094575612f4a1778d0d2d5e94"
+                "reference": "6fbb36d44824ed4091adbcf4c7d4a3923cdb3405"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/commonmark/zipball/06c3b0bf2540338094575612f4a1778d0d2d5e94",
-                "reference": "06c3b0bf2540338094575612f4a1778d0d2d5e94",
+                "url": "https://api.github.com/repos/thephpleague/commonmark/zipball/6fbb36d44824ed4091adbcf4c7d4a3923cdb3405",
+                "reference": "6fbb36d44824ed4091adbcf4c7d4a3923cdb3405",
                 "shasum": ""
             },
             "require": {
@@ -129,7 +129,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "2.7-dev"
+                    "dev-main": "2.8-dev"
                 }
             },
             "autoload": {
@@ -186,7 +186,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-04-18T21:09:27+00:00"
+            "time": "2025-05-05T12:20:28+00:00"
         },
         {
             "name": "league/config",
@@ -1850,9 +1850,10 @@
             "dist": {
                 "type": "path",
                 "url": "..",
-                "reference": "0622670f885652e1777f5281d3ae10790fa95887"
+                "reference": "1b49aa3b5be25fea97ac1d4aed4dc52091225420"
             },
             "require": {
+                "ext-dom": "*",
                 "league/commonmark": "^2.6",
                 "symfony/dependency-injection": "^7.2",
                 "symfony/event-dispatcher": "^7.2",
@@ -1866,7 +1867,10 @@
             "autoload": {
                 "psr-4": {
                     "tebe\\zack\\": "src/"
-                }
+                },
+                "files": [
+                    "src/funcs/main.php"
+                ]
             },
             "license": [
                 "MIT"
@@ -1876,7 +1880,7 @@
                     "name": "Thomas Breuss"
                 }
             ],
-            "description": "A sample PHP project",
+            "description": "Zack! is a compact, file-based routing microframework based on Symfony's HttpKernel Component with integrated route handlers and Twig template engine, good for small projects.",
             "transport-options": {
                 "symlink": false,
                 "relative": true
