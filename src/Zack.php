@@ -60,6 +60,8 @@ class Zack
     {
         $routes = (new FileBasedRouter($this->config->routePath, $this->dispatcher))->getRoutes();
 
+        $this->container->set('config', $this->config);
+
         $this->container->register('logger', HttpKernel\Log\Logger::class)
             ->setArguments([
                 $this->config->logger->minLevel,
@@ -117,11 +119,11 @@ class Zack
 
         $this->container->register('httpkernel', HttpKernel\HttpKernel::class)
             ->setArguments([
-                $this->dispatcher,                      // dispatcher
-                new Reference('controller_resolver'),   // resolver
-                new Reference('request_stack'),         // requestStack
-                new Reference('argument_resolver'),     // argumentResolver
-                false,                                  // handleAllThrowables
+                $this->dispatcher,
+                new Reference('controller_resolver'),
+                new Reference('request_stack'),
+                new Reference('argument_resolver'),
+                true, // handleAllThrowables
             ]);
 
         $this->dispatcher->dispatch(new ContainerEvent($this->container), 'zack.container');
