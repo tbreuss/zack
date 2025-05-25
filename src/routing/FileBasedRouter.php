@@ -58,9 +58,7 @@ readonly class FileBasedRouter
 
         if ($count > 1) {
             throw new \Exception('Error parsing file name: ' . $fileInfo->getRelativePathname());
-        }
-
-        if ($count === 0) {
+        } elseif ($count === 0) {
             return null;
         }
 
@@ -94,13 +92,9 @@ readonly class FileBasedRouter
 
         if ($status === false) {
             throw new \Exception('Error parsing file name: ' . $fileInfo->getRelativePathname());
-        }
-
-        if ($status > 1) {
+        } elseif ($status > 1) {
             throw new \Exception('Error parsing file name: ' . $fileInfo->getRelativePathname());
-        }
-
-        if ($status === 0) {
+        } elseif ($status === 0) {
             return null;
         }
 
