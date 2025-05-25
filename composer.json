@@ -16,7 +16,10 @@
   "autoload": {
     "psr-4": {
       "tebe\\zack\\": "src/"
-    }
+    },
+    "files": [
+      "src/funcs/main.php"
+    ]
   },
   "authors": [
     {
