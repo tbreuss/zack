@@ -7,7 +7,7 @@ use Twig\Cache\CacheInterface;
 readonly class TwigConfig
 {
     public array|string $templatePath;
-    public bool|string|CacheInterface $cache;
+    public false|string|CacheInterface $cache;
     public bool $debug;
     public string $charset;
     public bool $strictVariables;
@@ -18,8 +18,16 @@ readonly class TwigConfig
 
     public function __construct(array $config, string $basePath)
     {
+        $cache = $config['cache'] ?? null;
+        if ($cache instanceof CacheInterface || is_string($cache)) {
+            $this->cache = $cache;
+        } elseif ($cache === true) {
+            $this->cache = $basePath . '/cache/twig';
+        } else {
+            $this->cache = false;
+        }
+
         $this->templatePath = $config['templatePath'] ?? $basePath . '/views';
-        $this->cache = $config['cache'] ?? $basePath . '/cache/twig';
         $this->debug = $config['debug'] ?? false;
         $this->charset = $config['charset'] ?? 'UTF-8';
         $this->autoescape = $config['autoescape'] ?? 'html';

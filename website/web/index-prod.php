@@ -2,6 +2,6 @@
 
 require dirname(__DIR__) . '/vendor/autoload.php';
 
-$config = require dirname(__DIR__) . '/config/config.php';
+$config = require dirname(__DIR__) . '/config/config-prod.php';
 
 (new tebe\zack\Zack($config))->run();

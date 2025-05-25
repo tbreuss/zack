@@ -3,4 +3,7 @@
 return [
     'basePath' => dirname(__DIR__),
     'name' => 'Zack!',
+    'twig' => [
+        'cache' => true,
+    ],
 ];
