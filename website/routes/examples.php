@@ -1,5 +1,7 @@
 <?php declare(strict_types=1);
 
+/** @var tebe\zack\routing\PhpRouteHandler $this */
+
 $apiRoutes = [
     [
         'name' => 'pet',
