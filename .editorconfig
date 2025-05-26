@@ -9,6 +9,6 @@ charset = utf-8
 indent_style = space
 indent_size = 4
 
-[*.{html,json,twig}]
+[*.{html,json,neon,twig}]
 indent_style = space
 indent_size = 2
