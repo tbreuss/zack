@@ -14,5 +14,5 @@
   {% else %}
     <h2>Error {{ exception.statusCode }}</h2>
   {% endif %}
-	<p>{{ exception.message }}</p>
+	<p>{{ exception.message|replace({(config.basePath): ''}) }}</p>
 {% endblock %}
