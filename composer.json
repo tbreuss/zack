@@ -1,7 +1,9 @@
 {
   "name": "tebe/zack",
-  "description": "Zack! is a compact, file-based routing microframework based on Symfony's HttpKernel Component with integrated route handlers and Twig template engine, good for small projects.",
   "type": "library",
+  "description": "Zack! is a compact, file-based routing microframework based on Symfony's HttpKernel Component with integrated route handlers and Twig template engine, good for small projects.",
+  "keywords": ["microframework", "routing", "twig", "symfony", "http-kernel", "file-based"],
+  "homepage": "https://zack.tebe.ch",
   "require": {
     "league/commonmark": "^2.6",
     "symfony/dependency-injection": "^7.2",
