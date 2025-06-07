@@ -10,7 +10,7 @@ class PhpRouteHandler
 {
     private ?ContainerBuilder $container;
 
-    public function __invoke(Request $request): Response|array
+    public function __invoke(Request $request): Response
     {
         $this->container = $request->attributes->get('_container');
         $path = $request->attributes->get('_path');
@@ -25,8 +25,8 @@ class PhpRouteHandler
 
         $response = require $path;
 
-        if (!$response instanceof Response && !is_array($response)) {
-            throw new \Exception('PHP file must return a response object or an array: ' . $path);
+        if (!$response instanceof Response) {
+            throw new \Exception('PHP file must return a response object: ' . $path);
         }
 
         return $response;
