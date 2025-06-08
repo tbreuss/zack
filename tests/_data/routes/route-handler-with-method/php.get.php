@@ -1,3 +1,1 @@
-<?php declare(strict_types=1);
-
-return '<h1>php.get.php</h1>';
+<h2><?= 'php.get.php' ?></h2>

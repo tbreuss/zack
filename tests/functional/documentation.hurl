@@ -3,7 +3,7 @@ HTTP 200
 Content-Type: text/html; charset=UTF-8
 [Asserts]
 body contains "<title>Hello World! - My application</title>"
-body contains "<h1>Hello World!</h1>"
+body contains "<h2>Hello World!</h2>"
 
 GET {{host}}/doc-examples/api/ping
 HTTP 200
@@ -40,14 +40,14 @@ HTTP 200
 Content-Type: text/html; charset=UTF-8
 [Asserts]
 body contains "<title>htm-page - My application</title>"
-body contains "<h1>htm-page</h1>"
+body contains "<h2>htm-page</h2>"
 
 GET {{host}}/doc-examples/html-page
 HTTP 200
 Content-Type: text/html; charset=UTF-8
 [Asserts]
 body contains "<title>html-page - My application</title>"
-body contains "<h1>html-page</h1>"
+body contains "<h2>html-page</h2>"
 
 GET {{host}}/doc-examples/json-page
 HTTP 200
@@ -60,17 +60,17 @@ HTTP 200
 Content-Type: text/html; charset=UTF-8
 [Asserts]
 body contains "<title>markdown-page - My application</title>"
-body contains "<h1>markdown-page</h1>"
+body contains "<h2>markdown-page</h2>"
 
 GET {{host}}/doc-examples/md-page
 HTTP 200
 Content-Type: text/html; charset=UTF-8
 [Asserts]
 body contains "<title>md-page - My application</title>"
-body contains "<h1>md-page</h1>"
+body contains "<h2>md-page</h2>"
 
 GET {{host}}/doc-examples/php-page
 HTTP 200
 Content-Type: text/html; charset=UTF-8
 [Asserts]
-body contains "<h1>php-page</h1>"
+body contains "<h2>php-page</h2>"

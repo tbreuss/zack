@@ -1,3 +1,3 @@
 <?php declare(strict_types=1);
 
-return new Symfony\Component\HttpFoundation\RedirectResponse('/', 302);
+return $this->redirect('/', 302);

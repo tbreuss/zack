@@ -1,5 +1,3 @@
-<?php declare(strict_types=1);
+<?php /** @var Symfony\Component\HttpFoundation\Request $request */ ?>
 
-/** @var Symfony\Component\HttpFoundation\Request $request */
-
-echo $request->get('param1');
+<h2><?= $request->get('param1') ?></h2>

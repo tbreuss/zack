@@ -1,9 +1,3 @@
-<?php declare(strict_types=1);
+<?php /** @var Symfony\Component\HttpFoundation\Request $request */ ?>
 
-/** @var Symfony\Component\HttpFoundation\Request $request */
-
-$value1 = $request->get('param1');
-$value2 = $request->get('param2');
-$value3 = $request->get('param3');
-
-echo $value1 . ' ' . $value2 . ' ' . $value3;
+<h2><?= $request->get('param1') ?> <?= $request->get('param2') ?> <?= $request->get('param3') ?></h2>

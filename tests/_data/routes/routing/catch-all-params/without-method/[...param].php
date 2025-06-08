@@ -1,7 +1,3 @@
-<?php declare(strict_types=1);
+<?php /** @var Symfony\Component\HttpFoundation\Request $request */ ?>
 
-/** @var Symfony\Component\HttpFoundation\Request $request */
-
-$value = $request->get('param');
-
-return 'Catch all params ' . $value;
+<h2>Catch all params <?= $request->get('param') ?></h2>

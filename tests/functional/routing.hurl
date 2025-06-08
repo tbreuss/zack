@@ -33,59 +33,68 @@ GET {{host}}/routing/path-params/value1
 HTTP 200
 Content-Type: text/html; charset=UTF-8
 [Asserts]
-body contains "value1"
+body contains "<title>value1 - My application</title>"
+body contains "<h2>value1</h2>"
 
 # Pathparams Two Parameters
 GET {{host}}/routing/path-params/value1/value2
 HTTP 200
 Content-Type: text/html; charset=UTF-8
 [Asserts]
-body contains "value1 value2"
+body contains "<title>value1 value2 - My application</title>"
+body contains "<h2>value1 value2</h2>"
 
 # Pathparams Three Parameters
 GET {{host}}/routing/path-params/value1/value2/value3
 HTTP 200
 Content-Type: text/html; charset=UTF-8
 [Asserts]
-body contains "value1 value2 value3"
+body contains "<title>value1 value2 value3 - My application</title>"
+body contains "<h2>value1 value2 value3</h2>"
 
 # Fileparams One Parameter
 GET {{host}}/routing/file-params/value1
 HTTP 200
 Content-Type: text/html; charset=UTF-8
 [Asserts]
-body contains "value1"
+body contains "<title>value1 - My application</title>"
+body contains "<h2>value1</h2>"
 
 # Fileparams Two Parameters
 GET {{host}}/routing/file-params/value1/value2
 HTTP 200
 Content-Type: text/html; charset=UTF-8
 [Asserts]
-body contains "value1 value2"
+body contains "<title>value1 value2 - My application</title>"
+body contains "<h2>value1 value2</h2>"
 
 # Fileparams Three Parameters
 GET {{host}}/routing/file-params/value1/value2/value3
 HTTP 200
 Content-Type: text/html; charset=UTF-8
 [Asserts]
-body contains "value1 value2 value3"
+body contains "<title>value1 value2 value3 - My application</title>"
+body contains "<h2>value1 value2 value3</h2>"
 
 # Catch all params without method
 GET {{host}}/routing/catch-all-params/without-method/value1/value2/value3
 HTTP 200
 Content-Type: text/html; charset=UTF-8
 [Asserts]
-body contains "Catch all params value1/value2/value3"
+body contains "<title>Catch all params value1/value2/value3 - My application</title>"
+body contains "<h2>Catch all params value1/value2/value3</h2>"
 
 # Catch all params with method
 PATCH {{host}}/routing/catch-all-params/with-method/value1/value2/value3
 HTTP 200
 Content-Type: text/html; charset=UTF-8
 [Asserts]
-body contains "PATCH catch all params value1/value2/value3"
+body contains "<title>PATCH Catch all params value1/value2/value3 - My application</title>"
+body contains "<h2>PATCH Catch all params value1/value2/value3</h2>"
 
 POST {{host}}/routing/catch-all-params/with-method/value1/value2/value3
 HTTP 200
 Content-Type: text/html; charset=UTF-8
 [Asserts]
-body contains "POST catch all params value1/value2/value3"
+body contains "<title>POST Catch all params value1/value2/value3 - My application</title>"
+body contains "<h2>POST Catch all params value1/value2/value3</h2>"
