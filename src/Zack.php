@@ -28,7 +28,7 @@ class Zack
 
     public function run(): void
     {
-        error_reporting($this->config->php->errorReporting);
+        error_reporting($this->config->php->errorLevel);
         ini_set('display_errors', $this->config->php->displayErrors ? '1' : '0');
         ini_set('display_startup_errors', $this->config->php->displayStartupErrors ? '1' : '0');
         ini_set('log_errors', $this->config->php->logErrors ? '1' : '0');
@@ -36,7 +36,7 @@ class Zack
 
         set_error_handler(function (int $severity, string $message, string $file = '', int $line = 0) {
             throw new \ErrorException($message, 0, $severity, $file, $line);
-        }, $this->config->php->errorReporting);
+        }, $this->config->php->errorLevel);
 
         $this->initContainer();
 
