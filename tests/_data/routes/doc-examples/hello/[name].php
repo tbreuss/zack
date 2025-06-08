@@ -1,7 +1,3 @@
-<?php declare(strict_types=1);
+<?php /** @var Symfony\Component\HttpFoundation\Request $request */ ?>
 
-/** @var Symfony\Component\HttpFoundation\Request $request */
-
-$name = $request->attributes->get('name');
-
-echo "Hello $name!";
+<h2>Hello <?= $request->get('name') ?>!</h2>

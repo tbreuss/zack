@@ -1,8 +1,3 @@
-<?php declare(strict_types=1);
+<?php /** @var Symfony\Component\HttpFoundation\Request $request */ ?>
 
-/** @var Symfony\Component\HttpFoundation\Request $request */
-
-$name = $request->attributes->get('name');
-$age = $request->attributes->get('age');
-
-echo "Hello $name! You are $age years old.";
+<h2>Hello <?= $request->get('name') ?>! You are <?= $request->get('age') ?> years old.</h2>

@@ -15,19 +15,22 @@ GET {{host}}/doc-examples/hello/World
 HTTP 200
 Content-Type: text/html; charset=UTF-8
 [Asserts]
-body contains "Hello World!"
+body contains "<title>Hello World! - My application</title>"
+body contains "<h2>Hello World!</h2>"
 
 GET {{host}}/doc-examples/hello/Mike/20
 HTTP 200
 Content-Type: text/html; charset=UTF-8
 [Asserts]
-body contains "Hello Mike! You are 20 years old."
+body contains "<title>Hello Mike! You are 20 years old. - My application</title>"
+body contains "<h2>Hello Mike! You are 20 years old.</h2>"
 
 GET {{host}}/doc-examples/hello/catchall/zack/is/nice!
 HTTP 200
 Content-Type: text/html; charset=UTF-8
 [Asserts]
-body contains "Hello zack/is/nice!"
+body contains "<title>Hello zack/is/nice! - My application</title>"
+body contains "<h2>Hello zack/is/nice!</h2>"
 
 POST {{host}}/doc-examples/users
 HTTP 200
@@ -73,4 +76,5 @@ GET {{host}}/doc-examples/php-page
 HTTP 200
 Content-Type: text/html; charset=UTF-8
 [Asserts]
+body contains "<title>php-page - My application</title>"
 body contains "<h2>php-page</h2>"

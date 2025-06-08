@@ -1,81 +1,116 @@
-# Route handler without HTTP method
-GET {{host}}/route-handler/htm
+# Route handler PHP
+GET {{host}}/route-handler/php/echo-string
 HTTP 200
 Content-Type: text/html; charset=UTF-8
 [Asserts]
-body contains "<title>htm.htm - My application</title>"
-body contains "<h2>htm.htm</h2>"
+body contains "<title>Echo string - My application</title>"
+body contains "<h2>Echo string</h2>"
 
-GET {{host}}/route-handler/html
-HTTP 200
-Content-Type: text/html; charset=UTF-8
-[Asserts]
-body contains "<title>html.html - My application</title>"
-body contains "<h2>html.html</h2>"
-
-GET {{host}}/route-handler/json
+GET {{host}}/route-handler/php/return-array
 HTTP 200
 Content-Type: application/json
 [Asserts]
-body contains "json.json"
+body contains "Return array value"
 
-GET {{host}}/route-handler/markdown
+GET {{host}}/route-handler/php/return-invalid
+HTTP 500
+Content-Type: text/html; charset=UTF-8
+[Asserts]
+body contains "<title>Error 500 - My application</title>"
+body contains "<h2>Error 500</h2>"
+body contains "<p>The PHP file must output something or return a string, an array or a response object: /routes/route-handler/php/return-invalid.get.php</p>"
+
+GET {{host}}/route-handler/php/return-response
 HTTP 200
 Content-Type: text/html; charset=UTF-8
 [Asserts]
-body contains "<title>markdown.markdown - My application</title>"
-body contains "<h2>markdown.markdown</h2>"
+body contains "Return response value"
 
-GET {{host}}/route-handler/md
+GET {{host}}/route-handler/php/return-string
 HTTP 200
 Content-Type: text/html; charset=UTF-8
 [Asserts]
-body contains "<title>md.md - My application</title>"
-body contains "<h2>md.md</h2>"
-
-GET {{host}}/route-handler/php
-HTTP 200
-Content-Type: text/html; charset=UTF-8
-[Asserts]
-body contains "<h2>php.php</h2>"
+body contains "<title>Return string value - My application</title>"
+body contains "<h2>Return string value</h2>"
 
 # Route handler with HTTP method
-GET {{host}}/route-handler-with-method/htm
+GET {{host}}/route-handler/with-method/htm
 HTTP 200
 Content-Type: text/html; charset=UTF-8
 [Asserts]
 body contains "<title>htm.get.htm - My application</title>"
 body contains "<h2>htm.get.htm</h2>"
 
-GET {{host}}/route-handler-with-method/html
+GET {{host}}/route-handler/with-method/html
 HTTP 200
 Content-Type: text/html; charset=UTF-8
 [Asserts]
 body contains "<title>html.get.html - My application</title>"
 body contains "<h2>html.get.html</h2>"
 
-GET {{host}}/route-handler-with-method/json
+GET {{host}}/route-handler/with-method/json
 HTTP 200
 Content-Type: application/json
 [Asserts]
 body contains "json.get.json"
 
-GET {{host}}/route-handler-with-method/markdown
+GET {{host}}/route-handler/with-method/markdown
 HTTP 200
 Content-Type: text/html; charset=UTF-8
 [Asserts]
 body contains "<title>markdown.get.markdown - My application</title>"
 body contains "<h2>markdown.get.markdown</h2>"
 
-GET {{host}}/route-handler-with-method/md
+GET {{host}}/route-handler/with-method/md
 HTTP 200
 Content-Type: text/html; charset=UTF-8
 [Asserts]
 body contains "<title>md.get.md - My application</title>"
 body contains "<h2>md.get.md</h2>"
 
-GET {{host}}/route-handler-with-method/php
+GET {{host}}/route-handler/with-method/php
 HTTP 200
 Content-Type: text/html; charset=UTF-8
 [Asserts]
 body contains "<h2>php.get.php</h2>"
+
+# Route handler without HTTP method
+GET {{host}}/route-handler/without-method/htm
+HTTP 200
+Content-Type: text/html; charset=UTF-8
+[Asserts]
+body contains "<title>htm.htm - My application</title>"
+body contains "<h2>htm.htm</h2>"
+
+GET {{host}}/route-handler/without-method/html
+HTTP 200
+Content-Type: text/html; charset=UTF-8
+[Asserts]
+body contains "<title>html.html - My application</title>"
+body contains "<h2>html.html</h2>"
+
+GET {{host}}/route-handler/without-method/json
+HTTP 200
+Content-Type: application/json
+[Asserts]
+body contains "json.json"
+
+GET {{host}}/route-handler/without-method/markdown
+HTTP 200
+Content-Type: text/html; charset=UTF-8
+[Asserts]
+body contains "<title>markdown.markdown - My application</title>"
+body contains "<h2>markdown.markdown</h2>"
+
+GET {{host}}/route-handler/without-method/md
+HTTP 200
+Content-Type: text/html; charset=UTF-8
+[Asserts]
+body contains "<title>md.md - My application</title>"
+body contains "<h2>md.md</h2>"
+
+GET {{host}}/route-handler/without-method/php
+HTTP 200
+Content-Type: text/html; charset=UTF-8
+[Asserts]
+body contains "<h2>php.php</h2>"
