@@ -2,4 +2,4 @@
 
 use Symfony\Component\HttpFoundation\Response;
 
-return new Response('<h1>php.get.php</h1>');
+return new Response('Return response value');
