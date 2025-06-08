@@ -3,8 +3,11 @@
 namespace tebe\zack\routing;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+
+use function tebe\zack\html_extract_title;
 
 class PhpRouteHandler
 {
@@ -23,19 +26,30 @@ class PhpRouteHandler
             throw new \Exception('PHP file not found for path: ' . $path);
         }
 
-        $response = require $path;
+        ob_start();
+        $returnValue = require $path;
+        $outputValue = ob_get_clean();
 
-        if (!$response instanceof Response) {
-            throw new \Exception('PHP file must return a response object: ' . $path);
+        if ($returnValue === 1 && is_string($outputValue)) {
+            $title = html_extract_title($outputValue, basename($path));
+            return $this->html('route-handler.html.twig', ['title' => $title, 'html' => $outputValue]);
+        } elseif (is_string($returnValue)) {
+            if (is_string($outputValue) && strlen($outputValue) > 0) {
+                throw new \Exception('In the PHP file the return value must be omitted if an output was made via echo: ' . $path);
+            }
+            return new Response($returnValue, 200);
+        } elseif (is_array($returnValue)) {
+            return $this->json($returnValue);
+        } elseif ($returnValue instanceof Response) {
+            return $returnValue;
+        } else {
+            throw new \Exception('The PHP file must output something or return a string, an array or a response object: ' . $path);
         }
-
-        return $response;
     }
 
     public function html(string $template, array $context = []): Response
     {
-        $twig = $this->container->get('twig');
-        $html = $twig->render($template, $context);
+        $html = $this->render($template, $context);
         return new Response($html, 200);
     }
 
@@ -45,5 +59,16 @@ class PhpRouteHandler
         return new Response($json, 200, [
             'Content-Type' => 'application/json',
         ]);
+    }
+
+    public function redirect(string $url, int $status = 302): Response
+    {
+        return new RedirectResponse($url, $status);
+    }
+
+    public function render(string $template, array $context = []): string
+    {
+        $twig = $this->container->get('twig');
+        return $twig->render($template, $context);
     }
 }

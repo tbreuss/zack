@@ -2,6 +2,6 @@
 
 /** @var tebe\zack\routing\PhpRouteHandler $this */
 
-return $this->html('articles/detail.html.twig', [
+return $this->render('articles/detail.html.twig', [
     'title' => 'GET: Articles.[id].Php',
 ]);

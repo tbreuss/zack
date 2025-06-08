@@ -1,3 +1,5 @@
 <?php declare(strict_types=1);
 
-return new Symfony\Component\HttpFoundation\RedirectResponse('/', 302);
+/** @var tebe\zack\routing\PhpRouteHandler $this */
+
+return $this->redirect('/', 302);

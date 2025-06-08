@@ -156,7 +156,7 @@ $apiRoutes = [
     ],
 ];
 
-return $this->html('examples.html.twig', [
+return $this->render('examples.html.twig', [
     'title' => 'Examples',
     'apiRoutes' => $apiRoutes,
 ]);

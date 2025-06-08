@@ -1,5 +1,7 @@
 <?php declare(strict_types=1);
 
-return new Symfony\Component\HttpFoundation\Response(
-    '<h1>POST: Articles.[id].Comments.Php</h1>',
-);
+/** @var tebe\zack\routing\PhpRouteHandler $this */
+
+return $this->render('articles/comments.html.twig', [
+    'title' => 'POST: Articles.[id].Comments.Php',
+]);

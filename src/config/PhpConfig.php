@@ -4,18 +4,18 @@ namespace tebe\zack\config;
 
 readonly class PhpConfig
 {
-    public int $errorReporting;
     public bool $displayErrors;
     public bool $displayStartupErrors;
-    public bool $logErrors;
+    public int $errorLevel;
     public string $errorLog;
+    public bool $logErrors;
 
     public function __construct(array $config, string $logPath)
     {
-        $this->errorReporting = $config['errorReporting'] ?? E_ALL;
         $this->displayErrors = $config['displayErrors'] ?? false;
         $this->displayStartupErrors = $config['displayStartupErrors'] ?? false;
-        $this->logErrors = $config['logErrors'] ?? true;
+        $this->errorLevel = $config['errorLevel'] ?? E_ALL;
         $this->errorLog = $config['errorLog'] ?? $logPath . '/errors.log';
+        $this->logErrors = $config['logErrors'] ?? true;
     }
 }
