@@ -24,19 +24,19 @@ class PhpRouteHandler
         }
 
         ob_start();
-        $response = require $path;
-        $contents = ob_get_clean();
+        $returnValue = require $path;
+        $outputValue = ob_get_clean();
 
-        if ($response === 1 && is_string($contents)) {
-            return new Response($contents, 200);
-        } elseif (is_string($response) && is_string($contents) && strlen($contents) > 0) {
+        if ($returnValue === 1 && is_string($outputValue)) {
+            return new Response($outputValue, 200);
+        } elseif (is_string($returnValue) && is_string($outputValue) && strlen($outputValue) > 0) {
             throw new \Exception('In the PHP file the return value must be omitted if an output was made via echo: ' . $path);
-        } elseif (is_string($response)) {
-            return new Response($response, 200);
-        } elseif (is_array($response)) {
-            return $this->json($response);
-        } elseif ($response instanceof Response) {
-            return $response;
+        } elseif (is_string($returnValue)) {
+            return new Response($returnValue, 200);
+        } elseif (is_array($returnValue)) {
+            return $this->json($returnValue);
+        } elseif ($returnValue instanceof Response) {
+            return $returnValue;
         } else {
             throw new \Exception('The PHP file must output something or return a string, an array or a response object: ' . $path);
         }
