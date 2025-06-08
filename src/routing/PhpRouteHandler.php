@@ -37,7 +37,7 @@ class PhpRouteHandler
             if (is_string($outputValue) && strlen($outputValue) > 0) {
                 throw new \Exception('In the PHP file the return value must be omitted if an output was made via echo: ' . $path);
             }
-            return new Response($returnValue, 200);            
+            return new Response($returnValue, 200);
         } elseif (is_array($returnValue)) {
             return $this->json($returnValue);
         } elseif ($returnValue instanceof Response) {
