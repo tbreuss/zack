@@ -25,12 +25,10 @@ function html_extract_title(string $html, string $default): string
     $d = new \DOMDocument();
     $d->loadHTML($html);
 
-    foreach ($d->getElementsByTagName('h1') as $item) {
-        return trim($item->textContent);
-    }
-
-    foreach ($d->getElementsByTagName('h2') as $item) {
-        return trim($item->textContent);
+    foreach (['h1', 'h2', 'h3'] as $tagName) {
+        foreach ($d->getElementsByTagName($tagName) as $item) {
+            return trim($item->textContent);
+        }
     }
 
     return $default;
