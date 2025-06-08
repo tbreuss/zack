@@ -2,6 +2,4 @@
 
 /** @var Symfony\Component\HttpFoundation\Request $request */
 
-$value = $request->get('param1');
-
-return new Symfony\Component\HttpFoundation\Response($value);
+echo $request->get('param1');

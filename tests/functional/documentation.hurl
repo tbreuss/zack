@@ -9,7 +9,7 @@ GET {{host}}/doc-examples/api/ping
 HTTP 200
 Content-Type: application/json
 [Asserts]
-body contains "{\"ping\": \"pong\"}"
+jsonpath "$.ping" == "pong"
 
 GET {{host}}/doc-examples/hello/World
 HTTP 200
@@ -33,7 +33,7 @@ POST {{host}}/doc-examples/users
 HTTP 200
 Content-Type: application/json
 [Asserts]
-body contains "{\"updated\": true}"
+jsonpath "$.updated" == true
 
 GET {{host}}/doc-examples/htm-page
 HTTP 200

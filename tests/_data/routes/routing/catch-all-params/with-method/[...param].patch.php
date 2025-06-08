@@ -4,4 +4,4 @@
 
 $value = $request->get('param');
 
-return new Symfony\Component\HttpFoundation\Response('PATCH catch all params ' . $value);
+return 'PATCH catch all params ' . $value;
