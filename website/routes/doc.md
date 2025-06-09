@@ -9,13 +9,13 @@ Zack! requirements are:
 
 Composer `--no-dev` requirements are:
 
-- league/commonmark: ^2.6
 - symfony/dependency-injection: ^7.2
 - symfony/event-dispatcher: ^7.2
 - symfony/finder: ^7.2
 - symfony/http-foundation: ^7.2
 - symfony/http-kernel: ^7.2
 - symfony/routing: ^7.2
+- twig/markdown-extra: ^3.21
 - twig/twig: ^3.20
 
 ### Installation
