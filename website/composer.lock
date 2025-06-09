@@ -1855,7 +1855,7 @@
             "dist": {
                 "type": "path",
                 "url": "..",
-                "reference": "548a4af08dd231cec010fde0efc662cf4c595454"
+                "reference": "b3f376aa68f2e9f9698652e56703d08f766c97a8"
             },
             "require": {
                 "ext-dom": "*",
