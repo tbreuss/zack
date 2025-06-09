@@ -56,7 +56,7 @@ GET {{host}}/doc-examples/json-page
 HTTP 200
 Content-Type: application/json
 [Asserts]
-body contains "json-page"
+jsonpath "$" == "json-page"
 
 GET {{host}}/doc-examples/markdown-page
 HTTP 200
