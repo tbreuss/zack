@@ -10,7 +10,7 @@ GET {{host}}/route-handler/php/return-array
 HTTP 200
 Content-Type: application/json
 [Asserts]
-body contains "Return array value"
+jsonpath "$.value" == "Return array value"
 
 GET {{host}}/route-handler/php/return-invalid
 HTTP 500
@@ -52,7 +52,7 @@ GET {{host}}/route-handler/with-method/json
 HTTP 200
 Content-Type: application/json
 [Asserts]
-body contains "json.get.json"
+jsonpath "$" == "json.get.json"
 
 GET {{host}}/route-handler/with-method/markdown
 HTTP 200
@@ -72,6 +72,7 @@ GET {{host}}/route-handler/with-method/php
 HTTP 200
 Content-Type: text/html; charset=UTF-8
 [Asserts]
+body contains "<title>php.get.php - My application</title>"
 body contains "<h2>php.get.php</h2>"
 
 # Route handler without HTTP method
@@ -93,7 +94,7 @@ GET {{host}}/route-handler/without-method/json
 HTTP 200
 Content-Type: application/json
 [Asserts]
-body contains "json.json"
+jsonpath "$" == "json.json"
 
 GET {{host}}/route-handler/without-method/markdown
 HTTP 200
@@ -113,4 +114,5 @@ GET {{host}}/route-handler/without-method/php
 HTTP 200
 Content-Type: text/html; charset=UTF-8
 [Asserts]
+body contains "<title>php.php - My application</title>"
 body contains "<h2>php.php</h2>"

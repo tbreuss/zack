@@ -20,6 +20,7 @@ HTTP 301
 Content-Type: text/html; charset=utf-8
 [Asserts]
 body contains "<title>Redirecting to /</title>"
+body contains "Redirecting to <a href=\"/\">/</a>"
 
 # Redirect 302
 POST {{host}}/routing/redirect/302
@@ -27,6 +28,7 @@ HTTP 302
 Content-Type: text/html; charset=utf-8
 [Asserts]
 body contains "<title>Redirecting to /</title>"
+body contains "Redirecting to <a href=\"/\">/</a>"
 
 # Pathparams One Parameter
 GET {{host}}/routing/path-params/value1
