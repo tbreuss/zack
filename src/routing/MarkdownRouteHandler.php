@@ -3,8 +3,13 @@
 namespace tebe\zack\routing;
 
 use League\CommonMark\CommonMarkConverter;
+use Michelf\MarkdownExtra;
+use Parsedown;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Twig\Extra\Markdown\LeagueMarkdown;
+use Twig\Extra\Markdown\MichelfMarkdown;
+use Twig\Extra\Markdown\ErusevMarkdown;
 
 use function tebe\zack\file_read;
 use function tebe\zack\html_extract_title;
@@ -18,7 +23,16 @@ class MarkdownRouteHandler
 
         $markdown = file_read($path);
 
-        $converter = new CommonMarkConverter();
+        if (class_exists(CommonMarkConverter::class)) {
+            $converter = new LeagueMarkdown();
+        } elseif (class_exists(MarkdownExtra::class)) {
+            $converter = new MichelfMarkdown();
+        } elseif (class_exists(Parsedown::class)) {
+            $converter = new ErusevMarkdown();
+        } else {
+            throw new \LogicException('No Markdown library is available; try running "composer require league/commonmark".');
+        }
+
         $html = (string) $converter->convert($markdown);
 
         $title = html_extract_title($html, basename($path));
