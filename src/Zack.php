@@ -13,6 +13,10 @@ use Symfony\Component\HttpFoundation;
 use Symfony\Component\HttpKernel;
 use Symfony\Component\Routing;
 use Twig;
+use Twig\Extra\Markdown\MarkdownExtension;
+use Twig\Extra\Markdown\DefaultMarkdown;
+use Twig\Extra\Markdown\MarkdownRuntime;
+use Twig\RuntimeLoader\RuntimeLoaderInterface;
 
 class Zack
 {
@@ -90,7 +94,16 @@ class Zack
                 'optimizations' => $this->config->twig->optimizations,
                 'use_yield' => $this->config->twig->useYield,
             ])
-            ->addMethodCall('addGlobal', ['config', $this->config]);
+            ->addMethodCall('addExtension', [new MarkdownExtension()])
+            ->addMethodCall('addGlobal', ['config', $this->config])
+            ->addMethodCall('addRuntimeLoader', [new class implements RuntimeLoaderInterface {
+                public function load($class) {
+                    if (MarkdownRuntime::class === $class) {
+                        return new MarkdownRuntime(new DefaultMarkdown());
+                    }
+                    return null;
+                }
+            }]);
 
         $this->container->register('context', Routing\RequestContext::class);
         $this->container->register('matcher', Routing\Matcher\UrlMatcher::class)
