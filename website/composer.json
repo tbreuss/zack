@@ -1,6 +1,7 @@
 {
   "require": {
-    "tebe/zack": "0.0.0"
+    "tebe/zack": "0.0.0",
+    "league/commonmark": "^2.7"
   },
   "repositories": [
     {
