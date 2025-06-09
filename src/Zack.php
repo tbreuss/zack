@@ -101,6 +101,7 @@ class Zack
                     if (MarkdownRuntime::class === $class) {
                         return new MarkdownRuntime(new DefaultMarkdown());
                     }
+                    return null;
                 }
             }]);
 
