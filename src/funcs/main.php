@@ -22,10 +22,10 @@ function html_contains_html_tag(string $html): bool
 }
 
 function html_extract_layout(string $html): string
-{    
+{
     $status = preg_match('/<!--\s*layout:\s*(.+?)\s*-->/', $html, $matches);
 
-    if ($status === 1 && isset($matches[1])) {
+    if ($status !== false && isset($matches[1])) {
         return trim($matches[1]);
     }
 
