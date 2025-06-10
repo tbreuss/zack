@@ -16,6 +16,22 @@ function file_read(string $path): string
     return $contents;
 }
 
+function html_contains_html_tag(string $html): bool
+{
+    return stripos($html, '<html') !== false || stripos($html, '<!doctype html>') !== false;
+}
+
+function html_extract_layout(string $html): string
+{    
+    $status = preg_match('/<!--\s*layout:\s*(.+?)\s*-->/', $html, $matches);
+
+    if ($status === 1 && isset($matches[1])) {
+        return trim($matches[1]);
+    }
+
+    return 'default.html.twig';
+}
+
 function html_extract_title(string $html, string $default): string
 {
     if ($html === '') {

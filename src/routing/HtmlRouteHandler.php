@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 use function tebe\zack\file_read;
+use function tebe\zack\html_extract_layout;
 use function tebe\zack\html_extract_title;
 
 class HtmlRouteHandler
@@ -20,9 +21,10 @@ class HtmlRouteHandler
         }
 
         $html = file_read($path);
+        $layout = html_extract_layout($html);
         $title = html_extract_title($html, basename($path));
 
-        $content = $container->get('twig')->render('route-handler.html.twig', [
+        $content = $container->get('twig')->render($layout, [
             'title' => $title,
             'html' => $html,
         ]);
