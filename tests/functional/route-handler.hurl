@@ -1,10 +1,41 @@
 # Route handler PHP
+GET {{host}}/route-handler/php/echo-string-doctype
+HTTP 200
+Content-Type: text/html; charset=UTF-8
+[Asserts]
+body not contains "<html"
+body contains "<h2>echo-string-doctype.get</h2>"
+
+GET {{host}}/route-handler/php/echo-string-html-tag
+HTTP 200
+Content-Type: text/html; charset=UTF-8
+[Asserts]
+body not contains "<!doctype"
+body contains "<h2>echo-string-html-tag.get</h2>"
+
+GET {{host}}/route-handler/php/echo-string-layout-default
+HTTP 200
+Content-Type: text/html; charset=UTF-8
+[Asserts]
+body contains "<!doctype"
+body contains "<html"
+body contains "<h2>echo-string-layout-default.get</h2>"
+
+GET {{host}}/route-handler/php/echo-string-layout-test
+HTTP 200
+Content-Type: text/html; charset=UTF-8
+[Asserts]
+body contains "<!doctype"
+body contains "<html"
+body contains "<h2>echo-string-layout-test.get</h2>"
+body contains "<h2>test.html.twig</h2>"
+
 GET {{host}}/route-handler/php/echo-string
 HTTP 200
 Content-Type: text/html; charset=UTF-8
 [Asserts]
-body contains "<title>Echo string - My application</title>"
-body contains "<h2>Echo string</h2>"
+body contains "<title>echo-string.get - My application</title>"
+body contains "<h2>echo-string.get</h2>"
 
 GET {{host}}/route-handler/php/return-array
 HTTP 200
