@@ -18,7 +18,7 @@ function file_read(string $path): string
 
 function html_contains_full_html(string $html): bool
 {
-    return stripos($html, '<html') !== false || stripos($html, '<!doctype html>') !== false;
+    return stripos($html, '<html') !== false || stripos($html, '<!doctype') !== false;
 }
 
 function html_extract_layout(string $html): string
