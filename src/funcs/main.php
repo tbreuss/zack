@@ -16,7 +16,7 @@ function file_read(string $path): string
     return $contents;
 }
 
-function html_contains_html_tag(string $html): bool
+function html_contains_full_html(string $html): bool
 {
     return stripos($html, '<html') !== false || stripos($html, '<!doctype html>') !== false;
 }

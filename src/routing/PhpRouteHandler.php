@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-use function tebe\zack\html_contains_html_tag;
+use function tebe\zack\html_contains_full_html;
 use function tebe\zack\html_extract_layout;
 use function tebe\zack\html_extract_title;
 
@@ -33,7 +33,7 @@ class PhpRouteHandler
         $outputValue = ob_get_clean();
 
         if ($returnValue === 1 && is_string($outputValue)) {
-            if (html_contains_html_tag($outputValue)) {
+            if (html_contains_full_html($outputValue)) {
                 return new Response($outputValue, 200);
             } else {
                 $layout = html_extract_layout($outputValue);
