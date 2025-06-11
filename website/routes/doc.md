@@ -74,69 +74,24 @@ php -S localhost:8888 -t web
 
 Open <http://localhost:8888> with your preferred web browser.
 
-### Development Environment
-
-#### Create Docker Image
-
-Create Docker image based on the latest supported PHP version
-
-    docker build -t zack https://github.com/tbreuss/zack.git
-
-Optionally you can also use an older PHP version
-
-    docker build --build-arg PHP_VERSION=8.2 -t zack https://github.com/tbreuss/zack.git
-    docker build --build-arg PHP_VERSION=8.3 -t zack https://github.com/tbreuss/zack.git
-
-#### Run Website
-
-Clone project
-
-    git clone https://github.com/tbreuss/zack.git
-
-Change directory
-
-    cd zack
-
-Install packages
-
-    docker run --rm -it -v .:/app zack composer install
-
-Run website
-
-    docker run --rm -v .:/app -p 8888:8888 zack php -S 0.0.0.0:8888 -t /app/website/web
-
-### Testing
-
-#### PHP-CS-Fixer
-
-Fix code style issue using [PHP-CS-Fixer](https://github.com/PHP-CS-Fixer/PHP-CS-Fixer)
-
-    ./bin/coding-style.sh
-
-#### Functional Tests
-
-Run functional tests using [Hurl](https://hurl.dev/)
-
-    ./bin/functional.sh localhost:9330
-
 ### Project Folder Structure
 
 A typical project folder structure looks like the following:
 
 ~~~text
-project/                     <- Project root folder on your server
-├─ cache/                    <- Folder with cached files
-├─ config/                   <- Folder with config files
-├─ logs/                     <- Folder with log files
-├─ routes/                   <- Folder with routes for your website
-│  └─ index.get.html         <- The only route in this example
-├─ vendor/                   <- Folder with Composer dependencies
-├─ views/                    <- Folder with twig templates
-│  ├─ base.html.twig         <- Twig base layout file
-│  └─ error.html.twig        <- Twig file for displaying errors
-└─ web/                      <- Web server public folder
-   ├─ assets/                <- Folder with asset files like css or js
-   └─ index.php              <- Website bootstrap file
+project/              # Project root folder on your server
+├─ cache/             # Folder with cached files
+├─ config/            # Folder with config files
+├─ logs/              # Folder with log files
+├─ routes/            # Folder with routes for your website
+│  └─ index.get.html  # The only route in this example
+├─ vendor/            # Folder with Composer dependencies
+├─ views/             # Folder with twig templates
+│  ├─ base.html.twig  # Twig base layout file
+│  └─ error.html.twig # Twig file for displaying errors
+└─ web/               # Web server public folder
+   ├─ assets/         # Folder with asset files like css or js
+   └─ index.php       # Website bootstrap file
 ~~~
 
 Normally you only work in the `routes` and `views` folders.
@@ -153,10 +108,10 @@ If no method is specified, the route applies to all methods.
 ~~~text
 routes/
 ├─ api/
-│  └─ test.patch.php <- PATCH /api/test
-├─ index.php         <- ANY   /
-├─ contact.get.php   <- GET   /contact
-└─ contact.post.php  <- POST  /contact
+│  └─ test.patch.php # PATCH /api/test
+├─ index.php         # ANY   /
+├─ contact.get.php   # GET   /contact
+└─ contact.post.php  # POST  /contact
 ~~~
 
 You can nest routes by creating subdirectories.
@@ -364,3 +319,48 @@ Zack! supports the following Symfony HttpKernel events:
 - **kernel.exception**: This event is dispatched as soon as an error occurs during the handling of the HTTP request.
 
 Read [Built-in Symfony Events](https://symfony.com/doc/current/reference/events.html#kernel-events) for more information.
+
+### Development Environment
+
+#### Create Docker Image
+
+Create Docker image based on the latest supported PHP version
+
+    docker build -t zack https://github.com/tbreuss/zack.git
+
+Optionally you can also use an older PHP version
+
+    docker build --build-arg PHP_VERSION=8.2 -t zack https://github.com/tbreuss/zack.git
+    docker build --build-arg PHP_VERSION=8.3 -t zack https://github.com/tbreuss/zack.git
+
+#### Run Website
+
+Clone project
+
+    git clone https://github.com/tbreuss/zack.git
+
+Change directory
+
+    cd zack
+
+Install packages
+
+    docker run --rm -it -v .:/app zack composer install
+
+Run website
+
+    docker run --rm -v .:/app -p 8888:8888 zack php -S 0.0.0.0:8888 -t /app/website/web
+
+### Testing
+
+#### PHP-CS-Fixer
+
+Fix code style issue using [PHP-CS-Fixer](https://github.com/PHP-CS-Fixer/PHP-CS-Fixer)
+
+    ./bin/coding-style.sh
+
+#### Functional Tests
+
+Run functional tests using [Hurl](https://hurl.dev/)
+
+    ./bin/functional.sh localhost:9330

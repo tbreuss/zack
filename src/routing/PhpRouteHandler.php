@@ -7,6 +7,8 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+use function tebe\zack\html_contains_full_html;
+use function tebe\zack\html_extract_layout;
 use function tebe\zack\html_extract_title;
 
 class PhpRouteHandler
@@ -31,8 +33,13 @@ class PhpRouteHandler
         $outputValue = ob_get_clean();
 
         if ($returnValue === 1 && is_string($outputValue)) {
-            $title = html_extract_title($outputValue, basename($path));
-            return $this->html('route-handler.html.twig', ['title' => $title, 'html' => $outputValue]);
+            if (html_contains_full_html($outputValue)) {
+                return new Response($outputValue, 200);
+            } else {
+                $layout = html_extract_layout($outputValue);
+                $title = html_extract_title($outputValue, basename($path));
+                return $this->html($layout, ['title' => $title, 'html' => $outputValue]);
+            }
         } elseif (is_string($returnValue)) {
             if (is_string($outputValue) && strlen($outputValue) > 0) {
                 throw new \Exception('In the PHP file the return value must be omitted if an output was made via echo: ' . $path);
@@ -68,6 +75,7 @@ class PhpRouteHandler
 
     public function render(string $template, array $context = []): string
     {
+        /** @var \Twig\Environment $twig */
         $twig = $this->container->get('twig');
         return $twig->render($template, $context);
     }

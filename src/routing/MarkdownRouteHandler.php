@@ -12,6 +12,7 @@ use Twig\Extra\Markdown\MichelfMarkdown;
 use Twig\Extra\Markdown\ErusevMarkdown;
 
 use function tebe\zack\file_read;
+use function tebe\zack\html_extract_layout;
 use function tebe\zack\html_extract_title;
 
 class MarkdownRouteHandler
@@ -34,10 +35,10 @@ class MarkdownRouteHandler
         }
 
         $html = (string) $converter->convert($markdown);
-
+        $layout = html_extract_layout($html);
         $title = html_extract_title($html, basename($path));
 
-        $content = $container->get('twig')->render('route-handler.html.twig', [
+        $content = $container->get('twig')->render($layout, [
             'title' => $title,
             'html' => $html,
         ]);

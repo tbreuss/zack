@@ -97,7 +97,8 @@ class Zack
             ->addMethodCall('addExtension', [new MarkdownExtension()])
             ->addMethodCall('addGlobal', ['config', $this->config])
             ->addMethodCall('addRuntimeLoader', [new class implements RuntimeLoaderInterface {
-                public function load($class) {
+                public function load($class)
+                {
                     if (MarkdownRuntime::class === $class) {
                         return new MarkdownRuntime(new DefaultMarkdown());
                     }
