@@ -355,14 +355,26 @@ Run website
 
 ### Testing
 
-#### PHP-CS-Fixer
+#### Coding Style
 
-Fix code style issue using [PHP-CS-Fixer](https://github.com/PHP-CS-Fixer/PHP-CS-Fixer)
+Fix coding style issues using [PHP-CS-Fixer](https://github.com/PHP-CS-Fixer/PHP-CS-Fixer)
 
     ./bin/coding-style.sh
+
+#### Static Code Analysis
+
+Analyse code using [PHPStan](https://phpstan.org/)
+
+    ./bin/code-analysis.sh
 
 #### Functional Tests
 
 Run functional tests using [Hurl](https://hurl.dev/)
 
     ./bin/functional.sh localhost:9330
+
+#### Website Tests
+
+Run website tests using [Hurl](https://hurl.dev/)
+
+    ./bin/website.sh localhost:9331
