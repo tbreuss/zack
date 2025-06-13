@@ -446,3 +446,7 @@ body {
 .content .endpoint-link--delete .endpoint-request-method {
     background-color: #f44336;
 }
+
+#toc > ul {
+    margin-bottom: 0;
+}
