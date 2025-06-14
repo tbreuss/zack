@@ -281,22 +281,60 @@ Zack! is currently delivered with the following route handlers:
 File extensions: htm, html \
 Response content-type: text/html
 
+The content of the HTML file is taken.
+The Twig layout is determined via the layout comment `<!-- layout: my-layout.html.twig -->` in the HTML content.
+The page title is determined by the H1-H3 headings in the HTML content.
+The layout is applied and output together with the page title and the HTML content.
+
 #### JSON Route Handler
 
 File extension: json \
 Response content-type: application/json
+
+The content of the JSON file is read and output.
 
 #### Markdown Route Handler
 
 File extensions: markdown, md \
 Response content-type: text/html
 
+The content of the Markdown file is taken.
+The markdown is converted to HTML using one of the following Composer packages:
+
+- league/commonmark
+- michelf/php-markdown
+- erusev/parsedown
+
+The Twig layout is determined via the layout comment `<!-- layout: my-layout.html.twig -->` in the HTML content.
+The page title is determined by the H1-H3 headings in the HTML content.
+The layout is applied and output together with the page title and the HTML content.
+
 #### PHP Route Handler
 
 File extension: php \
-Response content-type: text/html
+Response content-type: text/html, application/json, or other
 
 The content-type of the response can be set explicitly in a PHP route handler.
+
+##### Echoing Content
+
+The echoed content of the PHP file is taken.
+
+If the HTML content contains a `html` element or a `Doctype`, the HTML content is taken as is.
+
+Otherwise the Twig layout is determined via the layout comment `<!-- layout: my-layout.html.twig -->` in the HTML content.
+The page title is determined by the H1-H3 headings in the HTML content.
+The layout is applied and output together with the page title and the HTML content.
+
+##### Returning Response
+
+If you want finer control over the HTTP response, you can return a string, an array or a `Symfony\Component\HttpFoundation\Response` object.
+
+If the return value is a string, it is output as is with a `text/html` content-type.
+
+If return value is an array, it is JSON encoded and output with a `application/json` content-type.
+
+If return value is a `Response` object, it is output as is.
 
 ### Events
 
