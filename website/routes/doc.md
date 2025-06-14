@@ -320,7 +320,7 @@ The content-type of the response can be set explicitly in a PHP route handler.
 
 The echoed content of the PHP file is taken.
 
-If the HTML content contains a `html` element or a `Doctype`, the HTML content is taken as is.
+If the HTML content contains an `html` element or a `Doctype`, the HTML content is output as it is.
 
 Otherwise the Twig layout is determined via the layout comment `<!-- layout: my-layout.html.twig -->` in the HTML content.
 The page title is determined by the H1-H3 headings in the HTML content.
@@ -330,11 +330,12 @@ The layout is applied and output together with the page title and the HTML conte
 
 If you want finer control over the HTTP response, you can return a string, an array or a `Symfony\Component\HttpFoundation\Response` object.
 
-If the return value is a string, it is output as is with a `text/html` content-type.
+If the return value is a string, it is output as HTML with the content type `text/html`.
 
-If return value is an array, it is JSON encoded and output with a `application/json` content-type.
+If the return value is an array, it is JSON encoded and output with the content-type `application/json`.
 
-If return value is a `Response` object, it is output as is.
+If the return value is a `Symfony\Component\HttpFoundation\Response` object, it is output unchanged together with the underlying content type.
+There are several response subclasses to help you return JSON, redirect, stream file downloads and more.
 
 ### Events
 
