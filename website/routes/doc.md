@@ -76,24 +76,24 @@ php -S localhost:8888 -t web
 
 Open <http://localhost:8888> with your preferred web browser.
 
-### Project Folder Structure
+### Folder Structure
 
 A typical project folder structure looks like the following:
 
 ~~~text
-project/              # Project root folder on your server
-├─ cache/             # Folder with cached files
-├─ config/            # Folder with config files
-├─ logs/              # Folder with log files
-├─ routes/            # Folder with routes for your website
-│  └─ index.get.html  # The only route in this example
-├─ vendor/            # Folder with Composer dependencies
-├─ views/             # Folder with twig templates
-│  ├─ base.html.twig  # Twig base layout file
-│  └─ error.html.twig # Twig file for displaying errors
-└─ web/               # Web server public folder
-   ├─ assets/         # Folder with asset files like css or js
-   └─ index.php       # Website bootstrap file
+project/                # Project root folder on your server
+├─ cache/               # Cached files
+├─ config/              # Config files
+├─ logs/                # Log files
+├─ routes/              # Routes for your website
+│  └─ index.get.html    # The only route in this example
+├─ vendor/              # Composer dependencies
+├─ views/               # Twig templates
+│  ├─ base.html.twig    # Twig base layout file
+│  └─ error.html.twig   # Twig file for displaying errors
+└─ web/                 # Web server public folder
+   ├─ assets/           # Asset files like css or js
+   └─ index.php         # Website bootstrap file
 ~~~
 
 Normally you only work in the `routes` and `views` folders.
@@ -110,10 +110,10 @@ If no method is specified, the route applies to all methods.
 ~~~text
 routes/
 ├─ api/
-│  └─ test.patch.php # PATCH /api/test
-├─ index.php         # ANY   /
-├─ contact.get.php   # GET   /contact
-└─ contact.post.php  # POST  /contact
+│  └─ test.patch.php   # PATCH /api/test
+├─ index.php           # ANY   /
+├─ contact.get.php     # GET   /contact
+└─ contact.post.php    # POST  /contact
 ~~~
 
 You can nest routes by creating subdirectories.
@@ -308,7 +308,7 @@ Zack! ships with the following events:
 - **zack.controller**: This event is dispatched just before the controller (i.e. the route handler) is determined.
 - **zack.routes**: This event is dispatched after the routes have been built.
 
-#### Symfony HttpKernel Events
+#### HttpKernel Events
 
 Zack! supports the following Symfony HttpKernel events:
 
