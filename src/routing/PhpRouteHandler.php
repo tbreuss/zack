@@ -33,24 +33,29 @@ class PhpRouteHandler
         $outputValue = ob_get_clean();
 
         if ($returnValue === 1 && is_string($outputValue)) {
-            if (html_contains_full_html($outputValue)) {
-                return new Response($outputValue, 200);
-            } else {
-                $layout = html_extract_layout($outputValue);
-                $title = html_extract_title($outputValue, basename($path));
-                return $this->html($layout, ['title' => $title, 'html' => $outputValue]);
-            }
+            return $this->handleHtml($outputValue, basename($path));
         } elseif (is_string($returnValue)) {
             if (is_string($outputValue) && strlen($outputValue) > 0) {
                 throw new \Exception('In the PHP file the return value must be omitted if an output was made via echo: ' . $path);
             }
-            return new Response($returnValue, 200);
+            return $this->handleHtml($returnValue, basename($path));
         } elseif (is_array($returnValue)) {
             return $this->json($returnValue);
         } elseif ($returnValue instanceof Response) {
             return $returnValue;
         } else {
             throw new \Exception('The PHP file must output something or return a string, an array or a response object: ' . $path);
+        }
+    }
+
+    private function handleHtml(string $content, string $defaultTitle): Response
+    {
+        if (html_contains_full_html($content)) {
+            return new Response($content, 200);
+        } else {
+            $layout = html_extract_layout($content);
+            $title = html_extract_title($content, $defaultTitle);
+            return $this->html($layout, ['title' => $title, 'html' => $content]);
         }
     }
 
