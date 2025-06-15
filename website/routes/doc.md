@@ -331,10 +331,12 @@ The layout is applied and output together with the page title and the HTML conte
 If you want finer control over the HTTP response, you can return a string, an array or a `Symfony\Component\HttpFoundation\Response` object.
 
 If the return value is a string, it is output as HTML with the content type `text/html`.
+The same logic is applied as for echoing content.
 
 If the return value is an array, it is JSON encoded and output with the content-type `application/json`.
 
 If the return value is a `Symfony\Component\HttpFoundation\Response` object, it is output unchanged together with the underlying content type.
+With returning a response object you will have full control over the HTTP response.
 There are several response subclasses to help you return JSON, redirect, stream file downloads and more.
 
 ### Events
