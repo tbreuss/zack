@@ -394,6 +394,10 @@ Run website
 
     docker run --rm -v .:/app -p 8888:8888 zack php -S 0.0.0.0:8888 -t /app/website/web
 
+Debug website using Xdebug
+
+    docker run --rm -e XDEBUG_CONFIG="client_host=172.17.0.1" -e XDEBUG_MODE=debug -e XDEBUG_SESSION_START=true -v .:/app -p 8888:8888 zack php -S 0.0.0.0:8888 -t /app/website/web
+
 ### Testing
 
 #### Coding Style
