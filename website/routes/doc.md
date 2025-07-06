@@ -398,6 +398,20 @@ Debug website using Xdebug
 
     docker run --rm -e XDEBUG_CONFIG="client_host=172.17.0.1" -e XDEBUG_MODE=debug -e XDEBUG_SESSION_START=true -v .:/app -p 8888:8888 zack php -S 0.0.0.0:8888 -t /app/website/web
 
+**Code Coverage**
+
+Start website using Xdebug in coverage mode using [phpunit/php-code-coverage](https://github.com/sebastianbergmann/php-code-coverage)
+
+    docker run --rm -e XDEBUG_MODE=coverage -p 8888:8888 -v .:/app zack php -S 0.0.0.0:8888 -t /app/website/web
+
+Create HTML report using [phpcov](https://github.com/sebastianbergmann/phpcov)
+
+    docker run --rm -it -v .:/app zack php vendor/bin/phpcov merge --html /app/.coverage/report /app/.coverage/files
+
+Open generated HTML report in browser
+
+    docker run --rm -p 8888:8888 -v .:/app     zack php -S 0.0.0.0:8888 -t /app/.coverage/report
+
 ### Testing
 
 #### Coding Style
