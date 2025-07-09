@@ -13,7 +13,7 @@ wait_for_url () {
 }
 
 echo "Starting app instance"
-php -S "$1" -t tests/_data/web &
+php -d xdebug.mode=coverage -S "$1" -t tests/_data/web &
 
 echo "Starting app instance to be ready"
 wait_for_url "$1" 5
