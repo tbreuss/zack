@@ -1,22 +1,29 @@
 <?php declare(strict_types=1);
 
 use Symfony\Component\EventDispatcher\EventDispatcher;
+use tebe\zack\events\ContainerEvent;
+use tebe\zack\events\ControllerEvent;
+use tebe\zack\events\RoutesEvent;
 
 $dispatcher = new EventDispatcher();
 
-$dispatcher->addListener('zack.container', function (): void {
-    error_log('Event zack.container received');
+$dispatcher->addListener('zack.container', function (ContainerEvent $event): void {
+    if ($event->getContainer()) {
+        error_log('Event zack.container received');
+    }
 });
 
-$dispatcher->addListener('zack.controller', function ($event): void {
+$dispatcher->addListener('zack.controller', function (ControllerEvent $event): void {
     if ($event->getExtension() === 'markdown') {
         $event->setController(tebe\zack\routing\MarkdownRouteHandler::class);
     }
     error_log('Event zack.controller received');
 });
 
-$dispatcher->addListener('zack.routes', function (): void {
-    error_log('Event zack.routes received');
+$dispatcher->addListener('zack.routes', function (RoutesEvent $event): void {
+    if ($event->getRoutes()) {
+        error_log('Event zack.routes received');
+    }
 });
 
 $dispatcher->addListener('kernel.request', function (): void {
