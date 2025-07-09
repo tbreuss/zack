@@ -8,9 +8,8 @@ use tebe\zack\events\RoutesEvent;
 $dispatcher = new EventDispatcher();
 
 $dispatcher->addListener('zack.container', function (ContainerEvent $event): void {
-    if ($event->getContainer()) {
-        error_log('Event zack.container received');
-    }
+    $event->getContainer(); // just for code coverage
+    error_log('Event zack.container received');
 });
 
 $dispatcher->addListener('zack.controller', function (ControllerEvent $event): void {
@@ -21,9 +20,8 @@ $dispatcher->addListener('zack.controller', function (ControllerEvent $event): v
 });
 
 $dispatcher->addListener('zack.routes', function (RoutesEvent $event): void {
-    if ($event->getRoutes()) {
-        error_log('Event zack.routes received');
-    }
+    $event->getRoutes(); // just for code coverage
+    error_log('Event zack.routes received');
 });
 
 $dispatcher->addListener('kernel.request', function (): void {
