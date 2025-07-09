@@ -37,7 +37,7 @@ jobs:
       - name: Run website tests
         run: bin/website.sh localhost:9875
       - name: Create code coverage report
-        run: ./vendor/bin/phpcov merge --html /app/.coverage/report /app/.coverage/files
+        run: ./vendor/bin/phpcov merge --html .coverage/report .coverage/files
       - name: Archive code coverage report
         uses: actions/upload-artifact@v4
         with:
