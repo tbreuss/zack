@@ -36,8 +36,6 @@ jobs:
         run: bin/functional.sh localhost:9876
       - name: Run website tests
         run: bin/website.sh localhost:9875
-      - name: List folders in .coverage
-        run: ls -la .coverage
       - name: Create code coverage report
         run: ./vendor/bin/phpcov merge --html .coverage/report .coverage/files
       - name: Archive code coverage report
