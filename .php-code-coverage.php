@@ -5,6 +5,10 @@ use SebastianBergmann\CodeCoverage\Driver\Selector;
 use SebastianBergmann\CodeCoverage\CodeCoverage;
 use SebastianBergmann\CodeCoverage\Report\PHP as PhpReport;
 
+if (getenv('XDEBUG_MODE') !== 'coverage') {
+    return;
+}
+
 $dir = __DIR__ . '/.coverage/files/';
 
 $files = [];
