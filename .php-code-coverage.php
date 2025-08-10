@@ -5,7 +5,7 @@ use SebastianBergmann\CodeCoverage\Driver\Selector;
 use SebastianBergmann\CodeCoverage\CodeCoverage;
 use SebastianBergmann\CodeCoverage\Report\PHP as PhpReport;
 
-if (getenv('XDEBUG_MODE') !== 'coverage') {
+if ((getenv('XDEBUG_MODE') !== 'coverage') && (ini_get('xdebug.mode') !== 'coverage')) {
     return;
 }
 
