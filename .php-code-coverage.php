@@ -11,6 +11,10 @@ if (getenv('XDEBUG_MODE') !== 'coverage') {
 
 $dir = __DIR__ . '/.coverage/files/';
 
+if (!is_dir($dir)) {
+    mkdir($dir, recursive: true);
+}
+
 $files = [];
 foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator(__DIR__ . '/src', RecursiveDirectoryIterator::SKIP_DOTS)) as $file ) {
     if ($file->getExtension() !== 'php') {
