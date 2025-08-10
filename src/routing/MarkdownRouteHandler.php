@@ -43,6 +43,8 @@ class MarkdownRouteHandler
             'html' => $html,
         ]);
 
-        return new Response($content);
+        return new Response($content, 200, [
+            'Content-Type' => 'text/html',
+        ]);
     }
 }

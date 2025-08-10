@@ -688,7 +688,7 @@ Box drawing alignment tests:                                          █
 # Text response
 GET {{host}}/encoding/text
 HTTP 200
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=UTF-8
 ```
 # Hello world, Καλημέρα κόσμε, コンニチハ
 

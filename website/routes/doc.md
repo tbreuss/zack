@@ -271,6 +271,7 @@ routes/
 ├─ json-page.json
 ├─ md-page.md
 ├─ markdown-page.markdown
+├─ text-page.txt
 └─ php-page.php
 ~~~
 
@@ -338,6 +339,13 @@ If the return value is an array, it is JSON encoded and output with the content-
 If the return value is a `Symfony\Component\HttpFoundation\Response` object, it is output unchanged together with the underlying content type.
 With returning a response object you will have full control over the HTTP response.
 There are several response subclasses to help you return JSON, redirect, stream file downloads and more.
+
+#### Text Route Handler
+
+File extension: txt \
+Response content-type: text/plain
+
+The content of the text file is read and output.
 
 ### Events
 

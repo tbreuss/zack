@@ -20,7 +20,7 @@ class JsonRouteHandler
         $json = file_read($path);
 
         return new Response($json, 200, [
-            'Content-Type' => 'application/json',
+            'Content-Type' => 'application/json; charset=UTF-8', // charset must be specified for JSON responses
         ]);
     }
 }

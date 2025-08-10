@@ -51,7 +51,9 @@ class PhpRouteHandler
     private function handleHtml(string $content, string $defaultTitle): Response
     {
         if (html_contains_full_html($content)) {
-            return new Response($content, 200);
+            return new Response($content, 200, [
+                'Content-Type' => 'text/html',
+            ]);
         } else {
             $layout = html_extract_layout($content);
             $title = html_extract_title($content, $defaultTitle);
@@ -62,14 +64,16 @@ class PhpRouteHandler
     public function html(string $template, array $context = []): Response
     {
         $html = $this->render($template, $context);
-        return new Response($html, 200);
+        return new Response($html, 200, [
+            'Content-Type' => 'text/html',
+        ]);
     }
 
     public function json(array $context = []): Response
     {
         $json = json_encode($context, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
         return new Response($json, 200, [
-            'Content-Type' => 'application/json',
+            'Content-Type' => 'application/json; charset=UTF-8', // charset must be specified for JSON responses
         ]);
     }
 
