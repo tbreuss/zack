@@ -1,1 +1,3 @@
-<?php return '<!-- layout: invalid.html.twig -->';
+<?php declare(strict_types=1);
+
+return '<!-- layout: invalid.html.twig -->';
