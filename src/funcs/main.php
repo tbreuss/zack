@@ -43,7 +43,7 @@ function html_extract_title(string $html, string $default): string
 
     foreach (['h1', 'h2', 'h3'] as $tagName) {
         foreach ($d->getElementsByTagName($tagName) as $item) {
-            return $item->textContent;
+            return mb_trim($item->textContent, 'UTF-8');
         }
     }
 
