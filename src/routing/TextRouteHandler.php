@@ -20,7 +20,7 @@ class TextRouteHandler
         $text = file_read($path);
 
         return new Response($text, 200, [
-            'Content-Type' => 'text/plain; charset=utf-8',
+            'Content-Type' => 'text/plain',
         ]);
     }
 }
