@@ -39,13 +39,23 @@ function html_extract_title(string $html, string $default): string
     }
 
     $d = new \DOMDocument();
-    $d->loadHTML($html);
+    $d->loadHTML(mb_convert_encoding($html));
 
     foreach (['h1', 'h2', 'h3'] as $tagName) {
         foreach ($d->getElementsByTagName($tagName) as $item) {
-            return trim($item->textContent);
+            return $item->textContent;
         }
     }
 
     return $default;
+}
+
+// see: https://github.com/symfony/symfony/issues/44281#issuecomment-1647665965
+function mb_convert_encoding(string $string): string
+{
+    return mb_encode_numericentity(
+        $string, 
+        [0x80, 0x10FFFF, 0, ~0],
+        'UTF-8',
+    );
 }
