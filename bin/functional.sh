@@ -19,6 +19,6 @@ echo "Starting app instance to be ready"
 wait_for_url "$1" 5
 
 echo "Running Hurl tests"
-cat tests/functional/* | docker run --rm -i --network="host" ghcr.io/orange-opensource/hurl:latest --variable host="http://$1" --test -v --color
+cat tests/functional/*.hurl | docker run --rm -i --network="host" ghcr.io/orange-opensource/hurl:latest --variable host="http://$1" --test -v --color
 
 echo "Stopping app instance"
