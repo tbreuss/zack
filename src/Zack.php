@@ -38,6 +38,8 @@ class Zack
         ini_set('log_errors', $this->config->php->logErrors ? '1' : '0');
         ini_set('error_log', $this->config->php->errorLog);
 
+        mb_internal_encoding('UTF-8');
+
         set_error_handler(function (int $severity, string $message, string $file = '', int $line = 0) {
             throw new \ErrorException($message, 0, $severity, $file, $line);
         }, $this->config->php->errorLevel);

@@ -7,7 +7,7 @@ body contains "<h2>Hello World!</h2>"
 
 GET {{host}}/doc-examples/api/ping
 HTTP 200
-Content-Type: application/json
+Content-Type: application/json; charset=UTF-8
 [Asserts]
 jsonpath "$.ping" == "pong"
 
@@ -34,7 +34,7 @@ body contains "<h2>Hello zack/is/nice!</h2>"
 
 POST {{host}}/doc-examples/users
 HTTP 200
-Content-Type: application/json
+Content-Type: application/json; charset=UTF-8
 [Asserts]
 jsonpath "$.updated" == true
 
@@ -54,7 +54,7 @@ body contains "<h2>html-page</h2>"
 
 GET {{host}}/doc-examples/json-page
 HTTP 200
-Content-Type: application/json
+Content-Type: application/json; charset=UTF-8
 [Asserts]
 jsonpath "$" == "json-page"
 

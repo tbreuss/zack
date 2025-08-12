@@ -25,7 +25,7 @@ readonly class FileBasedRouter
 
         $finder->files()
             ->in($this->routePath)
-            ->name('*.{htm,html,json,markdown,md,php}')
+            ->name('*.{htm,html,json,markdown,md,php,txt}')
             ->sort(function (\SplFileInfo $a, \SplFileInfo $b): int {
                 // temporary solution to have named parameter routes in last place
                 $a = str_replace(['[', ']'], '~', $a->getRealPath());
@@ -186,6 +186,7 @@ readonly class FileBasedRouter
             'json' => JsonRouteHandler::class,
             'markdown', 'md' => MarkdownRouteHandler::class,
             'php' => PhpRouteHandler::class,
+            'txt' => TextRouteHandler::class,
             default => throw new \Exception('Unsupported file type: ' . $extension),
         };
 

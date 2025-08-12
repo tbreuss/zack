@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 use function tebe\zack\file_read;
 
-class JsonRouteHandler
+class TextRouteHandler
 {
     public function __invoke(Request $request): Response
     {
@@ -17,10 +17,10 @@ class JsonRouteHandler
             throw new \Exception('Attribute _path not found in request attributes');
         }
 
-        $json = file_read($path);
+        $text = file_read($path);
 
-        return new Response($json, 200, [
-            'Content-Type' => 'application/json; charset=UTF-8', // charset must be specified for JSON responses
+        return new Response($text, 200, [
+            'Content-Type' => 'text/plain',
         ]);
     }
 }

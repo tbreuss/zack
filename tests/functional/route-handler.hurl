@@ -39,7 +39,7 @@ body contains "<h2>echo-string.get</h2>"
 
 GET {{host}}/route-handler/php/return-array
 HTTP 200
-Content-Type: application/json
+Content-Type: application/json; charset=UTF-8
 [Asserts]
 jsonpath "$.value" == "Return array value"
 
@@ -81,7 +81,7 @@ body contains "<h2>html.get.html</h2>"
 
 GET {{host}}/route-handler/with-method/json
 HTTP 200
-Content-Type: application/json
+Content-Type: application/json; charset=UTF-8
 [Asserts]
 jsonpath "$" == "json.get.json"
 
@@ -106,6 +106,12 @@ Content-Type: text/html; charset=UTF-8
 body contains "<title>php.get.php - My application</title>"
 body contains "<h2>php.get.php</h2>"
 
+GET {{host}}/route-handler/with-method/text
+HTTP 200
+Content-Type: text/plain; charset=UTF-8
+[Asserts]
+body contains "text.get.txt"
+
 # Route handler without HTTP method
 GET {{host}}/route-handler/without-method/htm
 HTTP 200
@@ -123,7 +129,7 @@ body contains "<h2>html.html</h2>"
 
 GET {{host}}/route-handler/without-method/json
 HTTP 200
-Content-Type: application/json
+Content-Type: application/json; charset=UTF-8
 [Asserts]
 jsonpath "$" == "json.json"
 
@@ -147,3 +153,9 @@ Content-Type: text/html; charset=UTF-8
 [Asserts]
 body contains "<title>php.php - My application</title>"
 body contains "<h2>php.php</h2>"
+
+GET {{host}}/route-handler/without-method/text
+HTTP 200
+Content-Type: text/plain; charset=UTF-8
+[Asserts]
+body contains "text.txt"
