@@ -2,8 +2,8 @@
 
 namespace tebe\zack\events;
 
-use Symfony\Contracts\EventDispatcher\Event;
 use Symfony\Component\Routing\RouteCollection;
+use Symfony\Contracts\EventDispatcher\Event;
 
 class RoutesEvent extends Event
 {

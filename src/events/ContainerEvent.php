@@ -2,8 +2,8 @@
 
 namespace tebe\zack\events;
 
-use Symfony\Contracts\EventDispatcher\Event;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Contracts\EventDispatcher\Event;
 
 class ContainerEvent extends Event
 {

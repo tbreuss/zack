@@ -2,9 +2,6 @@
 
 namespace tebe\zack;
 
-use tebe\zack\config\MainConfig;
-use tebe\zack\events\ContainerEvent;
-use tebe\zack\routing\FileBasedRouter;
 use Symfony\Component\DependencyInjection;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\ErrorHandler;
@@ -12,9 +9,12 @@ use Symfony\Component\EventDispatcher;
 use Symfony\Component\HttpFoundation;
 use Symfony\Component\HttpKernel;
 use Symfony\Component\Routing;
+use tebe\zack\config\MainConfig;
+use tebe\zack\events\ContainerEvent;
+use tebe\zack\routing\FileBasedRouter;
 use Twig;
-use Twig\Extra\Markdown\MarkdownExtension;
 use Twig\Extra\Markdown\DefaultMarkdown;
+use Twig\Extra\Markdown\MarkdownExtension;
 use Twig\Extra\Markdown\MarkdownRuntime;
 use Twig\RuntimeLoader\RuntimeLoaderInterface;
 
