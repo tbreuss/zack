@@ -7,9 +7,9 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-use function tebe\zack\html_contains_full_html;
-use function tebe\zack\html_extract_layout;
-use function tebe\zack\html_extract_title;
+use function tebe\zack\contains_full_html;
+use function tebe\zack\extract_layout_from_html;
+use function tebe\zack\extract_title_from_html;
 
 class PhpRouteHandler
 {
@@ -50,13 +50,13 @@ class PhpRouteHandler
 
     private function handleHtml(string $content, string $defaultTitle): Response
     {
-        if (html_contains_full_html($content)) {
+        if (contains_full_html($content)) {
             return new Response($content, 200, [
                 'Content-Type' => 'text/html',
             ]);
         } else {
-            $layout = html_extract_layout($content);
-            $title = html_extract_title($content, $defaultTitle);
+            $layout = extract_layout_from_html($content);
+            $title = extract_title_from_html($content, $defaultTitle);
             return $this->html($layout, ['title' => $title, 'html' => $content]);
         }
     }

@@ -5,7 +5,7 @@ namespace tebe\zack\routing;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-use function tebe\zack\file_read;
+use function tebe\zack\read_file;
 
 class JsonRouteHandler
 {
@@ -17,7 +17,7 @@ class JsonRouteHandler
             throw new \Exception('Attribute _path not found in request attributes');
         }
 
-        $json = file_read($path);
+        $json = read_file($path);
 
         return new Response($json, 200, [
             'Content-Type' => 'application/json; charset=UTF-8', // charset must be specified for JSON responses

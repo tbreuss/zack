@@ -5,9 +5,9 @@ namespace tebe\zack\routing;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-use function tebe\zack\file_read;
-use function tebe\zack\html_extract_layout;
-use function tebe\zack\html_extract_title;
+use function tebe\zack\read_file;
+use function tebe\zack\extract_layout_from_html;
+use function tebe\zack\extract_title_from_html;
 
 class HtmlRouteHandler
 {
@@ -20,9 +20,9 @@ class HtmlRouteHandler
             throw new \Exception('Attribute _path not found in request attributes');
         }
 
-        $html = file_read($path);
-        $layout = html_extract_layout($html);
-        $title = html_extract_title($html, basename($path));
+        $html = read_file($path);
+        $layout = extract_layout_from_html($html);
+        $title = extract_title_from_html($html, basename($path));
 
         $content = $container->get('twig')->render($layout, [
             'title' => $title,
