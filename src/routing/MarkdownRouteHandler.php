@@ -11,9 +11,9 @@ use Twig\Extra\Markdown\ErusevMarkdown;
 use Twig\Extra\Markdown\LeagueMarkdown;
 use Twig\Extra\Markdown\MichelfMarkdown;
 
-use function tebe\zack\file_read;
-use function tebe\zack\html_extract_layout;
-use function tebe\zack\html_extract_title;
+use function tebe\zack\read_file;
+use function tebe\zack\extract_layout_from_html;
+use function tebe\zack\extract_title_from_html;
 
 class MarkdownRouteHandler
 {
@@ -22,7 +22,7 @@ class MarkdownRouteHandler
         $container = $request->attributes->get('_container');
         $path = $request->attributes->get('_path');
 
-        $markdown = file_read($path);
+        $markdown = read_file($path);
 
         if (class_exists(CommonMarkConverter::class)) {
             $converter = new LeagueMarkdown();
@@ -35,8 +35,8 @@ class MarkdownRouteHandler
         }
 
         $html = (string) $converter->convert($markdown);
-        $layout = html_extract_layout($html);
-        $title = html_extract_title($html, basename($path));
+        $layout = extract_layout_from_html($html);
+        $title = extract_title_from_html($html, basename($path));
 
         $content = $container->get('twig')->render($layout, [
             'title' => $title,

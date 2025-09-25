@@ -57,7 +57,7 @@ class Zack
         $kernel->terminate($request, $response);
     }
 
-    private function errorHandler(ErrorHandler\Exception\FlattenException $exception): HttpFoundation\Response
+    private function handleError(ErrorHandler\Exception\FlattenException $exception): HttpFoundation\Response
     {
         $content = $this->container->get('twig')->render('error.html.twig', [
             'exception' => $exception,
@@ -130,7 +130,7 @@ class Zack
         $this->container->register('listener.response', HttpKernel\EventListener\ResponseListener::class)
             ->setArguments(['UTF-8']);
         $this->container->register('listener.exception', HttpKernel\EventListener\ErrorListener::class)
-            ->setArguments([$this->errorHandler(...)]);
+            ->setArguments([$this->handleError(...)]);
 
         // use the injected dispatcher
         $this->dispatcher->addSubscriber($this->container->get('listener.router'));

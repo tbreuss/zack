@@ -5,7 +5,7 @@ namespace tebe\zack\routing;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-use function tebe\zack\file_read;
+use function tebe\zack\read_file;
 
 class TextRouteHandler
 {
@@ -17,7 +17,7 @@ class TextRouteHandler
             throw new \Exception('Attribute _path not found in request attributes');
         }
 
-        $text = file_read($path);
+        $text = read_file($path);
 
         return new Response($text, 200, [
             'Content-Type' => 'text/plain',

@@ -14,7 +14,7 @@ readonly class FileBasedRouter
 {
     public function __construct(
         private string $routePath,
-        private EventDispatcher\EventDispatcher $dispatcher,
+        private EventDispatcher\EventDispatcher $eventDispatcher,
     ) {}
 
     public function getRoutes(): Routing\RouteCollection
@@ -47,7 +47,7 @@ readonly class FileBasedRouter
             }
         }
 
-        $this->dispatcher->dispatch(new RoutesEvent($routes), 'zack.routes');
+        $this->eventDispatcher->dispatch(new RoutesEvent($routes), 'zack.routes');
 
         return $routes;
     }
@@ -175,13 +175,13 @@ readonly class FileBasedRouter
     private function matchController(string $extension): string
     {
         $event = new ControllerEvent($extension);
-        $this->dispatcher->dispatch($event, 'zack.controller');
+        $this->eventDispatcher->dispatch($event, 'zack.controller');
 
         if (($controller = $event->getController()) !== null) {
             return $controller;
         }
 
-        $controller = match ($extension) {
+        return match ($extension) {
             'htm', 'html' => HtmlRouteHandler::class,
             'json' => JsonRouteHandler::class,
             'markdown', 'md' => MarkdownRouteHandler::class,
@@ -189,8 +189,6 @@ readonly class FileBasedRouter
             'txt' => TextRouteHandler::class,
             default => throw new \Exception('Unsupported file type: ' . $extension),
         };
-
-        return $controller;
     }
 
     private function matchMethods(string $method): array
