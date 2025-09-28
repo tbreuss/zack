@@ -341,7 +341,6 @@ The generic route handler is a handler that supports the following file types:
 ---------------------------------------------------
 file extension      content type
 ---------------------------------------------------
-csv                 text/csv
 json                application/json; charset=UTF-8
 txt                 text/plain
 xml                 application/xml

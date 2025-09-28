@@ -34,7 +34,6 @@ readonly class MainConfig
             'html' => [HtmlRouteHandler::class, null],
             'php' => [PhpRouteHandler::class, null],
             // generic handler
-            'csv' => [GenericRouteHandler::class, 'text/csv'],
             'json' => [GenericRouteHandler::class, 'application/json; charset=UTF-8'],
             'txt' => [GenericRouteHandler::class, 'text/plain'],
             'xml' => [GenericRouteHandler::class, 'application/xml'],
