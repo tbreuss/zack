@@ -16,13 +16,10 @@ class GenericRouteHandler
             throw new \Exception('Attribute _path not found in request attributes');
         }
 
-        $extensionContentTypeMapping = $request->attributes->get('_contentTypes');
-        if ($extensionContentTypeMapping === null) {
-            throw new \Exception('Attribute _contentTypes not found in request attributes');
+        $contentType = $request->attributes->get('_contentType');
+        if ($contentType === null) {
+            throw new \Exception('Attribute _contentType not found in request attributes');
         }
-
-        $extension = strtolower(pathinfo($path, PATHINFO_EXTENSION));
-        $contentType = $extensionContentTypeMapping[$extension] ?? throw new \Exception('Unsupported file type: ' . $extension);
 
         $content = read_file($path);
 

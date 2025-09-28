@@ -14,8 +14,7 @@ readonly class FileBasedRouter
 {
     public function __construct(
         private string $routePath,
-        private array $coreFileExtensions,
-        private array $additionalFileTypes,
+        private array $routeHandlers,
         private EventDispatcher\EventDispatcher $eventDispatcher,
     ) {}
 
@@ -66,11 +65,12 @@ readonly class FileBasedRouter
 
         $relativePathname = str_replace('[...]', '[path]', $fileInfo->getRelativePathname());
         [$filename, $method] = $this->getPathParts($relativePathname);
+        [$controller, $contentType] = $this->matchController($fileInfo->getExtension());
 
         $defaults = [
-            '_controller' => $this->matchController($fileInfo->getExtension()),
+            '_controller' => $controller,
             '_path' => $fileInfo->getRealPath(),
-            '_contentTypes' => $this->additionalFileTypes,
+            '_contentType' => $contentType,
         ];
 
         $requirements = [
@@ -102,11 +102,12 @@ readonly class FileBasedRouter
         }
 
         $relativePathname = str_replace('...', '', $fileInfo->getRelativePathname());
+        [$controller, $contentType] = $this->matchController($fileInfo->getExtension());
 
         $defaults = [
-            '_controller' => $this->matchController($fileInfo->getExtension()),
+            '_controller' => $controller,
             '_path' => $fileInfo->getRealPath(),
-            '_contentTypes' => $this->additionalFileTypes,
+            '_contentType' => $contentType,
         ];
 
         $requirements = [
@@ -132,15 +133,16 @@ readonly class FileBasedRouter
         $relativePath = $fileInfo->getRelativePathname();
 
         [$filename, $method, $extension] = $this->getPathParts($relativePath);
+        [$controller, $contentType] = $this->matchController($fileInfo->getExtension());
 
         return new ParsedRoute(
             name: $this->getName($filename, $method),
             route: new Route(
                 path: $this->getRoute($filename),
                 defaults: [
-                    '_controller' => $this->matchController($extension),
+                    '_controller' => $controller,
                     '_path' => $this->getPath($relativePath),
-                    '_contentTypes' => $this->additionalFileTypes,
+                    '_contentType' => $contentType,
                 ],
                 requirements: [],
                 methods: $this->matchMethods($method),
@@ -177,21 +179,22 @@ readonly class FileBasedRouter
         return str_replace(['[', ']'], ['{', '}'], $route);
     }
 
-    private function matchController(string $extension): string
+    private function matchController(string $extension): array
     {
         $event = new ControllerEvent($extension);
         $this->eventDispatcher->dispatch($event, 'zack.controller');
 
         if (($controller = $event->getController()) !== null) {
-            return $controller;
+            return [$controller, null]; // todo
         }
 
-        return match ($extension) {
-            'htm', 'html' => HtmlRouteHandler::class,
-            'markdown', 'md' => MarkdownRouteHandler::class,
-            'php' => PhpRouteHandler::class,
-            default => GenericRouteHandler::class,
-        };
+        foreach ($this->routeHandlers as $extensionToMatch => [$controller, $contentType]) {
+            if ($extensionToMatch === $extension) {
+                return [$controller, $contentType];
+            }
+        }
+
+        throw new \Exception('Unsupported file type: ' . $extension);
     }
 
     private function matchMethods(string $method): array
@@ -218,7 +221,7 @@ readonly class FileBasedRouter
     {
         $extensions = join(
             separator: ',',
-            array: array_merge($this->coreFileExtensions, array_keys($this->additionalFileTypes)),
+            array: array_keys($this->routeHandlers),
         );
 
         return '*.{' . $extensions . '}';

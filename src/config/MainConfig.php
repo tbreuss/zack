@@ -2,6 +2,11 @@
 
 namespace tebe\zack\config;
 
+use tebe\zack\routing\GenericRouteHandler;
+use tebe\zack\routing\HtmlRouteHandler;
+use tebe\zack\routing\MarkdownRouteHandler;
+use tebe\zack\routing\PhpRouteHandler;
+
 readonly class MainConfig
 {
     public string $logPath;
@@ -9,10 +14,8 @@ readonly class MainConfig
     public string $routePath;
     public string $basePath;
     public string $zackPath;
-    /** @var string[] */
-    public array $coreFileExtensions;
-    /** @var array<string, string> */
-    public array $additionalFileTypes;
+    /** @var array|string[][] */
+    public array $routeHandlers;
     public LoggerConfig $logger;
     public PhpConfig $php;
     public TwigConfig $twig;
@@ -23,22 +26,20 @@ readonly class MainConfig
         $this->basePath = $config['basePath'] ?? throw new \InvalidArgumentException('basePath is required');
         $this->logPath = $config['logPath'] ?? $this->basePath . '/logs';
         $this->name = $config['name'] ?? 'My application';
+        $this->routeHandlers = array_merge([
+            // concrete handlers
+            'markdown' => [MarkdownRouteHandler::class, null],
+            'md' => [MarkdownRouteHandler::class, null],
+            'htm' => [HtmlRouteHandler::class, null],
+            'html' => [HtmlRouteHandler::class, null],
+            'php' => [PhpRouteHandler::class, null],
+            // generic handler
+            'csv' => [GenericRouteHandler::class, 'text/csv'],
+            'json' => [GenericRouteHandler::class, 'application/json; charset=UTF-8'],
+            'txt' => [GenericRouteHandler::class, 'text/plain'],
+            'xml' => [GenericRouteHandler::class, 'application/xml'],
+        ], $config['routeHandlers'] ?? []);
         $this->routePath = $config['routePath'] ?? $this->basePath . '/routes';
-
-        $this->coreFileExtensions = [
-            'htm',
-            'html',
-            'markdown',
-            'md',
-            'php',
-        ];
-
-        $this->additionalFileTypes = array_merge([
-            'csv' => 'text/csv',
-            'json' => 'application/json; charset=UTF-8',
-            'txt' => 'text/plain',
-            'xml' => 'application/xml',
-        ], $config['additionalFileTypes'] ?? []);
 
         $this->logger = new LoggerConfig(
             $config['logger'] ?? [],

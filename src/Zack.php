@@ -70,8 +70,7 @@ class Zack
     {
         $routes = (new FileBasedRouter(
             routePath: $this->config->routePath,
-            coreFileExtensions: $this->config->coreFileExtensions,
-            additionalFileTypes: $this->config->additionalFileTypes,
+            routeHandlers: $this->config->routeHandlers,
             eventDispatcher: $this->dispatcher,
         ))->getRoutes();
 
