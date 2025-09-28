@@ -287,13 +287,6 @@ The Twig layout is determined via the layout comment `<!-- layout: my-layout.htm
 The page title is determined by the H1-H3 headings in the HTML content.
 The layout is applied and output together with the page title and the HTML content.
 
-#### JSON Route Handler
-
-File extension: json \
-Response content-type: application/json
-
-The content of the JSON file is read and output.
-
 #### Markdown Route Handler
 
 File extensions: markdown, md \
@@ -340,12 +333,26 @@ If the return value is a `Symfony\Component\HttpFoundation\Response` object, it 
 With returning a response object you will have full control over the HTTP response.
 There are several response subclasses to help you return JSON, redirect, stream file downloads and more.
 
-#### Text Route Handler
+#### Generic Route Handler
 
-File extension: txt \
-Response content-type: text/plain
+The generic route handler is a handler that supports the following file types:
 
-The content of the text file is read and output.
+~~~txt
+---------------------------------------------------
+file extension      content type
+---------------------------------------------------
+csv                 text/csv
+json                application/json; charset=UTF-8
+txt                 text/plain
+xml                 application/xml
+---------------------------------------------------
+~~~
+
+The contents of the file are read and output together with the corresponding content type from the above mapping.
+
+### Configuration
+
+TBD
 
 ### Events
 
