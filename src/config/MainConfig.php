@@ -35,7 +35,7 @@ readonly class MainConfig
 
         $this->additionalFileTypes = $config['additionalFileTypes'] ?? [
             'csv' => 'text/csv',
-            'json' => 'application/json',
+            'json' => 'application/json; charset=UTF-8',
             'txt' => 'text/plain',
             'xml' => 'application/xml',
         ];
