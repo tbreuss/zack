@@ -68,7 +68,12 @@ class Zack
 
     public function initContainer(): void
     {
-        $routes = (new FileBasedRouter($this->config->routePath, $this->dispatcher))->getRoutes();
+        $routes = (new FileBasedRouter(
+            routePath: $this->config->routePath,
+            coreFileExtensions: $this->config->coreFileExtensions,
+            additionalFileTypes: $this->config->additionalFileTypes,
+            eventDispatcher: $this->dispatcher,
+        ))->getRoutes();
 
         $this->container->set('config', $this->config);
 

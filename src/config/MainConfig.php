@@ -9,6 +9,10 @@ readonly class MainConfig
     public string $routePath;
     public string $basePath;
     public string $zackPath;
+    /** @var string[] */
+    public array $coreFileExtensions;
+    /** @var array<string, string> */
+    public array $additionalFileTypes;
     public LoggerConfig $logger;
     public PhpConfig $php;
     public TwigConfig $twig;
@@ -20,6 +24,21 @@ readonly class MainConfig
         $this->logPath = $config['logPath'] ?? $this->basePath . '/logs';
         $this->name = $config['name'] ?? 'My application';
         $this->routePath = $config['routePath'] ?? $this->basePath . '/routes';
+
+        $this->coreFileExtensions = [
+            'htm',
+            'html',
+            'markdown',
+            'md',
+            'php',
+        ];
+
+        $this->additionalFileTypes = $config['additionalFileTypes'] ?? [
+            'csv' => 'text/csv',
+            'json' => 'application/json',
+            'txt' => 'text/plain',
+            'xml' => 'application/xml',
+        ];
 
         $this->logger = new LoggerConfig(
             $config['logger'] ?? [],

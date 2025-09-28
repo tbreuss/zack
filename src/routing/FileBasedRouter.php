@@ -14,6 +14,8 @@ readonly class FileBasedRouter
 {
     public function __construct(
         private string $routePath,
+        private array $coreFileExtensions,
+        private array $additionalFileTypes,
         private EventDispatcher\EventDispatcher $eventDispatcher,
     ) {}
 
@@ -25,7 +27,7 @@ readonly class FileBasedRouter
 
         $finder->files()
             ->in($this->routePath)
-            ->name('*.{htm,html,json,markdown,md,php,txt}')
+            ->name($this->getFileMatchRules())
             ->sort(function (\SplFileInfo $a, \SplFileInfo $b): int {
                 // temporary solution to have named parameter routes in last place
                 $a = str_replace(['[', ']'], '~', $a->getRealPath());
@@ -68,6 +70,7 @@ readonly class FileBasedRouter
         $defaults = [
             '_controller' => $this->matchController($fileInfo->getExtension()),
             '_path' => $fileInfo->getRealPath(),
+            '_contentTypes' => $this->additionalFileTypes,
         ];
 
         $requirements = [
@@ -88,7 +91,7 @@ readonly class FileBasedRouter
 
     private function parseCatchAllParamsRoute(SplFileInfo $fileInfo): ?ParsedRoute
     {
-        $status = preg_match_all('/\[\.{3}([a-z]+)\]/', $fileInfo->getRelativePathname(), $matches);
+        $status = preg_match_all('/\[\.{3}([a-z]+)]/', $fileInfo->getRelativePathname(), $matches);
 
         if ($status === false) {
             throw new \Exception('Error parsing file name: ' . $fileInfo->getRelativePathname());
@@ -103,6 +106,7 @@ readonly class FileBasedRouter
         $defaults = [
             '_controller' => $this->matchController($fileInfo->getExtension()),
             '_path' => $fileInfo->getRealPath(),
+            '_contentTypes' => $this->additionalFileTypes,
         ];
 
         $requirements = [
@@ -136,6 +140,7 @@ readonly class FileBasedRouter
                 defaults: [
                     '_controller' => $this->matchController($extension),
                     '_path' => $this->getPath($relativePath),
+                    '_contentTypes' => $this->additionalFileTypes,
                 ],
                 requirements: [],
                 methods: $this->matchMethods($method),
@@ -183,11 +188,9 @@ readonly class FileBasedRouter
 
         return match ($extension) {
             'htm', 'html' => HtmlRouteHandler::class,
-            'json' => JsonRouteHandler::class,
             'markdown', 'md' => MarkdownRouteHandler::class,
             'php' => PhpRouteHandler::class,
-            'txt' => TextRouteHandler::class,
-            default => throw new \Exception('Unsupported file type: ' . $extension),
+            default => GenericRouteHandler::class,
         };
     }
 
@@ -209,5 +212,15 @@ readonly class FileBasedRouter
     private function getPath(string $relativePath): string
     {
         return $this->routePath . '/' . $relativePath;
+    }
+
+    private function getFileMatchRules(): string
+    {
+        $extensions = join(
+            separator: ',',
+            array: array_merge($this->coreFileExtensions, array_keys($this->additionalFileTypes)),
+        );
+
+        return '*.{' . $extensions . '}';
     }
 }
