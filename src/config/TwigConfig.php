@@ -6,6 +6,7 @@ use Twig\Cache\CacheInterface;
 
 readonly class TwigConfig
 {
+    /** @var string[]|string */
     public array|string $templatePath;
     public false|string|CacheInterface $cache;
     public bool $debug;

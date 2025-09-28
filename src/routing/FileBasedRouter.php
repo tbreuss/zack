@@ -196,6 +196,9 @@ readonly class FileBasedRouter
         throw new \Exception('Unsupported file type: ' . $extension);
     }
 
+    /**
+     * @return string[]
+     */
     private function matchMethods(string $method): array
     {
         return match ($method) {

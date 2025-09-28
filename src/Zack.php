@@ -153,6 +153,9 @@ class Zack
         $this->dispatcher->dispatch(new ContainerEvent($this->container), 'zack.container');
     }
 
+    /**
+     * @return string[]
+     */
     private function getTwigPaths(): array
     {
         $twigPaths = [];
