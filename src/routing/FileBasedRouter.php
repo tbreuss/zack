@@ -133,7 +133,7 @@ readonly class FileBasedRouter
         $relativePath = $fileInfo->getRelativePathname();
 
         [$filename, $method, $extension] = $this->getPathParts($relativePath);
-        [$controller, $contentType] = $this->matchController($fileInfo->getExtension());
+        [$controller, $contentType] = $this->matchController($extension);
 
         return new ParsedRoute(
             name: $this->getName($filename, $method),
