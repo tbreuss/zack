@@ -33,12 +33,12 @@ readonly class MainConfig
             'php',
         ];
 
-        $this->additionalFileTypes = $config['additionalFileTypes'] ?? [
+        $this->additionalFileTypes = array_merge([
             'csv' => 'text/csv',
             'json' => 'application/json; charset=UTF-8',
             'txt' => 'text/plain',
             'xml' => 'application/xml',
-        ];
+        ], $config['additionalFileTypes'] ?? []);
 
         $this->logger = new LoggerConfig(
             $config['logger'] ?? [],
