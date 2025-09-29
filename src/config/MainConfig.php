@@ -20,6 +20,9 @@ readonly class MainConfig
     public PhpConfig $php;
     public TwigConfig $twig;
 
+    /**
+     * @param mixed[] $config
+     */
     public function __construct(array $config = [])
     {
         $this->zackPath = dirname(__DIR__);

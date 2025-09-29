@@ -22,6 +22,9 @@ class Zack
 {
     private MainConfig $config;
 
+    /**
+     * @param mixed[] $config
+     */
     public function __construct(
         array $config,
         private EventDispatcher\EventDispatcher $dispatcher = new EventDispatcher\EventDispatcher(),
@@ -103,7 +106,7 @@ class Zack
             ->addMethodCall('addExtension', [new MarkdownExtension()])
             ->addMethodCall('addGlobal', ['config', $this->config])
             ->addMethodCall('addRuntimeLoader', [new class implements RuntimeLoaderInterface {
-                public function load($class)
+                public function load(string $class): ?MarkdownRuntime
                 {
                     if (MarkdownRuntime::class === $class) {
                         return new MarkdownRuntime(new DefaultMarkdown());

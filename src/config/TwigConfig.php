@@ -17,6 +17,9 @@ readonly class TwigConfig
     public int $optimizations;
     public bool $useYield;
 
+    /**
+     * @param mixed[] $config
+     */
     public function __construct(array $config, string $basePath)
     {
         $cache = $config['cache'] ?? null;

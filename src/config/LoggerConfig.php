@@ -7,6 +7,9 @@ readonly class LoggerConfig
     public ?string $minLevel;
     public ?string $output;
 
+    /**
+     * @param mixed[] $config
+     */
     public function __construct(array $config)
     {
         $this->minLevel = $config['minLevel'] ?? null;

@@ -12,6 +12,9 @@ use tebe\zack\events\RoutesEvent;
 
 readonly class FileBasedRouter
 {
+    /**
+     * @param string[][] $routeHandlers
+     */
     public function __construct(
         private string $routePath,
         private array $routeHandlers,
@@ -178,6 +181,9 @@ readonly class FileBasedRouter
         return str_replace(['[', ']'], ['{', '}'], $route);
     }
 
+    /**
+     * @return array{string, ?string}
+     */
     private function matchController(string $extension): array
     {
         $event = new ControllerEvent($extension);

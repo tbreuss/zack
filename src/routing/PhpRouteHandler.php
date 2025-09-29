@@ -61,6 +61,9 @@ class PhpRouteHandler
         }
     }
 
+    /**
+     * @param mixed[] $context
+     */
     public function html(string $template, array $context = []): Response
     {
         $html = $this->render($template, $context);
@@ -69,6 +72,9 @@ class PhpRouteHandler
         ]);
     }
 
+    /**
+     * @param mixed[] $context
+     */
     public function json(array $context = []): Response
     {
         $json = json_encode($context, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
@@ -82,6 +88,9 @@ class PhpRouteHandler
         return new RedirectResponse($url, $status);
     }
 
+    /**
+     * @param mixed[] $context
+     */
     public function render(string $template, array $context = []): string
     {
         /** @var \Twig\Environment $twig */
