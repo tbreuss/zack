@@ -432,22 +432,22 @@ Open generated HTML report in browser
 
 Fix coding style issues using [PHP-CS-Fixer](https://github.com/PHP-CS-Fixer/PHP-CS-Fixer)
 
-    ./bin/coding-style.sh
+    ./bin/fix-coding-style.sh
 
 #### Static Code Analysis
 
 Analyse code using [PHPStan](https://phpstan.org/)
 
-    ./bin/code-analysis.sh
+    ./bin/analyse-code.sh
 
 #### Functional Tests
 
 Run functional tests using [Hurl](https://hurl.dev/)
 
-    ./bin/functional.sh localhost:9330
+    ./bin/test-code.sh localhost:9330
 
 #### Website Tests
 
 Run website tests using [Hurl](https://hurl.dev/)
 
-    ./bin/website.sh localhost:9331
+    ./bin/test-website.sh localhost:9331

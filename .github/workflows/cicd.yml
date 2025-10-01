@@ -28,14 +28,14 @@ jobs:
           restore-keys: ${{ runner.os }}-composer-
       - name: Install composer dependencies
         run: composer install --no-progress --prefer-dist --optimize-autoloader
-      - name: Test coding style
-        run: bin/coding-style.sh
+      - name: Fix coding style
+        run: bin/fix-coding-style.sh
       - name: Run static code analysis
-        run: bin/code-analysis.sh
-      - name: Run functional tests
-        run: bin/functional.sh localhost:9876
+        run: bin/analyse-code.sh
+      - name: Run library tests
+        run: bin/test-code.sh localhost:9876
       - name: Run website tests
-        run: bin/website.sh localhost:9875
+        run: bin/test-website.sh localhost:9875
       - name: Create code coverage report
         run: ./vendor/bin/phpcov merge --html .coverage/report .coverage/files
       - name: Archive code coverage report
