@@ -146,7 +146,7 @@ This file will be executed when the route is matched.
 use Symfony\Component\HttpFoundation\Response;
 
 return new Response('{"ping": "pong"}', 200, [
-    'Content-Type' => 'application/json',
+    'Content-Type' => 'application/json; charset=UTF-8',
 ]);
 ~~~
 
@@ -237,7 +237,7 @@ use Symfony\Component\HttpFoundation\Response;
 // Do something with body like saving it to a database
 
 return new Response('{"updated": true}', 200, [
-    'Content-Type' => 'application/json',
+    'Content-Type' => 'application/json; charset=UTF-8',
 ]);
 ~~~
 
@@ -280,7 +280,7 @@ Zack! is currently delivered with the following route handlers:
 #### HTML Route Handler
 
 File extensions: htm, html \
-Response content-type: text/html
+Response content-type: text/html; charset=UTF-8
 
 The content of the HTML file is taken.
 The Twig layout is determined via the layout comment `<!-- layout: my-layout.html.twig -->` in the HTML content.
@@ -290,7 +290,7 @@ The layout is applied and output together with the page title and the HTML conte
 #### Markdown Route Handler
 
 File extensions: markdown, md \
-Response content-type: text/html
+Response content-type: text/html; charset=UTF-8
 
 The content of the Markdown file is taken.
 The markdown is converted to HTML using one of the following Composer packages:
@@ -306,7 +306,7 @@ The layout is applied and output together with the page title and the HTML conte
 #### PHP Route Handler
 
 File extension: php \
-Response content-type: text/html, application/json, or other
+Response content-type: text/html; charset=UTF-8, application/json; charset=UTF-8, or other
 
 The content-type of the response can be set explicitly in a PHP route handler.
 
@@ -324,10 +324,10 @@ The layout is applied and output together with the page title and the HTML conte
 
 If you want finer control over the HTTP response, you can return a string, an array or a `Symfony\Component\HttpFoundation\Response` object.
 
-If the return value is a string, it is output as HTML with the content type `text/html`.
+If the return value is a string, it is output as HTML with the content type `text/html; charset=UTF-8`.
 The same logic is applied as for echoing content.
 
-If the return value is an array, it is JSON encoded and output with the content-type `application/json`.
+If the return value is an array, it is JSON encoded and output with the content-type `application/json; charset=UTF-8`.
 
 If the return value is a `Symfony\Component\HttpFoundation\Response` object, it is output unchanged together with the underlying content type.
 With returning a response object you will have full control over the HTTP response.
@@ -342,8 +342,8 @@ The generic route handler is a handler that supports the following file types:
 file extension      content type
 ---------------------------------------------------
 json                application/json; charset=UTF-8
-txt                 text/plain
-xml                 application/xml
+txt                 text/plain; charset=UTF-8
+xml                 application/xml; charset=UTF-8
 ---------------------------------------------------
 ~~~
 
