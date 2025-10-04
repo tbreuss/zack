@@ -52,7 +52,7 @@ class PhpRouteHandler
     {
         if (contains_full_html($content)) {
             return new Response($content, 200, [
-                'Content-Type' => 'text/html',
+                'Content-Type' => 'text/html; charset=UTF-8',
             ]);
         } else {
             $layout = extract_layout_from_html($content);
@@ -68,7 +68,7 @@ class PhpRouteHandler
     {
         $html = $this->render($template, $context);
         return new Response($html, 200, [
-            'Content-Type' => 'text/html',
+            'Content-Type' => 'text/html; charset=UTF-8',
         ]);
     }
 
@@ -79,7 +79,7 @@ class PhpRouteHandler
     {
         $json = json_encode($context, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
         return new Response($json, 200, [
-            'Content-Type' => 'application/json; charset=UTF-8', // charset must be specified for JSON responses
+            'Content-Type' => 'application/json; charset=UTF-8',
         ]);
     }
 

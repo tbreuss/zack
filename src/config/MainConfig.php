@@ -37,9 +37,9 @@ readonly class MainConfig
             'html' => [HtmlRouteHandler::class, null],
             'php' => [PhpRouteHandler::class, null],
             // generic handler
-            'json' => [GenericRouteHandler::class, 'application/json; charset=UTF-8'], // charset must be specified for JSON responses
-            'txt' => [GenericRouteHandler::class, 'text/plain'],
-            'xml' => [GenericRouteHandler::class, 'application/xml'],
+            'json' => [GenericRouteHandler::class, 'application/json; charset=UTF-8'],
+            'txt' => [GenericRouteHandler::class, 'text/plain; charset=UTF-8'],
+            'xml' => [GenericRouteHandler::class, 'application/xml; charset=UTF-8'],
         ], $config['routeHandlers'] ?? []);
         $this->routePath = $config['routePath'] ?? $this->basePath . '/routes';
 
