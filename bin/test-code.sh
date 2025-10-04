@@ -1,7 +1,7 @@
 #!/bin/sh
 # Run functional test against a Docker container of our project
 # Example:
-# $ functional.sh localhost:9876
+# $ test-code.sh localhost:9876
 # In this case http://localhost:9876 is where our server is reachable and exposed
 
 set -eu
