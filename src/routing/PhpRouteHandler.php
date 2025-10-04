@@ -52,7 +52,7 @@ class PhpRouteHandler
     {
         if (contains_full_html($content)) {
             return new Response($content, 200, [
-                'Content-Type' => 'text/html',
+                'Content-Type' => 'text/html; charset=UTF-8',
             ]);
         } else {
             $layout = extract_layout_from_html($content);
@@ -61,19 +61,25 @@ class PhpRouteHandler
         }
     }
 
+    /**
+     * @param mixed[] $context
+     */
     public function html(string $template, array $context = []): Response
     {
         $html = $this->render($template, $context);
         return new Response($html, 200, [
-            'Content-Type' => 'text/html',
+            'Content-Type' => 'text/html; charset=UTF-8',
         ]);
     }
 
+    /**
+     * @param mixed[] $context
+     */
     public function json(array $context = []): Response
     {
         $json = json_encode($context, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
         return new Response($json, 200, [
-            'Content-Type' => 'application/json; charset=UTF-8', // charset must be specified for JSON responses
+            'Content-Type' => 'application/json; charset=UTF-8',
         ]);
     }
 
@@ -82,6 +88,9 @@ class PhpRouteHandler
         return new RedirectResponse($url, $status);
     }
 
+    /**
+     * @param mixed[] $context
+     */
     public function render(string $template, array $context = []): string
     {
         /** @var \Twig\Environment $twig */

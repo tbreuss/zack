@@ -146,7 +146,7 @@ This file will be executed when the route is matched.
 use Symfony\Component\HttpFoundation\Response;
 
 return new Response('{"ping": "pong"}', 200, [
-    'Content-Type' => 'application/json',
+    'Content-Type' => 'application/json; charset=UTF-8',
 ]);
 ~~~
 
@@ -237,7 +237,7 @@ use Symfony\Component\HttpFoundation\Response;
 // Do something with body like saving it to a database
 
 return new Response('{"updated": true}', 200, [
-    'Content-Type' => 'application/json',
+    'Content-Type' => 'application/json; charset=UTF-8',
 ]);
 ~~~
 
@@ -280,24 +280,17 @@ Zack! is currently delivered with the following route handlers:
 #### HTML Route Handler
 
 File extensions: htm, html \
-Response content-type: text/html
+Response content-type: text/html; charset=UTF-8
 
 The content of the HTML file is taken.
 The Twig layout is determined via the layout comment `<!-- layout: my-layout.html.twig -->` in the HTML content.
 The page title is determined by the H1-H3 headings in the HTML content.
 The layout is applied and output together with the page title and the HTML content.
 
-#### JSON Route Handler
-
-File extension: json \
-Response content-type: application/json
-
-The content of the JSON file is read and output.
-
 #### Markdown Route Handler
 
 File extensions: markdown, md \
-Response content-type: text/html
+Response content-type: text/html; charset=UTF-8
 
 The content of the Markdown file is taken.
 The markdown is converted to HTML using one of the following Composer packages:
@@ -313,7 +306,7 @@ The layout is applied and output together with the page title and the HTML conte
 #### PHP Route Handler
 
 File extension: php \
-Response content-type: text/html, application/json, or other
+Response content-type: text/html; charset=UTF-8, application/json; charset=UTF-8, or other
 
 The content-type of the response can be set explicitly in a PHP route handler.
 
@@ -331,21 +324,34 @@ The layout is applied and output together with the page title and the HTML conte
 
 If you want finer control over the HTTP response, you can return a string, an array or a `Symfony\Component\HttpFoundation\Response` object.
 
-If the return value is a string, it is output as HTML with the content type `text/html`.
+If the return value is a string, it is output as HTML with the content type `text/html; charset=UTF-8`.
 The same logic is applied as for echoing content.
 
-If the return value is an array, it is JSON encoded and output with the content-type `application/json`.
+If the return value is an array, it is JSON encoded and output with the content-type `application/json; charset=UTF-8`.
 
 If the return value is a `Symfony\Component\HttpFoundation\Response` object, it is output unchanged together with the underlying content type.
 With returning a response object you will have full control over the HTTP response.
 There are several response subclasses to help you return JSON, redirect, stream file downloads and more.
 
-#### Text Route Handler
+#### Generic Route Handler
 
-File extension: txt \
-Response content-type: text/plain
+The generic route handler is a handler that supports the following file types:
 
-The content of the text file is read and output.
+~~~txt
+---------------------------------------------------
+file extension      content type
+---------------------------------------------------
+json                application/json; charset=UTF-8
+txt                 text/plain; charset=UTF-8
+xml                 application/xml; charset=UTF-8
+---------------------------------------------------
+~~~
+
+The contents of the file are read and output together with the corresponding content type from the above mapping.
+
+### Configuration
+
+TBD
 
 ### Events
 
@@ -426,22 +432,22 @@ Open generated HTML report in browser
 
 Fix coding style issues using [PHP-CS-Fixer](https://github.com/PHP-CS-Fixer/PHP-CS-Fixer)
 
-    ./bin/coding-style.sh
+    ./bin/fix-coding-style.sh
 
 #### Static Code Analysis
 
 Analyse code using [PHPStan](https://phpstan.org/)
 
-    ./bin/code-analysis.sh
+    ./bin/analyse-code.sh
 
 #### Functional Tests
 
 Run functional tests using [Hurl](https://hurl.dev/)
 
-    ./bin/functional.sh localhost:9330
+    ./bin/test-code.sh localhost:9330
 
 #### Website Tests
 
 Run website tests using [Hurl](https://hurl.dev/)
 
-    ./bin/website.sh localhost:9331
+    ./bin/test-website.sh localhost:9331

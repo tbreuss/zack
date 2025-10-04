@@ -44,7 +44,7 @@ class MarkdownRouteHandler
         ]);
 
         return new Response($content, 200, [
-            'Content-Type' => 'text/html',
+            'Content-Type' => 'text/html; charset=UTF-8',
         ]);
     }
 }

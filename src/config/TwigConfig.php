@@ -6,6 +6,7 @@ use Twig\Cache\CacheInterface;
 
 readonly class TwigConfig
 {
+    /** @var string[]|string */
     public array|string $templatePath;
     public false|string|CacheInterface $cache;
     public bool $debug;
@@ -16,6 +17,9 @@ readonly class TwigConfig
     public int $optimizations;
     public bool $useYield;
 
+    /**
+     * @param mixed[] $config
+     */
     public function __construct(array $config, string $basePath)
     {
         $cache = $config['cache'] ?? null;

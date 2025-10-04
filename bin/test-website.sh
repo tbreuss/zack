@@ -1,7 +1,7 @@
 #!/bin/sh
 # Run website test against a Docker container of our project
 # Example:
-# $ website.sh localhost:9876
+# $ test-website.sh localhost:9876
 # In this case http://localhost:9876 is where our server is reachable and exposed
 
 set -eu

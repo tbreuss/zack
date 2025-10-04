@@ -10,6 +10,9 @@ readonly class PhpConfig
     public string $errorLog;
     public bool $logErrors;
 
+    /**
+     * @param mixed[] $config
+     */
     public function __construct(array $config, string $logPath)
     {
         $this->displayErrors = $config['displayErrors'] ?? false;

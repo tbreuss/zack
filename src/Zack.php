@@ -22,6 +22,9 @@ class Zack
 {
     private MainConfig $config;
 
+    /**
+     * @param mixed[] $config
+     */
     public function __construct(
         array $config,
         private EventDispatcher\EventDispatcher $dispatcher = new EventDispatcher\EventDispatcher(),
@@ -68,7 +71,11 @@ class Zack
 
     public function initContainer(): void
     {
-        $routes = (new FileBasedRouter($this->config->routePath, $this->dispatcher))->getRoutes();
+        $routes = (new FileBasedRouter(
+            routePath: $this->config->routePath,
+            routeHandlers: $this->config->routeHandlers,
+            eventDispatcher: $this->dispatcher,
+        ))->getRoutes();
 
         $this->container->set('config', $this->config);
 
@@ -99,7 +106,7 @@ class Zack
             ->addMethodCall('addExtension', [new MarkdownExtension()])
             ->addMethodCall('addGlobal', ['config', $this->config])
             ->addMethodCall('addRuntimeLoader', [new class implements RuntimeLoaderInterface {
-                public function load($class)
+                public function load(string $class): ?MarkdownRuntime
                 {
                     if (MarkdownRuntime::class === $class) {
                         return new MarkdownRuntime(new DefaultMarkdown());
@@ -149,6 +156,9 @@ class Zack
         $this->dispatcher->dispatch(new ContainerEvent($this->container), 'zack.container');
     }
 
+    /**
+     * @return string[]
+     */
     private function getTwigPaths(): array
     {
         $twigPaths = [];
