@@ -27,6 +27,9 @@ class MarkdownRouteHandler
 
         $markdown = read_file($path);
 
+        /**
+         * @var LeagueMarkdown|MichelfMarkdown|ErusevMarkdown|null $converter
+         */
         $converter = $container->get('markdown', ContainerInterface::NULL_ON_INVALID_REFERENCE);
 
         $isFromContainer = $converter instanceof LeagueMarkdown
