@@ -480,3 +480,19 @@ body {
 .table-of-contents {
     margin-left: -1.25rem;
 }
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+}
+table th {
+    background-color: #f5f5f5;
+    border: 1px solid #cccccc;
+    text-align: left;
+    padding: 0.5rem 1rem;
+}
+table td {
+    padding: 0.5rem 1rem;
+    border: 1px solid #cccccc;
+}
