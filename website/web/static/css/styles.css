@@ -1,5 +1,5 @@
 [data-theme=dark] {
-    --pico-header-background: rgba(19, 22.5, 30.5, .85);
+    --pico-header-background: rgba(19, 22.5, 30.5, .9);
     --pico-header-border-color: rgba(32, 38, 50, .9);
     --pico-logo-wordmark: #fff;
     --pico-logo-small-sparkles: #ff9500;
@@ -16,7 +16,9 @@
     --pico-chapter-color: var(--pico-code-tag);
     --pico-mark-gradient: linear-gradient(to right, rgb(215.4, 140.8, 210.2), rgb(184.5, 153, 237.75), rgb(156.6, 165.3, 232.6), rgb(142.75, 168.95, 240.05));
 }
-
+.container {
+    max-width: 1024px;
+}
 .logo li {
     padding-block: 0;
 }
@@ -44,7 +46,7 @@ body>header.is-fixed {
 
 body>header {
     z-index:2;
-    position: sticky;
+    /*position: sticky;*/
     top: 0;
     -webkit-backdrop-filter: blur(1rem);
     backdrop-filter: blur(1rem);
@@ -60,6 +62,16 @@ body>footer {
 body>footer h3 {
     font-size: 14px;
 }
+body>footer .container section:first-of-type {
+    display: flex;
+}
+body>footer .container section:first-of-type .col-1 {
+    flex: 70%;
+    padding-right: calc(var(--pico-spacing) * 8);
+}
+body>footer .container section:first-of-type .col-2 {
+    flex: 30%;
+}
 body>footer .container section:last-of-type {
     margin-block:calc(var(--pico-spacing) * 2);padding-top: calc(var(--pico-spacing) * 2);
     border-top: var(--pico-border-width) solid var(--pico-muted-border-color);
@@ -69,7 +81,12 @@ body>footer .container section:last-of-type p {
     margin-bottom: 0;
     color: var(--pico-muted-color);
 }
-
+body>footer ul {
+    padding: 0;
+}
+body>footer ul li {
+    list-style: none;
+}
 /* Permalink */
 :is(h1,h2,h3,h4,h5,h6) {
     position: relative;
@@ -105,6 +122,7 @@ body>main .hero {
 }
 body>main .hero h1 {
     font-size: 3rem;
+    margin-bottom: calc(var(--pico-spacing) * 2);
 }
 body>main .hero mark {
     padding: 0;
@@ -115,5 +133,21 @@ body>main .hero mark {
 }
 
 body>main .hero-button {
-    margin-top: calc(var(--pico-spacing) * 4);
+    margin-top: calc(var(--pico-spacing) * 3);
+}
+
+ul.table-of-contents {
+    padding-left: 0.9rem;
+    font-size: 90%;
+}
+ul.table-of-contents ul {
+    margin-bottom: 0;
+}
+ul.table-of-contents li>a {
+    color: var(--pico-secondary);
+    text-decoration: none;
+}
+
+main ul:not(.table-of-contents) {
+    padding-left: 0.9rem;
 }

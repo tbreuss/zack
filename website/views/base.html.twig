@@ -1,70 +1,68 @@
 <!doctype html>
 <html lang="en" data-theme="dark">
-	<head>
-		{% block head %}
-			<meta charset="utf-8">
-			<title>{% block title %}{% endblock %} - {{ config.name }}</title>
-			<meta name="viewport" content="width=device-width, initial-scale=1">
-			<meta name="robots" content="index, follow">
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2.1.1/css/pico.min.css">
-      <!-- link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.colors.min.css"-->
-      <link rel="stylesheet" href="/static/css/styles.css">
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
-		{% endblock %}
-	</head>
-	<body>
-    <header class="is-fixed">
-      <div class="container">
-        <nav>
-          <ul class="logo">
-            <li><a class="contrast" href="/">{{ config.name }}</a></li>
-          </ul>
-          <ul>
-            <li><a class="contrast" href="/">About</a></li>
-            <li><a class="contrast" href="/examples">Examples</a></li>
-            <li><a class="contrast" href="/doc">Docs</a></li>
-            <li><a class="contrast" href="/development">DEV</a></li>
-          </ul>
-        </nav>
-      </div>
-    </header>
-    <main class="container">
-      {% block hero %}{% endblock %}
-      {% block content %}{% endblock %}
-    </main>
-    {% block footer %}
-      <footer>
-        <div class="container">
-          <section>
-            <h3>About Zack!</h3>
-            <p>
-              Zack! is a tiny little microframework based on Symfony's HTTP-Kernel using file-based routing, inspired by Javascript libraries and frameworks like Nitro.
-              Thanks to its file-based routing, you can use it to quickly create a project or an MVP.
-          </section>
-          <section>
-            <h3>Links</h3>
-            <ul>
-              <li>
-                <a class="secondary" href="https://github.com/tbreuss/zack">GitHub Repository</a>
-              </li>
-              <li>
-                <a class="secondary" href="https://packagist.org/packages/tebe/zack">Packagist.org</a>
-              </li>
-            </ul>
-          </section>
-          <section>
-            <p>
-              A tiny
-              <a class="secondary" href="https://www.tebe.ch">tebe.ch</a>
-              project
-            </p>
-          </section>
+<head>
+  {% block head %}
+    <meta charset="utf-8">
+    <title>{% block title %}{% endblock %} - {{ config.name }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="index, follow">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.pink.min.css">
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+  {% endblock %}
+</head>
+<body>
+<header class="is-not-fixed">
+  <div class="container">
+    <nav>
+      <ul class="logo">
+        <li><a class="contrast" href="/">{{ config.name }}</a></li>
+      </ul>
+      <ul>
+        <li><a class="contrast" href="/">About</a></li>
+        <li><a class="contrast" href="/examples">Examples</a></li>
+        <li><a class="contrast" href="/doc">Docs</a></li>
+        <li><a class="contrast" href="/development">DEV</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+<main class="container">
+  {% block hero %}{% endblock %}
+  {% block content %}{% endblock %}
+</main>
+{% block footer %}
+  <footer>
+    <div class="container">
+      <section>
+        <div class="col-1">
+          <h3>About Zack!</h3>
+          <p>
+            Zack! is a tiny little microframework based on Symfony's HTTP-Kernel using file-based routing, inspired by Javascript libraries and frameworks like Nitro.
+            Thanks to its file-based routing, you can use it to quickly create a project or an MVP.
+          </p>
         </div>
-      </footer>
-    {% endblock %}
-    <script src="/static/js/main.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/php.min.js"></script>
-    <script>hljs.highlightAll();</script>
-  </body>
+        <div class="col-2">
+          <h3>Links</h3>
+          <ul>
+            <li>
+              <a class="secondary" href="https://github.com/tbreuss/zack">GitHub Repository</a>
+            </li>
+            <li>
+              <a class="secondary" href="https://packagist.org/packages/tebe/zack">Packagist.org</a>
+            </li>
+          </ul>
+        </div>
+      </section>
+      <section>
+        <p>A tiny <a class="secondary" href="https://www.tebe.ch">tebe.ch</a> project</p>
+      </section>
+    </div>
+  </footer>
+{% endblock %}
+<script src="/static/js/main.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/php.min.js"></script>
+<script>hljs.highlightAll();</script>
+</body>
 </html>
