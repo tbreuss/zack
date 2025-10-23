@@ -3,5 +3,5 @@
 /** @var tebe\zack\routing\PhpRouteHandler $this */
 
 return $this->render('index.html.twig', [
-    'title' => 'About',
+    'title' => 'File-Based Routing Micro Framework',
 ]);

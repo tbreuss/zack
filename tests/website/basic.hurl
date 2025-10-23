@@ -3,9 +3,9 @@ GET {{host}}/
 HTTP 200
 Content-Type: text/html; charset=UTF-8
 [Asserts]
-body contains "<title>About - Zack!</title>"
-body contains "A compact, file-based routing microframework" # hero
-body contains "Zack! is a compact microframework" # content
+body contains "<title>File-Based Routing Micro Framework - Zack!</title>"
+body contains "<mark>File-Based Routing</mark>" # hero
+body contains "These features make Zack! a good choice for users looking for a simple and efficient solution for their small-scale projects." # content
 
 # Examples page
 GET {{host}}/examples

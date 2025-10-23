@@ -209,7 +209,7 @@ article p:last-of-type {
     /*color: #333;*/
 }
 .endpoints .endpoint-request-method {
-    /*color: #fff;*/
+    color: #fff;
     display: inline-block;
     text-align: center;
     min-width: 5em;
