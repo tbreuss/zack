@@ -60,6 +60,7 @@
 
 <p>Click on the endpoints below to see the requests and responses in detail.</p>
 
+<div class="endpoints">
 {% for category in apiRoutes %}
   <p style="margin: 1em 0 0.5em 0">
     <b style="margin-right: 0.5em">{{ category.name }}</b>
@@ -78,5 +79,6 @@
     </div>
   {% endfor %}
 {% endfor %}
+</div>
 
 {% endblock %}
