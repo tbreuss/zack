@@ -3,7 +3,7 @@ HTTP 200
 Content-Type: text/html; charset=UTF-8
 [Asserts]
 body contains "<title>Hello World! - My application</title>"
-body contains "<h2>Hello World!</h2>"
+body contains "<h1>Hello World!</h1>"
 
 GET {{host}}/doc-examples/api/ping
 HTTP 200
@@ -16,7 +16,7 @@ HTTP 200
 Content-Type: text/html; charset=UTF-8
 [Asserts]
 body contains "<title>Hello World! - My application</title>"
-body contains "<h2>Hello World!</h2>"
+body contains "<h1>Hello World!</h1>"
 
 GET {{host}}/doc-examples/hello/Mike/20
 HTTP 200
