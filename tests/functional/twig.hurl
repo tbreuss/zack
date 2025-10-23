@@ -4,7 +4,7 @@ HTTP 200
 Content-Type: text/html; charset=UTF-8
 [Asserts]
 body contains "<title>HTML Default - My application</title>"
-body contains "<h2>HTML Default</h2>"
+body contains "<h1>HTML Default</h1>"
 
 GET {{host}}/twig/layout/html-invalid
 HTTP 500
@@ -19,15 +19,15 @@ HTTP 200
 Content-Type: text/html; charset=UTF-8
 [Asserts]
 body contains "<title>HTML Test - My application</title>"
-body contains "<h2>HTML Test</h2>"
-body contains "<h2>test.html.twig</h2>"
+body contains "<h1>HTML Test</h1>"
+body contains "<h1>test.html.twig</h1>"
 
 GET {{host}}/twig/layout/markdown-default
 HTTP 200
 Content-Type: text/html; charset=UTF-8
 [Asserts]
 body contains "<title>Markdown Default - My application</title>"
-body contains "<h2>Markdown Default</h2>"
+body contains "<h1>Markdown Default</h1>"
 
 GET {{host}}/twig/layout/markdown-invalid
 HTTP 500
@@ -42,15 +42,15 @@ HTTP 200
 Content-Type: text/html; charset=UTF-8
 [Asserts]
 body contains "<title>Markdown Test - My application</title>"
-body contains "<h2>Markdown Test</h2>"
-body contains "<h2>test.html.twig</h2>"
+body contains "<h1>Markdown Test</h1>"
+body contains "<h1>test.html.twig</h1>"
 
 GET {{host}}/twig/layout/php-echo-default
 HTTP 200
 Content-Type: text/html; charset=UTF-8
 [Asserts]
 body contains "<title>PHP Echo Default - My application</title>"
-body contains "<h2>PHP Echo Default</h2>"
+body contains "<h1>PHP Echo Default</h1>"
 
 GET {{host}}/twig/layout/php-echo-full
 HTTP 200
