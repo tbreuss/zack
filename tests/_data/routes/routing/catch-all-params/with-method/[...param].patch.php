@@ -1,3 +1,3 @@
 <?php /** @var Symfony\Component\HttpFoundation\Request $request */ ?>
 
-<h2>PATCH Catch all params <?= $request->get('param') ?></h2>
+<h1>PATCH Catch all params <?= $request->get('param') ?></h1>

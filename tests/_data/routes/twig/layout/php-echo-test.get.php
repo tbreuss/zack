@@ -1,2 +1,2 @@
 <!-- layout: test.html.twig -->
-<h2>PHP Echo Test</h2>
+<h1>PHP Echo Test</h1>

@@ -1,1 +1,1 @@
-<h2><?= 'php.get.php' ?></h2>
+<h1><?= 'php.get.php' ?></h1>

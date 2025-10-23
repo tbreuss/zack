@@ -11,7 +11,7 @@ $container = new ContainerBuilder();
 
 $converter = new CommonMarkConverter([
     'heading_permalink' => [
-        'min_heading_level' => 3,
+        'min_heading_level' => 2,
         'id_prefix' => '',
         'fragment_prefix' => '',
         'apply_id_to_heading' => true,
@@ -19,7 +19,7 @@ $converter = new CommonMarkConverter([
     ],
     'table_of_contents' => [
         'position' => 'placeholder',
-        'min_heading_level' => 3,
+        'min_heading_level' => 2,
         'max_heading_level' => 6,
         'placeholder' => '[TOC]',
     ],
