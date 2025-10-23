@@ -450,3 +450,49 @@ body {
 #toc > ul {
     margin-bottom: 0;
 }
+
+.content h3[id],
+.content h4[id],
+.content h5[id] {
+    position: relative;
+}
+.content h3[id] {
+    left: -2.125rem;
+}
+.content h4[id] {
+    left: -1.825rem;
+}
+.content h5[id] {
+    left: -1.75rem;
+}
+.content .heading-permalink {
+    text-decoration: none;
+    color: #dddddd;
+    visibility: hidden;
+    padding: 0 0.5rem;
+}
+.content h3[id]:hover .heading-permalink,
+.content h4[id]:hover .heading-permalink,
+.content h5[id]:hover .heading-permalink {
+    visibility: visible;
+}
+
+.table-of-contents {
+    margin-left: -1.25rem;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+}
+table th {
+    background-color: #f5f5f5;
+    border: 1px solid #cccccc;
+    text-align: left;
+    padding: 0.5rem 1rem;
+}
+table td {
+    padding: 0.5rem 1rem;
+    border: 1px solid #cccccc;
+}

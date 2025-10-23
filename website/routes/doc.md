@@ -1,6 +1,6 @@
 ## Documentation
 
-<div id="toc"></div>
+[TOC]
 
 ### Requirements
 
@@ -337,15 +337,11 @@ There are several response subclasses to help you return JSON, redirect, stream 
 
 The generic route handler is a handler that supports the following file types:
 
-~~~txt
----------------------------------------------------
-file extension      content type
----------------------------------------------------
-json                application/json; charset=UTF-8
-txt                 text/plain; charset=UTF-8
-xml                 application/xml; charset=UTF-8
----------------------------------------------------
-~~~
+| Content type | File extension                  |
+|--------------|---------------------------------|
+| json         | application/json; charset=UTF-8 |
+| txt          | text/plain; charset=UTF-8       |
+| xml          | application/xml; charset=UTF-8  |
 
 The contents of the file are read and output together with the corresponding content type from the above mapping.
 

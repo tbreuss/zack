@@ -5,6 +5,8 @@ namespace tebe\zack\routing;
 use League\CommonMark\CommonMarkConverter;
 use Michelf\MarkdownExtra;
 use Parsedown;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Twig\Extra\Markdown\ErusevMarkdown;
@@ -19,19 +21,31 @@ class MarkdownRouteHandler
 {
     public function __invoke(Request $request): Response
     {
+        /** @var ContainerBuilder $container */
         $container = $request->attributes->get('_container');
         $path = $request->attributes->get('_path');
 
         $markdown = read_file($path);
 
-        if (class_exists(CommonMarkConverter::class)) {
-            $converter = new LeagueMarkdown();
-        } elseif (class_exists(MarkdownExtra::class)) {
-            $converter = new MichelfMarkdown();
-        } elseif (class_exists(Parsedown::class)) {
-            $converter = new ErusevMarkdown();
-        } else {
-            throw new \LogicException('No Markdown library is available; try running "composer require league/commonmark".');
+        /**
+         * @var LeagueMarkdown|MichelfMarkdown|ErusevMarkdown|null $converter
+         */
+        $converter = $container->get('markdown', ContainerInterface::NULL_ON_INVALID_REFERENCE);
+
+        $isFromContainer = $converter instanceof LeagueMarkdown
+            || $converter instanceof MichelfMarkdown
+            || $converter instanceof ErusevMarkdown;
+
+        if (!$isFromContainer) {
+            if (class_exists(CommonMarkConverter::class)) {
+                $converter = new LeagueMarkdown();
+            } elseif (class_exists(MarkdownExtra::class)) {
+                $converter = new MichelfMarkdown();
+            } elseif (class_exists(Parsedown::class)) {
+                $converter = new ErusevMarkdown();
+            } else {
+                throw new \LogicException('No Markdown library is available; try running "composer require league/commonmark".');
+            }
         }
 
         $html = (string) $converter->convert($markdown);
