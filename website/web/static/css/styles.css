@@ -450,3 +450,23 @@ body {
 #toc > ul {
     margin-bottom: 0;
 }
+
+.content h3:has(.heading-permalink),
+.content h4:has(.heading-permalink),
+.content h5:has(.heading-permalink) {
+    position: relative;
+}
+.content .heading-permalink {
+    text-decoration: none;
+    position: absolute;
+    color: #ccc;
+}
+.content h3 .heading-permalink {
+    left: -1.5rem;
+}
+.content h4 .heading-permalink {
+    left: -1rem;
+}
+.content h5 .heading-permalink {
+    left: -1rem;
+}

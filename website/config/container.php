@@ -15,6 +15,7 @@ $converter = new CommonMarkConverter([
         'id_prefix' => '',
         'fragment_prefix' => '',
         'apply_id_to_heading' => true,
+        'symbol' => '#',
     ],
     'table_of_contents' => [
         'position' => 'placeholder',
