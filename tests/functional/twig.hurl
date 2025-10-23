@@ -11,7 +11,7 @@ HTTP 500
 Content-Type: text/html; charset=UTF-8
 [Asserts]
 body contains "<title>Error 500 - My application</title>"
-body contains "<h2>Error 500</h2>"
+body contains "<h1>Error 500</h1>"
 body contains "Unable to find template &quot;invalid.html.twig&quot;"
 
 GET {{host}}/twig/layout/html-test
@@ -34,7 +34,7 @@ HTTP 500
 Content-Type: text/html; charset=UTF-8
 [Asserts]
 body contains "<title>Error 500 - My application</title>"
-body contains "<h2>Error 500</h2>"
+body contains "<h1>Error 500</h1>"
 body contains "Unable to find template &quot;invalid.html.twig&quot;"
 
 GET {{host}}/twig/layout/markdown-test
@@ -64,7 +64,7 @@ HTTP 500
 Content-Type: text/html; charset=UTF-8
 [Asserts]
 body contains "<title>Error 500 - My application</title>"
-body contains "<h2>Error 500</h2>"
+body contains "<h1>Error 500</h1>"
 body contains "Unable to find template &quot;invalid.html.twig&quot;"
 
 GET {{host}}/twig/layout/php-echo-test
@@ -94,7 +94,7 @@ HTTP 500
 Content-Type: text/html; charset=UTF-8
 [Asserts]
 body contains "<title>Error 500 - My application</title>"
-body contains "<h2>Error 500</h2>"
+body contains "<h1>Error 500</h1>"
 body contains "Unable to find template &quot;invalid.html.twig&quot;"
 
 GET {{host}}/twig/layout/php-return-test

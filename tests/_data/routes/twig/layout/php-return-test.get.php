@@ -1,2 +1,2 @@
 <!-- layout: test.html.twig -->
-<h2>PHP Return Test</h2>
+<h1>PHP Return Test</h1>

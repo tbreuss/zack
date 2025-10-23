@@ -1,2 +1,2 @@
 <!doctype html>
-<h2><?= pathinfo(__FILE__, PATHINFO_FILENAME) ?></h2>
+<h1><?= pathinfo(__FILE__, PATHINFO_FILENAME) ?></h1>

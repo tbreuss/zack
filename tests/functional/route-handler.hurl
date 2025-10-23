@@ -48,7 +48,7 @@ HTTP 500
 Content-Type: text/html; charset=UTF-8
 [Asserts]
 body contains "<title>Error 500 - My application</title>"
-body contains "<h2>Error 500</h2>"
+body contains "<h1>Error 500</h1>"
 body contains "<p>The PHP file must output something or return a string, an array or a response object: /routes/route-handler/php/return-invalid.get.php</p>"
 
 GET {{host}}/route-handler/php/return-response

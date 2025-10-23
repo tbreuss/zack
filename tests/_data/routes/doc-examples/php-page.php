@@ -1,1 +1,1 @@
-<h2>php-page</h2>
+<h1>php-page</h1>

@@ -1,1 +1,1 @@
-<h2>PHP Echo Default</h2>
+<h1>PHP Echo Default</h1>

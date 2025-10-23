@@ -1,2 +1,2 @@
 <!DOCTYPE html>
-<h2>PHP Echo Full</h2>
+<h1>PHP Echo Full</h1>

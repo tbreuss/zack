@@ -12,7 +12,7 @@ HTTP 500
 Content-Type: text/html; charset=UTF-8
 [Asserts]
 body contains "<title>Error 500 - My application</title>"
-body contains "<h2>Error 500</h2>"
+body contains "<h1>Error 500</h1>"
 
 # Redirect 301
 GET {{host}}/routing/redirect/301
