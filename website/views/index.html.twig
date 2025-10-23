@@ -5,19 +5,20 @@
 {% endblock %}
 
 {% block hero %}
-	<div class="hero">
-		<div class="container">
-			<div class="pure-g">
-				<div class="pure-u-1">
-					<h2 class="hero-heading">ZACK!</h2>
-					<p class="hero-text">A compact, file-based routing microframework based on Symfony's HttpKernel Component with integrated route handlers and Twig engine, perfect for small projects.</p>
-					<p class="hero-button">
-						<a href="/doc" class="pure-button hero-calltoaction">Go to documentation</a>
-					</p>
-				</div>
-			</div>
-		</div>
-	</div>
+	<section class="hero">
+    <h1 class="pico-background-pink-600">
+      <mark>File-Based Routing</mark><br>
+      Micro Framework
+    </h1>
+    <p class="secondary">
+      A compact micro framework based on Symfony's HttpKernel Component with integrated route handlers and Twig engine.
+    </p>
+    <p class="hero-button">
+      <a role="button" href="/doc" class="pure-button hero-calltoaction">Go to documentation
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" class="icon-arrow-right"><g class="head"><path d="M10 16L14 12"></path><path d="M10 8L14 12"></path></g><path class="line" d="M0 12H14"></path></svg>
+      </a>
+    </p>
+	</section>
 {% endblock %}
 
 {% block content %}
@@ -26,7 +27,7 @@
     It includes various route handlers for handling HTML, JSON, <a href="https://commonmark.thephpleague.com/">Markdown</a>, and PHP files with ease.
     Additionally, Zack! integrates <a href="https://twig.symfony.com/">Twig</a>, a powerful template engine, making it perfect for small, easily manageable website and API projects.
   </p>
-  
+
   <p>In summary, Zack!'s key features are:</p>
 
   <ul>

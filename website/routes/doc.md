@@ -1,8 +1,8 @@
-## Documentation
+# Documentation
 
 [TOC]
 
-### Requirements
+## Requirements
 
 Zack! requirements are:
 
@@ -20,7 +20,7 @@ Composer `--no-dev` requirements are:
 - twig/markdown-extra: ^3.21
 - twig/twig: ^3.20
 
-### Installation
+## Installation
 
 Create a new project folder and change into it.
 
@@ -76,7 +76,7 @@ php -S localhost:8888 -t web
 
 Open <http://localhost:8888> with your preferred web browser.
 
-### Folder Structure
+## Folder Structure
 
 A typical project folder structure looks like the following:
 
@@ -98,7 +98,7 @@ project/                # Project root folder on your server
 
 Normally you only work in the `routes` and `views` folders.
 
-### File-Based Routing
+## File-Based Routing
 
 Zack! is using file-based routing for your routes. 
 Files are automatically mapped to Symfony routes. 
@@ -130,7 +130,7 @@ routes/
 └─ hello.post.php
 ~~~
 
-#### Simple Routes
+### Simple Routes
 
 First, create a file in `routes` directory.
 The filename will be the route path.
@@ -150,9 +150,9 @@ return new Response('{"ping": "pong"}', 200, [
 ]);
 ~~~
 
-#### Route With Params
+### Route With Params
 
-##### Single Param
+#### Single Param
 
 To define a route with params, use the `[<param>]` syntax where `<param>` is the name of the param.
 The param will be available in the `$request->attributes` object.
@@ -177,7 +177,7 @@ Call the route with the param `/hello/zack`, you will get:
 Hello zack!
 ~~~
 
-##### Multiple Params
+#### Multiple Params
 
 You can define multiple params in a route using `[<param1>]/[<param2>]` syntax where each param is a folder.
 You cannot define multiple params in a single filename of folder.
@@ -195,7 +195,7 @@ $age = $request->attributes->get('age');
 return new Response("Hello $name! You are $age years old.", 200);
 ~~~
 
-##### Catch All Params
+#### Catch All Params
 
 You can capture all the remaining parts of a URL using `[...<param>]` syntax. This will include the `/` in the param.
 
@@ -219,7 +219,7 @@ Call the route with the param `/hello/zack/is/nice`, you will get:
 Hello zack/is/nice!
 ~~~
 
-#### Specific Request Method
+### Specific Request Method
 
 You can append the HTTP method to the filename to force the route to be matched only for a specific HTTP request method.
 For example `hello.get.php` will only match for GET requests. 
@@ -241,7 +241,7 @@ return new Response('{"updated": true}', 200, [
 ]);
 ~~~
 
-#### Catch All Route
+### Catch All Route
 
 You can create a special route that will match all routes that are not matched by any other route.
 This is useful for creating a default route.
@@ -260,7 +260,7 @@ $path = $request->attributes->get('path');
 return new Response("Hello $path!", 200);
 ~~~
 
-### Route Handler
+## Route Handler
 
 You can use the file extension of a route file to force the route to be handled by a specific route handler.
 
@@ -277,7 +277,7 @@ routes/
 
 Zack! is currently delivered with the following route handlers:
 
-#### HTML Route Handler
+### HTML Route Handler
 
 File extensions: htm, html \
 Response content-type: text/html; charset=UTF-8
@@ -287,7 +287,7 @@ The Twig layout is determined via the layout comment `<!-- layout: my-layout.htm
 The page title is determined by the H1-H3 headings in the HTML content.
 The layout is applied and output together with the page title and the HTML content.
 
-#### Markdown Route Handler
+### Markdown Route Handler
 
 File extensions: markdown, md \
 Response content-type: text/html; charset=UTF-8
@@ -303,14 +303,14 @@ The Twig layout is determined via the layout comment `<!-- layout: my-layout.htm
 The page title is determined by the H1-H3 headings in the HTML content.
 The layout is applied and output together with the page title and the HTML content.
 
-#### PHP Route Handler
+### PHP Route Handler
 
 File extension: php \
 Response content-type: text/html; charset=UTF-8, application/json; charset=UTF-8, or other
 
 The content-type of the response can be set explicitly in a PHP route handler.
 
-##### Echoing Content
+#### Echoing Content
 
 The echoed content of the PHP file is taken.
 
@@ -320,7 +320,7 @@ Otherwise the Twig layout is determined via the layout comment `<!-- layout: my-
 The page title is determined by the H1-H3 headings in the HTML content.
 The layout is applied and output together with the page title and the HTML content.
 
-##### Returning Response
+#### Returning Response
 
 If you want finer control over the HTTP response, you can return a string, an array or a `Symfony\Component\HttpFoundation\Response` object.
 
@@ -333,7 +333,7 @@ If the return value is a `Symfony\Component\HttpFoundation\Response` object, it 
 With returning a response object you will have full control over the HTTP response.
 There are several response subclasses to help you return JSON, redirect, stream file downloads and more.
 
-#### Generic Route Handler
+### Generic Route Handler
 
 The generic route handler is a handler that supports the following file types:
 
@@ -345,13 +345,13 @@ The generic route handler is a handler that supports the following file types:
 
 The contents of the file are read and output together with the corresponding content type from the above mapping.
 
-### Configuration
+## Configuration
 
 TBD
 
-### Events
+## Events
 
-#### Zack! Events
+### Zack! Events
 
 Zack! ships with the following events:
 
@@ -359,7 +359,7 @@ Zack! ships with the following events:
 - **zack.controller**: This event is dispatched just before the controller (i.e. the route handler) is determined.
 - **zack.routes**: This event is dispatched after the routes have been built.
 
-#### HttpKernel Events
+### HttpKernel Events
 
 Zack! supports the following Symfony HttpKernel events:
 
@@ -373,9 +373,9 @@ Zack! supports the following Symfony HttpKernel events:
 
 Read [Built-in Symfony Events](https://symfony.com/doc/current/reference/events.html#kernel-events) for more information.
 
-### Development Environment
+## Development Environment
 
-#### Create Docker Image
+### Create Docker Image
 
 Create Docker image based on the latest supported PHP version
 
@@ -386,7 +386,7 @@ Optionally you can also use an older PHP version
     docker build --build-arg PHP_VERSION=8.2 -t zack https://github.com/tbreuss/zack.git
     docker build --build-arg PHP_VERSION=8.3 -t zack https://github.com/tbreuss/zack.git
 
-#### Run Website
+### Run Website
 
 Clone project
 
@@ -422,27 +422,27 @@ Open generated HTML report in browser
 
     docker run --rm -p 8888:8888 -v .:/app     zack php -S 0.0.0.0:8888 -t /app/.coverage/report
 
-### Testing
+## Testing
 
-#### Coding Style
+### Coding Style
 
 Fix coding style issues using [PHP-CS-Fixer](https://github.com/PHP-CS-Fixer/PHP-CS-Fixer)
 
     ./bin/fix-coding-style.sh
 
-#### Static Code Analysis
+### Static Code Analysis
 
 Analyse code using [PHPStan](https://phpstan.org/)
 
     ./bin/analyse-code.sh
 
-#### Functional Tests
+### Functional Tests
 
 Run functional tests using [Hurl](https://hurl.dev/)
 
     ./bin/test-code.sh localhost:9330
 
-#### Website Tests
+### Website Tests
 
 Run website tests using [Hurl](https://hurl.dev/)
 
