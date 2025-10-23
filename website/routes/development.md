@@ -12,5 +12,3 @@ If you want to discuss the enhancement of Zack!, file an [issue](https://github.
 ### Bug Reports
 
 If you find a bug, you can file an [issue](https://github.com/tbreuss/zack/issues).
-
-<style>.heading-permalink { display: none !important }</style>

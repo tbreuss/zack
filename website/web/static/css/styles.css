@@ -451,22 +451,32 @@ body {
     margin-bottom: 0;
 }
 
-.content h3:has(.heading-permalink),
-.content h4:has(.heading-permalink),
-.content h5:has(.heading-permalink) {
+.content h3[id],
+.content h4[id],
+.content h5[id] {
     position: relative;
+}
+.content h3[id] {
+    left: -2.125rem;
+}
+.content h4[id] {
+    left: -1.825rem;
+}
+.content h5[id] {
+    left: -1.75rem;
 }
 .content .heading-permalink {
     text-decoration: none;
-    position: absolute;
-    color: #ccc;
+    color: #dddddd;
+    visibility: hidden;
+    padding: 0 0.5rem;
 }
-.content h3 .heading-permalink {
-    left: -1.5rem;
+.content h3[id]:hover .heading-permalink,
+.content h4[id]:hover .heading-permalink,
+.content h5[id]:hover .heading-permalink {
+    visibility: visible;
 }
-.content h4 .heading-permalink {
-    left: -1rem;
-}
-.content h5 .heading-permalink {
-    left: -1rem;
+
+.table-of-contents {
+    margin-left: -1.25rem;
 }
