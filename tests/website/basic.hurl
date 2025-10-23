@@ -34,8 +34,8 @@ Content-Type: text/html; charset=UTF-8
 [Asserts]
 body contains "<title>Development - Zack!</title>"
 body contains "<h2>Development</h2>"
-body contains "<h3 id=\"support\"><a href=\"#support\" class=\"heading-permalink\" aria-hidden=\"true\" title=\"Permalink\">¶</a>Support</h3>"
-body contains "<h3 id=\"bug-reports\"><a href=\"#bug-reports\" class=\"heading-permalink\" aria-hidden=\"true\" title=\"Permalink\">¶</a>Bug Reports</h3>"
+body contains "<h3 id=\"support\"><a href=\"#support\" class=\"heading-permalink\" aria-hidden=\"true\" title=\"Permalink\">#</a>Support</h3>"
+body contains "<h3 id=\"bug-reports\"><a href=\"#bug-reports\" class=\"heading-permalink\" aria-hidden=\"true\" title=\"Permalink\">#</a>Bug Reports</h3>"
 
 # Page not found
 GET {{host}}/not-existing-route
