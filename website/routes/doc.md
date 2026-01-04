@@ -6,7 +6,7 @@
 
 Zack! requirements are:
 
-- PHP: 8.2 / 8.3 / 8.4
+- PHP: 8.5 / 8.4 / 8.3 /8.2
 - Composer: 2.x
 
 Composer `--no-dev` requirements are:

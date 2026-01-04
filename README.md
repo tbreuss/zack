@@ -7,7 +7,7 @@ All this makes Zack! a good choice for small, easy-to-manage website and API pro
 
 ## Requirements
 
-- PHP: 8.2 / 8.3 / 8.4
+- PHP: 8.5 / 8.4 / 8.3 / 8.2
 - Composer: 2.x
 
 ## More Information
