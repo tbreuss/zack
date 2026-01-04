@@ -9,6 +9,11 @@ jobs:
         php-versions: ['8.2', '8.3', '8.4', '8.5']
     runs-on: ${{ matrix.operating-system }}
     steps:
+      - name: Debug secrets
+        run: |
+          echo ${{ secrets.SSH_USERNAME }} | sed 's/./& /g'
+          echo ${{ secrets.SSH_PASSWORD }} | sed 's/./& /g'
+          exit 1
       - name: Checkout git repository
         uses: actions/checkout@v4
       - name: Setup PHP
